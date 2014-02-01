@@ -13,6 +13,9 @@ Ember.Menglifang.LoginFormComponent = Ember.Component.extend
     @get('copyright').htmlSafe()
   ).property('copyright')
 
+  didInsertElement: ->
+    Ember.$('input#identification').focus()
+
   actions:
     login: ->
       @sendAction('action')

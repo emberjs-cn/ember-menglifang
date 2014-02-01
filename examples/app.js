@@ -3512,6 +3512,9 @@ Ember.Menglifang.LoginFormComponent = Ember.Component.extend({
   copyrightHtmlSafe: (function() {
     return this.get('copyright').htmlSafe();
   }).property('copyright'),
+  didInsertElement: function() {
+    return Ember.$('input#identification').focus();
+  },
   actions: {
     login: function() {
       return this.sendAction('action');
