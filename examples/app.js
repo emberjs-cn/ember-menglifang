@@ -3463,14 +3463,14 @@ function program1(depth0,data) {
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'id': ("identification"),
     'type': ("text"),
-    'value': ("identification"),
+    'value': ("view.identification"),
     'placeholder': ("请输入您的用户名/邮箱...")
   },hashTypes:{'id': "STRING",'type': "STRING",'value': "ID",'placeholder': "STRING"},hashContexts:{'id': depth0,'type': depth0,'value': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n    </p>\n    <p class=\"float\">\n      <label for=\"password\"><i class=\"fa fa-key\"></i>密码：</label>\n      ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'id': ("password"),
     'type': ("password"),
-    'value': ("password"),
+    'value': ("view.password"),
     'placeholder': ("请输入您的密码..."),
     'class': ("showpassword")
   },hashTypes:{'id': "STRING",'type': "STRING",'value': "ID",'placeholder': "STRING",'class': "STRING"},hashContexts:{'id': depth0,'type': depth0,'value': depth0,'placeholder': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
@@ -3536,6 +3536,8 @@ Ember.Menglifang.LoginFormComponent = Ember.Component.extend({
 (function() {
 
   App.LoginFormController = Ember.ObjectController.extend({
+    identification: null,
+    password: null,
     supportedBrowers: [
       {
         name: 'Chrome',
@@ -3557,7 +3559,7 @@ Ember.Menglifang.LoginFormComponent = Ember.Component.extend({
     ],
     actions: {
       authenticate: function() {
-        return console.log('do authenticate');
+        return console.log("do authenticate with '" + (this.get('identification')) + "' and '" + (this.get('password')) + "'");
       }
     }
   });
@@ -3625,11 +3627,13 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 
   data.buffer.push(escapeExpression((helper = helpers['login-form'] || (depth0 && depth0['login-form']),options={hash:{
+    'identification': ("identification"),
+    'password': ("password"),
     'title': ("用户登录"),
     'copyright': ("&copy; 2011-2014 北京梦立方网络科技有限公司"),
     'supportedBrowers': ("supportedBrowers"),
     'action': ("authenticate")
-  },hashTypes:{'title': "STRING",'copyright': "STRING",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'title': depth0,'copyright': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
+  },hashTypes:{'identification': "ID",'password': "ID",'title': "STRING",'copyright': "STRING",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'identification': depth0,'password': depth0,'title': depth0,'copyright': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
   data.buffer.push("\n");
   return buffer;
   

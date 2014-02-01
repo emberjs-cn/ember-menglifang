@@ -1,4 +1,7 @@
 App.LoginFormController = Ember.ObjectController.extend
+  identification: null
+  password: null
+
   supportedBrowers: [
     { name: 'Chrome', url: 'http://www.google.com/chrome', icon: 'images/chrome.png' }
     { name: 'Firefox', url: 'http://www.mozilla.org/en-US/firefox/new/', icon: 'images/firefox.png' }
@@ -8,4 +11,4 @@ App.LoginFormController = Ember.ObjectController.extend
 
   actions:
     authenticate: ->
-      console.log 'do authenticate'
+      console.log "do authenticate with '#{@get('identification')}' and '#{@get('password')}'"
