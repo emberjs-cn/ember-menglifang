@@ -1,0 +1,32 @@
+<section class="main">
+  <form class="login" {{action "login" on="submit"}}>
+    <h1>{{view.titleHtmlSafe}}</h1>
+    <p class="float">
+      <label for="login"><i class="fa fa-user"></i>用户名：</label>
+      {{input type='text' value=username placeholder='请输入您的用户名...' }}
+    </p>
+    <p class="float">
+      <label for="password"><i class="fa fa-lock"></i>密码：</label>
+      {{input type='password' value=password placeholder='请输入您的密码...' class="showpassword" }}
+    <p class="clearfix"></p>
+    <p class="clearfix">
+      <a href="">忘记密码？</a>
+      <a>记住密码：</a>
+      {{input type='checkbox' checked=remember}}
+      <button type="submit" class="pull-right">登录</button>
+    </p>
+    <p>{{view.copyrightHtmlSafe}}</p>
+  </form>
+</section>
+<div class="browsers">
+  <ul>
+    {{#each view.supportedBrowers}}
+    <li>
+      <a target="_blank" {{bind-attr href=url}}>
+        <img {{bind-attr src=icon}}/>
+        <div>{{name}}</div>
+      </a>
+    </li>
+    {{/each}}
+  </ul>
+</div>

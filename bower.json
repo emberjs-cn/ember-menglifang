@@ -1,0 +1,31 @@
+{
+  "name": "ember-menglifang",
+  "version": "0.0.1",
+  "authors": [
+    "Tower He <towerhe@gmail.com>"
+  ],
+  "description": "梦立方Ember库",
+  "main": [
+    "dist/ember-menglifang.css",
+    "dist/ember-menglifang.js"
+  ],
+  "keywords": [
+    "ember"
+  ],
+  "license": "Beijing Menglifang",
+  "homepage": "http://gitlab.menglifang.org/base/ember-menglifang",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ember": "~1.3.1",
+    "bootstrap": "~3.1.0",
+    "font-awesome": "~4.0.3",
+    "ember-simple-auth": "~0.1.0"
+  }
+}
