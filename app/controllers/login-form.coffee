@@ -5,3 +5,7 @@ App.LoginFormController = Ember.ObjectController.extend
     { name: 'Safari', url: 'http://www.apple.com/sg/safari/', icon: 'images/safari.png' }
     { name: 'IE 9+', url: 'http://windows.microsoft.com/en-sg/internet-explorer/ie-10-worldwide-languages', icon: 'images/ie.png' }
   ]
+
+  actions:
+    authenticate: ->
+      console.log 'do authenticate'

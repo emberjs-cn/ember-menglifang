@@ -1,18 +1,15 @@
 <section class="main">
-  <form class="login" {{action "login" on="submit"}}>
+  <form class="login" {{action login on="submit"}}>
     <h1>{{view.titleHtmlSafe}}</h1>
     <p class="float">
-      <label for="login"><i class="fa fa-user"></i>用户名：</label>
-      {{input type='text' value=username placeholder='请输入您的用户名...' }}
+      <label for="identification"><i class="fa fa-user"></i>用户名/邮箱：</label>
+      {{input id='identification' type='text' value=identification placeholder='请输入您的用户名/邮箱...' }}
     </p>
     <p class="float">
-      <label for="password"><i class="fa fa-lock"></i>密码：</label>
-      {{input type='password' value=password placeholder='请输入您的密码...' class="showpassword" }}
+      <label for="password"><i class="fa fa-key"></i>密码：</label>
+      {{input id='password' type='password' value=password placeholder='请输入您的密码...' class="showpassword" }}
     <p class="clearfix"></p>
     <p class="clearfix">
-      <a href="">忘记密码？</a>
-      <a>记住密码：</a>
-      {{input type='checkbox' checked=remember}}
       <button type="submit" class="pull-right">登录</button>
     </p>
     <p>{{view.copyrightHtmlSafe}}</p>

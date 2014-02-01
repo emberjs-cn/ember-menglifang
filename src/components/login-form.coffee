@@ -15,4 +15,4 @@ Ember.Menglifang.LoginFormComponent = Ember.Component.extend
 
   actions:
     login: ->
-      console.log('login form submit')
+      @sendAction('action')
