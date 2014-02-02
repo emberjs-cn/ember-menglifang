@@ -1,0 +1,47 @@
+<div id="brand">
+  <div class="logo">{{view.title}}</div>
+  <div class="switch-button" {{action toggleProperty "expanded" target="view"}}></div>
+</div>
+<div id="navigator">
+  <div class="menu-items">
+    {{#each view.menus}}
+      <ul {{bind-attr id=text}}>
+        {{#each items}}
+          <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
+            <div class="icon">
+              <a {{bind-attr href=url title=text}}>
+                <img {{bind-attr src=icon}} />
+                <div class="title">{{text}}</div>
+              </a>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    {{/each}}
+  </div>
+  <ul class="menu-triggers">
+    {{#each view.menus}}
+      <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
+        <a {{bind-attr href=url}} data-toggle="tab">
+          <img class="menu-trigger" {{bind-attr src=icon}} />
+          <div class="title">{{text}}</div>
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+<div id="starter" class="dropdown">
+  <a id="home" class="dropdown-toggle" href="#" data-toggle="dropdown">
+    <i class="fa fa-th-large"></i>
+  </a>
+  <ul class="dropdown-menu">
+    {{#each view.starterItems}}
+      <li>
+        <a {{bind-attr href="url"}}>
+          <i {{bind-attr class="icon"}}></i>
+           {{text}}
+        </a>
+      </li>
+    {{/each}}
+  </ul>
+</div>

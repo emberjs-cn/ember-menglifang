@@ -12,3 +12,4 @@ Ember.libraries?.register 'Ember Menglifang', Ember.Menglifang.VERSION
 
 # Ember Menglifang
 require 'build/src/components'
+require 'build/src/views'

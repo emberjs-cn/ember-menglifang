@@ -1,6 +1,5 @@
 # Ember Menglifang Dependencies
 require 'bower_components/bootstrap/dist/js/bootstrap'
-require 'bower_components/ember-simple-auth/ember-simple-auth'
 require 'dist/ember-menglifang'
 
 window.App = Ember.Application.create
@@ -8,11 +7,12 @@ window.App = Ember.Application.create
 
 # Controllers
 require 'build/app/controllers/login-form'
+require 'build/app/controllers/sidebar'
 
 # Views
+require 'build/app/views/application'
 
 # Components
-require 'build/app/components/login-form'
 
 # Router
 require 'build/app/router'

@@ -100,8 +100,8 @@ module.exports = function (grunt) {
           yuicompress: true
         },
         files: {
-          "./dist/ember-menglifang.css": ["./src/css/ember-menglifang.less"],
-          "./examples/css/app.css": ["./app/assets/css/app.less"]
+          "./dist/ember-menglifang.css": ["./src/less/ember-menglifang.less"],
+          "./examples/css/app.css": ["./app/assets/less/app.less"]
         }
       }
     },

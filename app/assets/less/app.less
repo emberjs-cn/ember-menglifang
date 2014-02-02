@@ -1,0 +1,41 @@
+//
+// Import other LESS & CSS
+// -----------------------------------------------------------------------------
+
+// External Libraries on which addepar-components.css relies
+// -------------------------
+@import "../../../bower_components/bootstrap/less/bootstrap.less";
+
+// Ember Menglifang
+// -------------------------
+@import '../../../src/less/ember-menglifang.less';
+
+html, body { height: 100%; }
+
+.navbar { margin-bottom: 0; }
+
+.application { height: 100%; }
+
+.container-fluid {
+  padding: 0;
+  height: calc(~"100% - 50px");
+}
+
+.row {
+  height: 100%;
+  margin: 0;
+ }
+
+.readme {
+  padding: 50px;
+  margin: 0;
+  height: 100%;
+  background: @sliver;
+}
+
+.demo {
+  height: 100%;
+  background: @white;
+  padding: 0;
+  margin: 0;
+ }

@@ -1,0 +1,249 @@
+.sidebar {
+  background: @blue;
+
+  float: left;
+  height: 100%;
+  width: 100px;
+
+  #brand {
+    height: 60px;
+    width: inherit;
+    padding: 10px;
+    color: @white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 40px;
+    font-size: 24px;
+    font-style: italic;
+    background-color: @deep-blue;
+    .logo {
+      height: 40px;
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .switch-button {
+      display: none;
+      width: 60px;
+      height: 40px;
+      font-size: 10px;
+      font-style: normal;
+      line-height: 40px;
+      font-weight: normal;
+      cursor: pointer;
+      &:before {
+        content: '\f060';
+        font-family: 'FontAwesome';
+      }
+      &:after {
+        content: '\f061';
+        font-family: 'FontAwesome';
+      }
+    }
+    &:hover {
+      .logo { display: none; }
+      .switch-button { display: inline-block; }
+    }
+  }
+
+  #navigator {
+    width: inherit;
+
+    .menu-items {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      margin: 0 !important;
+      width: inherit;
+      ul {
+        margin: 0 !important;
+        padding: 0;
+        display: none;
+        list-style-type: none;
+        li {
+          height: 60px;
+          padding: 6px 26px;
+          cursor: pointer;
+          div.icon {
+            margin: 0 !important;
+            width: 48px;
+            height: 48px;
+            .border-radius(100%);
+            background-color: @white;
+            a {
+              display: block;
+              line-height: 48px;
+              text-align: center;
+              .title {
+                display: none;
+              }
+              img {
+                width: 24px;
+                height: 24px;
+              }
+            }
+          }
+        }
+        li.active {
+          background-color: @deep-blue;
+        }
+        li:not([class=active]):hover {
+          background-color: lighten(@blue, 20%);
+        }
+      }
+      ul.active {
+        display: block;
+      }
+    }
+    .menu-triggers {
+      margin: 0;
+      background-color: @deep-blue;
+      position: absolute;
+      bottom: 90px;
+      left: 0;
+      padding: 15px 20px;
+      width: inherit;
+      list-style-type: none;
+      .box-sizing(border-box);
+      > li {
+        height: 40px;
+        margin-bottom: 10px;
+        .border-radius(2px);
+        text-align: center;
+        vertical-align: middle;
+        line-height: 40px;
+        cursor: pointer;
+        a {
+          display: block;
+          position: relative;
+          img.menu-trigger {
+            width: 24px;
+            height: 24px;
+          }
+          .title {
+            display: none;
+          }
+        }
+      }
+      > li:last-child {
+        margin-bottom: 0;
+        line-height: 40px;
+        text-align: center;
+      }
+      > li:hover {
+        background-color: lighten(@blue, 20%);
+      }
+    }
+  }
+
+  #starter {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    .box-sizing(border-box);
+    padding: 10px 20px 20px;
+    width: inherit;
+    height: 90px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 58px;
+    cursor: pointer;
+    background: @deep-blue;
+    > a {
+      height: 60px;
+      display: block;
+      .border-radius(100%);
+      background: @deep-blue;
+      border: 2px @white solid;
+      color: @white;
+      &:hover {
+        background: lighten(@deep-blue, 20%) !important;
+      }
+    }
+    ul.dropdown-menu {
+      position: absolute;
+      top: 20px;
+      left: 102px;
+      .border-radius(3px);
+      text-align: left;
+    }
+  }
+}
+
+.sidebar-expanded {
+  width: 200px;
+  #brand {
+    padding: 10px 20px;
+    .logo {
+      float: left;
+    }
+    .switch-button {
+      float: right;
+      display: block;
+      &:before {
+        content: '\f061';
+        font-family: 'FontAwesome';
+      }
+      &:after {
+        content: '\f060';
+        font-family: 'FontAwesome';
+      }
+    }
+    &:hover {
+      .logo, .switch-button { display: inline-block; }
+    }
+  }
+
+  #navigator {
+    .menu-trigger {
+      li {
+        background: none !important;
+        &:hover {
+          background: lighten(@blue, 20%) !important
+        }
+      }
+    }
+    .menu-triggers > li a .title {
+      display: inline-block;
+      color: @white;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+    .menu-items ul li {
+      padding: 10px 20px;
+      height: 42px;
+      div.icon {
+        width: 100%;
+        height: 32px;
+        border: none;
+        background-color: transparent;
+        a {
+          line-height: 32px;
+          text-align: left;
+          .title {
+            display: inline-block;
+            color: @white;
+            text-decoration: none;
+            margin-left: 20px;
+          }
+        }
+      }
+      padding: 5px 26px;
+      &:hover {
+        background: lighten(@blue, 20%) !important;
+      }
+    }
+  }
+
+  #starter {
+    padding: 10px 68px 20px;
+    a#home {
+      width: 58px;
+      height: 58px;
+    }
+    ul.dropdown-menu {
+      left: 202px;
+    }
+  }
+}
