@@ -1,0 +1,55 @@
+.main-toolbar {
+  background-color: @blue;
+  width: 100%;
+  height: 60px;
+
+  ol.breadcrumb {
+    margin: 0 30px;
+    padding: 0;
+    background: none;
+    line-height: 60px;
+
+    li {
+      margin-right: 10px;
+      &:before {
+        color: @white;
+        content: "\f105";
+        font-family: 'FontAwesome';
+      }
+      &:last-of-type {
+        color: @sliver;
+      }
+      &:last-of-type:before {
+        color: @sliver;
+        padding-right: 3px;
+      }
+    }
+
+    a {
+      color: @white;
+    }
+  }
+
+  ul.links {
+    list-style-type: none;
+    margin: 0;
+    li {
+      cursor: pointer;
+      float: left;
+      line-height: 60px;
+      padding: 0 20px;
+      border-left: 1px solid lighten(@blue, 20%);
+      font-weight: bold;
+      color: @white;
+      i {
+        margin-right: 10px;
+      }
+    }
+    li:hover {
+      background-color: @navy;
+    }
+    a {
+      color: @white;
+    }
+  }
+}

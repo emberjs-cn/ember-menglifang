@@ -8,12 +8,14 @@ window.App = Ember.Application.create
 # Controllers
 require 'build/app/controllers/login-form'
 require 'build/app/controllers/sidebar'
+require 'build/app/controllers/toolbar'
 
 # Views
 require 'build/app/views/application'
 
 # Components
 require 'build/app/components/list-narrow'
+require 'build/app/components/main-toolbar'
 
 # Route
 require 'build/app/routes/lists-narrow'
