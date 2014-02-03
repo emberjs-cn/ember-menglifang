@@ -9,6 +9,7 @@ window.App = Ember.Application.create
 require 'build/app/controllers/login-form'
 require 'build/app/controllers/sidebar'
 require 'build/app/controllers/toolbar'
+require 'build/app/controllers/form'
 
 # Views
 require 'build/app/views/application'

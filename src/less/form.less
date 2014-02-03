@@ -1,0 +1,53 @@
+form {
+  h2 {
+    margin: 0px 0px 20px 0px;
+    padding: 20px 30px;
+    border-bottom: 1px solid @sliver;
+  }
+  h4 {
+    padding-left: 30px;
+  }
+  input, select {
+    .box-shadow(none);
+    padding: 10px 0px;
+    display: block;
+    border: none;
+    margin: 0;
+    width: 100%;
+  }
+
+  select {
+    .border-radius(0px);
+    height: 36px;
+  }
+
+  button.btn {
+    margin-top: 50px;
+    .border-radius(0px);
+    &:first-of-type {
+      margin-left: 30px;
+    }
+  }
+}
+
+.form-horizontal {
+  .form-group {
+    margin: -1px 30px 0px 30px;
+    border: 1px solid @sliver;
+  }
+  .control-label {
+    padding-top: 0;
+    padding-right: 15px;
+    background: lighten(@sliver, 10%);
+    line-height: 36px;
+  }
+  .form-control {
+    border: none;
+    .border-radius(0px);
+  }
+}
+
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+  padding: 0;
+}
+
