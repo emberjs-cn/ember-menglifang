@@ -13,6 +13,10 @@ require 'build/app/controllers/sidebar'
 require 'build/app/views/application'
 
 # Components
+require 'build/app/components/list-narrow'
+
+# Route
+require 'build/app/routes/lists-narrow'
 
 # Router
 require 'build/app/router'

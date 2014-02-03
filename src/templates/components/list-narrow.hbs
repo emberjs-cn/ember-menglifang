@@ -1,0 +1,10 @@
+<ul>
+  {{#each view.items}}
+    <li>
+      {{#link-to route}}
+        <i {{bind-attr class=icon}}></i>
+        {{text}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>
