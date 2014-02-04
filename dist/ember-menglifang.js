@@ -344,7 +344,7 @@ Ember.Menglifang.ListView = Ember.ListView.extend({
   classNames: ['ember-list-view', 'mlf-list'],
   itemViewClass: Ember.Menglifang.ListItemView,
   didInsertElement: function() {
-    this.set('height', Ember.$('.ember-list-view').parent().height());
+    this.set('height', Ember.$('.ember-list-view').parent().height() - 60);
     return this._super();
   }
 });

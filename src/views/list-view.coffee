@@ -7,5 +7,5 @@ Ember.Menglifang.ListView = Ember.ListView.extend
   itemViewClass: Ember.Menglifang.ListItemView
 
   didInsertElement: ->
-    @set('height', Ember.$('.ember-list-view').parent().height())
+    @set('height', Ember.$('.ember-list-view').parent().height() - 60)
     @_super()
