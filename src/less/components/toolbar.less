@@ -34,22 +34,23 @@
     list-style-type: none;
     margin: 0;
     li {
-      cursor: pointer;
       float: left;
-      line-height: 60px;
-      padding: 0 20px;
-      border-left: 1px solid lighten(@blue, 20%);
-      font-weight: bold;
       color: @white;
       i {
         margin-right: 10px;
       }
-    }
-    li:hover {
-      background-color: @navy;
-    }
-    a {
-      color: @white;
+      a {
+        display: inline-block;
+        height: 60px;
+        line-height: 60px;
+        padding: 0 20px;
+        font-weight: bold;
+        border-left: 1px solid lighten(@blue, 20%);
+        color: @white;
+        &:hover {
+          background-color: @navy;
+        }
+      }
     }
   }
 }
