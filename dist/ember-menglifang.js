@@ -167,23 +167,23 @@ function program2(depth0,data) {
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'title': ("text")
   },hashTypes:{'title': "ID"},hashContexts:{'title': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n            <div class=\"icon\">\n              ");
+  data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n            ");
   stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n            </div>\n          </li>\n        ");
+  data.buffer.push("\n          </li>\n        ");
   return buffer;
   }
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n                <img ");
+  data.buffer.push("\n              <div class=\"icon\">\n                <img ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'src': ("icon")
   },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" />\n                <div class=\"title\">");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</div>\n              ");
+  data.buffer.push("</div>\n              </div>\n            ");
   return buffer;
   }
 

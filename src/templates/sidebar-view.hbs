@@ -8,12 +8,12 @@
       <ul {{bind-attr id=text}}>
         {{#each items}}
           <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
-            <div class="icon">
-              {{#link-to route}}
+            {{#link-to route}}
+              <div class="icon">
                 <img {{bind-attr src=icon}} />
                 <div class="title">{{text}}</div>
-              {{/link-to}}
-            </div>
+              </div>
+            {{/link-to}}
           </li>
         {{/each}}
       </ul>
