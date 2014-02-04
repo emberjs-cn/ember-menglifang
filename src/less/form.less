@@ -23,12 +23,13 @@ form {
   }
 
   button.btn {
-    margin-top: 50px;
+    margin-top: 30px;
     margin-right: 5px;
     .border-radius(0px);
     &:first-of-type {
-      margin-left: 30px;
+      margin-left: 15px;
     }
+    background-clip: none;
   }
 }
 
@@ -36,6 +37,9 @@ form {
   .form-group {
     margin: -1px 30px 0px 30px;
     border: 1px solid @sliver;
+  }
+  .form-group.buttons {
+    border: none;
   }
   .control-label {
     padding-top: 0;

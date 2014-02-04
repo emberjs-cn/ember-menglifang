@@ -31,8 +31,14 @@
         {{view Ember.Select content=availableRoles optionLabelPath='content.label' optionValuePath='content.value' value='user'}}
       </div>
     </div>
-    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保存</button>
-    <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i> 删除</button>
-    <button type="submit" class="btn btn-link">取消</button>
+
+    <div class="form-group buttons">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-9">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> 保存</button>
+        <button type="submit" class="btn btn-danger"><i class="fa fa-times"></i> 删除</button>
+        <button type="submit" class="btn btn-link">取消</button>
+      </div>
+    </div>
   </form>
 </div>
