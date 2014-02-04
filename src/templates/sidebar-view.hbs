@@ -9,10 +9,10 @@
         {{#each items}}
           <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
             <div class="icon">
-              <a {{bind-attr href=url title=text}}>
+              {{#link-to route}}
                 <img {{bind-attr src=icon}} />
                 <div class="title">{{text}}</div>
-              </a>
+              {{/link-to}}
             </div>
           </li>
         {{/each}}
