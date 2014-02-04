@@ -7,9 +7,8 @@ App.Router.map ->
   @route 'sidebar'
   @route 'toolbar'
   @route 'form'
+  @route 'list'
 
-  @resource 'lists', ->
-    @route 'narrow'
 
   @route 'firstRoute'
   @route 'secondRoute'

@@ -1,4 +1,4 @@
-App.ListsNarrowRoute = Ember.Route.extend
+App.ListRoute = Ember.Route.extend
   model: ->
     [
       { text: 'First Item', icon: 'fa fa-user', route: 'firstRoute' }

@@ -1,5 +1,6 @@
 # Ember Menglifang Dependencies
 require 'bower_components/bootstrap/dist/js/bootstrap'
+require 'bower_components/list-view/list-view'
 require 'dist/ember-menglifang'
 
 window.App = Ember.Application.create
@@ -15,11 +16,10 @@ require 'build/app/controllers/form'
 require 'build/app/views/application'
 
 # Components
-require 'build/app/components/list-narrow'
 require 'build/app/components/main-toolbar'
 
 # Route
-require 'build/app/routes/lists-narrow'
+require 'build/app/routes/list'
 
 # Router
 require 'build/app/router'
