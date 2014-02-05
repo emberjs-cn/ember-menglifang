@@ -84,13 +84,13 @@
                 height: 24px;
               }
             }
+            &:hover {
+              background-color: lighten(@blue, 20%);
+            }
           }
-        }
-        li.active {
-          background-color: @deep-blue;
-        }
-        li:not([class=active]):hover {
-          background-color: lighten(@blue, 20%);
+          a.active {
+            background-color: lighten(@blue, 20%);
+          }
         }
       }
       ul.active {
