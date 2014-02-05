@@ -1,31 +1,12 @@
 (function() {
 
-var _ref;
+var Menglifang, Mlf, _ref;
 
 
 })();
 (function() {
 
-Ember.TEMPLATES["app-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression;
-
-
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Ember.Menglifang.SidebarView", {hash:{
-    'title': ("view.title"),
-    'menus': ("view.sidebar.menus"),
-    'starterItems': ("view.sidebar.starterItems")
-  },hashTypes:{'title': "ID",'menus': "ID",'starterItems': "ID"},hashContexts:{'title': depth0,'menus': depth0,'starterItems': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n\n<div class=\"app-main\">\n  ");
-  stack1 = helpers._triageMustache.call(depth0, "yield", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</div>\n");
-  return buffer;
-  
-});
-
-Ember.TEMPLATES["components/login-form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["components/mlf-login-form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
@@ -81,7 +62,7 @@ function program1(depth0,data) {
   
 });
 
-Ember.TEMPLATES["components/main-toolbar"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["components/mlf-main-toolbar"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
@@ -142,7 +123,26 @@ function program5(depth0,data) {
   
 });
 
-Ember.TEMPLATES["sidebar-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["mlf-app-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.SidebarView", {hash:{
+    'title': ("view.title"),
+    'menus': ("view.sidebar.menus"),
+    'starterItems': ("view.sidebar.starterItems")
+  },hashTypes:{'title': "ID",'menus': "ID",'starterItems': "ID"},hashContexts:{'title': depth0,'menus': depth0,'starterItems': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n\n<div class=\"app-main\">\n  ");
+  stack1 = helpers._triageMustache.call(depth0, "yield", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n</div>\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["mlf-sidebar-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
@@ -251,12 +251,19 @@ function program7(depth0,data) {
 })();
 (function() {
 
-Ember.Menglifang = Ember.Namespace.create();
+if ('undefined' === typeof Menglifang) {
+  Menglifang = {};
+  if ('undefined' !== typeof window) {
+    window.Mlf = window.Menglifang = Mlf = Menglifang;
+  }
+}
 
-Ember.Menglifang.VERSION = '0.0.1';
+Menglifang.Widgets = Ember.Namespace.create();
+
+Menglifang.Widgets.VERSION = '0.0.1';
 
 if ((_ref = Ember.libraries) != null) {
-  _ref.register('Ember Menglifang', Ember.Menglifang.VERSION);
+  _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
 }
 
 
@@ -264,9 +271,9 @@ if ((_ref = Ember.libraries) != null) {
 (function() {
 
 
-Ember.Menglifang.LoginFormComponent = Ember.Component.extend({
-  templateName: 'components/login-form',
-  classNames: ['ember-menglifang-login-form'],
+Menglifang.Widgets.LoginFormComponent = Ember.Component.extend({
+  templateName: 'components/mlf-login-form',
+  classNames: ['mlf-login-form'],
   title: '用户登录',
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司',
   titleHtmlSafe: (function() {
@@ -290,9 +297,9 @@ Ember.Menglifang.LoginFormComponent = Ember.Component.extend({
 (function() {
 
 
-Ember.Menglifang.MainToolbarComponent = Ember.Component.extend({
-  templateName: 'components/main-toolbar',
-  classNames: ['main-toolbar'],
+Menglifang.Widgets.MainToolbarComponent = Ember.Component.extend({
+  templateName: 'components/mlf-main-toolbar',
+  classNames: ['mlf-main-toolbar'],
   parentItems: (function() {
     return this.get('items').slice(0, this.get('items.length') - 1);
   }).property('items.@each'),
@@ -306,9 +313,9 @@ Ember.Menglifang.MainToolbarComponent = Ember.Component.extend({
 (function() {
 
 
-Ember.Menglifang.AppView = Ember.View.extend({
-  layoutName: 'app-view',
-  classNames: ['app'],
+Menglifang.Widgets.AppView = Ember.View.extend({
+  layoutName: 'mlf-app-view',
+  classNames: ['mlf-app'],
   title: '',
   sidebar: {
     menus: Ember.A(),
@@ -321,10 +328,10 @@ Ember.Menglifang.AppView = Ember.View.extend({
 (function() {
 
 
-Ember.Menglifang.SidebarView = Ember.View.extend({
-  templateName: 'sidebar-view',
-  classNames: ['sidebar'],
-  classNameBindings: ['expanded:sidebar-expanded'],
+Menglifang.Widgets.SidebarView = Ember.View.extend({
+  templateName: 'mlf-sidebar-view',
+  classNames: ['mlf-sidebar'],
+  classNameBindings: ['expanded:mlf-sidebar-expanded'],
   expanded: true,
   title: 'A Title',
   menus: Ember.A(),
@@ -340,13 +347,13 @@ Ember.Menglifang.SidebarView = Ember.View.extend({
 (function() {
 
 
-Ember.Menglifang.ListItemView = Ember.ReusableListItemView.extend({
+Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend({
   classNames: ['ember-list-item-view', 'mlf-list-item']
 });
 
-Ember.Menglifang.ListView = Ember.ListView.extend({
+Menglifang.Widgets.ListView = Ember.ListView.extend({
   classNames: ['ember-list-view', 'mlf-list'],
-  itemViewClass: Ember.Menglifang.ListItemView,
+  itemViewClass: Menglifang.Widgets.ListItemView,
   didInsertElement: function() {
     this.set('height', Ember.$('.ember-list-view').parent().height() - 60);
     return this._super();

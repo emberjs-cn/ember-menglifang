@@ -1,7 +1,7 @@
 # Ember Menglifang Dependencies
 require 'bower_components/bootstrap/dist/js/bootstrap'
 require 'bower_components/list-view/list-view'
-require 'dist/ember-menglifang'
+require 'dist/menglifang-widgets'
 
 window.App = Ember.Application.create
   LOG_TRANSITIONS: true
@@ -16,6 +16,7 @@ require 'build/app/controllers/form'
 require 'build/app/views/application'
 
 # Components
+require 'build/app/components/login-form'
 require 'build/app/components/main-toolbar'
 
 # Route

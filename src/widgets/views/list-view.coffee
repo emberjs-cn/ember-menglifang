@@ -1,10 +1,10 @@
-Ember.Menglifang.ListItemView = Ember.ReusableListItemView.extend
+Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend
   classNames: ['ember-list-item-view', 'mlf-list-item']
 
-Ember.Menglifang.ListView = Ember.ListView.extend
+Menglifang.Widgets.ListView = Ember.ListView.extend
   classNames: ['ember-list-view', 'mlf-list']
 
-  itemViewClass: Ember.Menglifang.ListItemView
+  itemViewClass: Menglifang.Widgets.ListItemView
 
   didInsertElement: ->
     @set('height', Ember.$('.ember-list-view').parent().height() - 60)

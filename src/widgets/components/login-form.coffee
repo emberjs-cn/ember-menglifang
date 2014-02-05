@@ -1,6 +1,6 @@
-Ember.Menglifang.LoginFormComponent = Ember.Component.extend
-  templateName: 'components/login-form'
-  classNames: ['ember-menglifang-login-form']
+Menglifang.Widgets.LoginFormComponent = Ember.Component.extend
+  templateName: 'components/mlf-login-form'
+  classNames: ['mlf-login-form']
 
   title: '用户登录'
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司'

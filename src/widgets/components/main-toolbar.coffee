@@ -1,6 +1,6 @@
-Ember.Menglifang.MainToolbarComponent = Ember.Component.extend
-  templateName: 'components/main-toolbar'
-  classNames: ['main-toolbar']
+Menglifang.Widgets.MainToolbarComponent = Ember.Component.extend
+  templateName: 'components/mlf-main-toolbar'
+  classNames: ['mlf-main-toolbar']
 
   parentItems: (->
     @get('items').slice(0, @get('items.length') - 1)

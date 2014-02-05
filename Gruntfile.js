@@ -25,14 +25,14 @@ module.exports = function (grunt) {
     },
 
     coffee: {
-      srcs: {
+      widgets: {
         options: {
           bare: true
         },
         expand: true,
-        cwd: "src/",
+        cwd: "src/widgets",
         src: [ "**/*.coffee" ],
-        dest: "build/src/",
+        dest: "build/src/widgets/",
         ext: ".js"
       },
       app: {
@@ -47,10 +47,10 @@ module.exports = function (grunt) {
     emberTemplates: {
       options: {
         templateName: function(sourceFile) {
-          return sourceFile.replace(/src\/templates\//, '').replace(/app\/templates\//, '');
+          return sourceFile.replace(/src\/widgets\/templates\//, '').replace(/app\/templates\//, '');
         }
       },
-      'build/src/templates.js': ["src/templates/**/*.hbs"],
+      'build/src/widgets/templates.js': ["src/widgets/templates/**/*.hbs"],
       'build/app/templates.js': ["app/templates/**/*.hbs"]
     },
 
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
         includeSourceURL: false,
         separator: "\n"
       },
-      "dist/ember-menglifang.js":  "build/src/main.js",
+      "dist/menglifang-widgets.js":  "build/src/widgets/main.js",
       "examples/app.js":      "build/app/app.js"
     },
 
@@ -100,7 +100,7 @@ module.exports = function (grunt) {
           yuicompress: true
         },
         files: {
-          "./dist/ember-menglifang.css": ["./src/less/ember-menglifang.less"],
+          "./dist/menglifang-widgets.css": ["./src/widgets/less/menglifang-widgets.less"],
           "./examples/css/app.css": ["./app/assets/less/app.less"]
         }
       }
@@ -177,9 +177,9 @@ module.exports = function (grunt) {
         },
 
         files: {
-          './dist/ember-menglifang.min.js': [
+          './dist/menglifang-widgets.min.js': [
             // Include dist in bundle
-            './dist/ember-menglifang.js'
+            './dist/menglifang-widgets.js'
           ]
         }
       }
@@ -210,10 +210,10 @@ module.exports = function (grunt) {
   });
 
   // Default tasks.
-  grunt.registerTask("build_srcs", ["coffee:srcs", "emberTemplates", "neuter"]);
+  grunt.registerTask("build_widgets", ["coffee:widgets", "emberTemplates", "neuter"]);
 
   grunt.registerTask("build_app", ["coffee:app", "emberTemplates", "neuter"]);
 
-  grunt.registerTask("default", ["build_srcs", "build_app", "less", "copy", "uglify", "watch"]);
+  grunt.registerTask("default", ["build_widgets", "build_app", "less", "copy", "uglify", "watch"]);
 
 };

@@ -1,1 +1,1 @@
-App.MainToolbarComponent = Ember.Menglifang.MainToolbarComponent.extend()
+App.MainToolbarComponent = Menglifang.Widgets.MainToolbarComponent.extend()

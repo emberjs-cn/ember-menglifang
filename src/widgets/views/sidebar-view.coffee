@@ -1,8 +1,8 @@
-Ember.Menglifang.SidebarView = Ember.View.extend
-  templateName: 'sidebar-view'
+Menglifang.Widgets.SidebarView = Ember.View.extend
+  templateName: 'mlf-sidebar-view'
 
-  classNames: ['sidebar']
-  classNameBindings: ['expanded:sidebar-expanded']
+  classNames: ['mlf-sidebar']
+  classNameBindings: ['expanded:mlf-sidebar-expanded']
 
   expanded: true
 
