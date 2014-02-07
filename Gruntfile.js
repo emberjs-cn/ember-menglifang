@@ -41,6 +41,13 @@ module.exports = function (grunt) {
         src: [ "**/*.coffee" ],
         dest: "build/app/",
         ext: ".js"
+      },
+      api: {
+        expand: true,
+        cwd: "api/",
+        src: [ "**/*.coffee" ],
+        dest: "build/api",
+        ext: ".js"
       }
     },
 
@@ -63,8 +70,9 @@ module.exports = function (grunt) {
       },
       "dist/menglifang-widgets.js":  "build/src/widgets/main.js",
       "dist/menglifang-app.js":  "build/src/app/main.js",
-      "examples/app.js":      "build/app/app.js",
-      "examples/account-module/app.js":      "build/app/account-module/app.js",
+      "examples/public/app.js":      "build/app/app.js",
+      "examples/public/account-module/app.js":      "build/app/account-module/app.js",
+      "examples/app.js":      "build/api/app.js",
     },
 
     clean: [
@@ -106,8 +114,8 @@ module.exports = function (grunt) {
         files: {
           "./dist/menglifang-widgets.css": ["./src/widgets/less/menglifang-widgets.less"],
           "./dist/menglifang-app.css": ["./src/app/less/menglifang-app.less"],
-          "./examples/css/app.css": ["./app/assets/less/app.less"],
-          "./examples/account-module/css/app.css": ["./app/account-module/assets/less/app.less"]
+          "./examples/public/css/app.css": ["./app/assets/less/app.less"],
+          "./examples/public/account-module/css/app.css": ["./app/account-module/assets/less/app.less"]
         }
       }
     },
@@ -117,43 +125,43 @@ module.exports = function (grunt) {
         files: [
           {
             src: ['app/index.html'],
-            dest: 'examples/index.html'
+            dest: 'examples/public/index.html'
           }, {
             expand: true,
             cwd: 'app/assets/images/',
             src: ['**'],
-            dest: 'examples/images/'
+            dest: 'examples/public/images/'
           }, {
             src: ['app/account-module/index.html'],
-            dest: 'examples/account-module/index.html'
+            dest: 'examples/public/account-module/index.html'
           }, {
             expand: true,
             cwd: 'app/account-module/assets/images/',
             src: ['**'],
-            dest: 'examples/account-module/images/'
+            dest: 'examples/public/account-module/images/'
           }, {
             expand: true,
             flatten: true,
             cwd: 'bower_components/',
             src: ['**/*.js'],
-            dest: 'examples/lib'
+            dest: 'examples/public/lib'
           }, {
             expand: true,
             flatten: true,
             cwd: 'bower_components/',
             src: ['**/*.css'],
-            dest: 'examples/css'
+            dest: 'examples/public/css'
           }, {
             expand: true,
             flatten: true,
             cwd: 'bower_components/',
             src: ['font-awesome/css/*.css'],
-            dest: 'examples/css'
+            dest: 'examples/public/css'
           }, {
             expand: true,
             cwd: 'bower_components/font-awesome/fonts/',
             src: ['**'],
-            dest: 'examples/fonts/'
+            dest: 'examples/public/fonts/'
           }
         ]
       },
@@ -208,7 +216,7 @@ module.exports = function (grunt) {
         tasks: ["default"]
       },
       code: {
-        files: ["src/**/*.coffee", "app/**/*.coffee", "bower_components/**/*.js"],
+        files: ["src/**/*.coffee", "app/**/*.coffee", "api/**/*.coffee", "bower_components/**/*.js"],
         tasks: ["coffee", "neuter"]
       },
       handlebars: {
@@ -231,6 +239,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask("build_app", ["coffee:app", "emberTemplates", "neuter"]);
 
-  grunt.registerTask("default", ["build_src", "build_app", "less", "copy", "uglify", "watch"]);
+  grunt.registerTask("build_api", ["coffee:app", "neuter"]);
+
+  grunt.registerTask("default", ["build_src", "build_app", "build_api", "less", "copy", "uglify", "watch"]);
 
 };
