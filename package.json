@@ -25,6 +25,8 @@
         "grunt-shell": "*",
         "grunt-jsdoc": "*",
         "node-static": "*",
-        "lockdown": "0.0.5"
+        "lockdown": "0.0.5",
+        "express": "3.4.8",
+        "sqlite3": "2.2.0"
     }
 }
