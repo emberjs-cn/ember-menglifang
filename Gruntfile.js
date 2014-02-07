@@ -25,14 +25,14 @@ module.exports = function (grunt) {
     },
 
     coffee: {
-      widgets: {
+      src: {
         options: {
           bare: true
         },
         expand: true,
-        cwd: "src/widgets",
+        cwd: "src/",
         src: [ "**/*.coffee" ],
-        dest: "build/src/widgets/",
+        dest: "build/src/",
         ext: ".js"
       },
       app: {
@@ -47,11 +47,13 @@ module.exports = function (grunt) {
     emberTemplates: {
       options: {
         templateName: function(sourceFile) {
-          return sourceFile.replace(/src\/widgets\/templates\//, '').replace(/app\/templates\//, '');
+          return sourceFile.replace(/src\/widgets\/templates\//, '').replace(/src\/app\/templates\//, '').replace(/app\/templates\//, '').replace(/app\/account-module\/templates\//, '');
         }
       },
       'build/src/widgets/templates.js': ["src/widgets/templates/**/*.hbs"],
-      'build/app/templates.js': ["app/templates/**/*.hbs"]
+      'build/src/app/templates.js': ["src/app/templates/**/*.hbs"],
+      'build/app/templates.js': ["app/templates/**/*.hbs"],
+      'build/app/account-module/templates.js': ["app/account-module/templates/**/*.hbs"]
     },
 
     neuter: {
@@ -60,7 +62,9 @@ module.exports = function (grunt) {
         separator: "\n"
       },
       "dist/menglifang-widgets.js":  "build/src/widgets/main.js",
-      "examples/app.js":      "build/app/app.js"
+      "dist/menglifang-app.js":  "build/src/app/main.js",
+      "examples/app.js":      "build/app/app.js",
+      "examples/account-module/app.js":      "build/app/account-module/app.js",
     },
 
     clean: [
@@ -101,7 +105,9 @@ module.exports = function (grunt) {
         },
         files: {
           "./dist/menglifang-widgets.css": ["./src/widgets/less/menglifang-widgets.less"],
-          "./examples/css/app.css": ["./app/assets/less/app.less"]
+          "./dist/menglifang-app.css": ["./src/app/less/menglifang-app.less"],
+          "./examples/css/app.css": ["./app/assets/less/app.less"],
+          "./examples/account-module/css/app.css": ["./app/account-module/assets/less/app.less"]
         }
       }
     },
@@ -117,6 +123,14 @@ module.exports = function (grunt) {
             cwd: 'app/assets/images/',
             src: ['**'],
             dest: 'examples/images/'
+          }, {
+            src: ['app/account-module/index.html'],
+            dest: 'examples/account-module/index.html'
+          }, {
+            expand: true,
+            cwd: 'app/account-module/assets/images/',
+            src: ['**'],
+            dest: 'examples/account-module/images/'
           }, {
             expand: true,
             flatten: true,
@@ -180,6 +194,9 @@ module.exports = function (grunt) {
           './dist/menglifang-widgets.min.js': [
             // Include dist in bundle
             './dist/menglifang-widgets.js'
+          ],
+          './dist/menglifang-app.min.js': [
+            './dist/menglifang-app.js'
           ]
         }
       }
@@ -199,21 +216,21 @@ module.exports = function (grunt) {
         tasks: ["emberTemplates", "neuter"]
       },
       less: {
-        files: ["app/assets/**/*.less", "app/assets/**/*.css", "src/**/*.less"],
+        files: ["app/assets/**/*.less", "app/assets/**/*.css", "app/account-module/assets/**/*.less", "src/**/*.less"],
         tasks: ["less", "copy"]
       },
       copy: {
-        files: ["app/index.html"],
+        files: ["app/index.html", "app/account-module/index.html"],
         tasks: ["copy"]
       }
     }
   });
 
   // Default tasks.
-  grunt.registerTask("build_widgets", ["coffee:widgets", "emberTemplates", "neuter"]);
+  grunt.registerTask("build_src", ["coffee:src", "emberTemplates", "neuter"]);
 
   grunt.registerTask("build_app", ["coffee:app", "emberTemplates", "neuter"]);
 
-  grunt.registerTask("default", ["build_widgets", "build_app", "less", "copy", "uglify", "watch"]);
+  grunt.registerTask("default", ["build_src", "build_app", "less", "copy", "uglify", "watch"]);
 
 };

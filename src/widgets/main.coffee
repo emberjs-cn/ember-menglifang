@@ -16,6 +16,6 @@ Ember.libraries?.register 'Menglifang Widgets', Menglifang.Widgets.VERSION
 
 # Utils
 
-# Ember Menglifang
+# Menglifang Widgets
 require 'build/src/widgets/components'
 require 'build/src/widgets/views'
