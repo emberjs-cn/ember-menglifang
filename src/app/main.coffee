@@ -37,6 +37,9 @@ Menglifang.App.create = (options) ->
     namespace: options.namespace
 
   app = Ember.Application.create()
-  $.extend(app, Menglifang.App, options || {})
+
+  # 必须将配置信息付给Menglifang.App，因为内部将使用该命名空间来查找配置项
+  $.extend(Menglifang.App, options || {})
+  $.extend(app, Menglifang.App)
 
   app

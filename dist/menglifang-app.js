@@ -1311,7 +1311,8 @@ Menglifang.App.create = function(options) {
     namespace: options.namespace
   });
   app = Ember.Application.create();
-  $.extend(app, Menglifang.App, options || {});
+  $.extend(Menglifang.App, options || {});
+  $.extend(app, Menglifang.App);
   return app;
 };
 
