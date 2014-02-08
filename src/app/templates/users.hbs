@@ -1,0 +1,14 @@
+{{main-toolbar items=breadcrumbItems links=toolbarLinks}}
+
+{{#collection Menglifang.Widgets.ListView content=model height=100 width=300 rowHeight=60}}
+  {{#link-to 'user' id}}
+    <div class="name">
+      {{username}} ({{realname}})
+    </div>
+    <div class="email">
+      {{email}}
+    </div>
+  {{/link-to}}
+{{/collection}}
+
+{{outlet}}
