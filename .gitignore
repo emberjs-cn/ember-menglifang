@@ -10,3 +10,4 @@ tests/css
 doc/
 bower_components
 examples/
+*.sqlite3

@@ -32,7 +32,7 @@ function program1(depth0,data) {
   data.buffer.push("<section class=\"main\">\n  <form class=\"login\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "login", {hash:{
     'on': ("submit")
-  },hashTypes:{'on': "STRING"},hashContexts:{'on': depth0},contexts:[depth0],types:["ID"],data:data})));
+  },hashTypes:{'on': "STRING"},hashContexts:{'on': depth0},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">\n    <h1>");
   stack1 = helpers._triageMustache.call(depth0, "view.titleHtmlSafe", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -134,7 +134,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
     'menus': ("view.sidebar.menus"),
     'starterItems': ("view.sidebar.starterItems")
   },hashTypes:{'title': "ID",'menus': "ID",'starterItems': "ID"},hashContexts:{'title': depth0,'menus': depth0,'starterItems': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n\n<div class=\"app-main\">\n  ");
+  data.buffer.push("\n\n<div class=\"mlf-app-main\">\n  ");
   stack1 = helpers._triageMustache.call(depth0, "yield", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</div>\n");
@@ -231,9 +231,9 @@ function program7(depth0,data) {
   stack1 = helpers._triageMustache.call(depth0, "view.title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</div>\n  <div class=\"switch-button\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggleProperty", "expanded", {hash:{
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "toggle", {hash:{
     'target': ("view")
-  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0,depth0],types:["ID","STRING"],data:data})));
+  },hashTypes:{'target': "STRING"},hashContexts:{'target': depth0},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push("></div>\n</div>\n<div id=\"navigator\">\n  <div class=\"menu-items\">\n    ");
   stack1 = helpers.each.call(depth0, "view.menus", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -339,6 +339,11 @@ Menglifang.Widgets.SidebarView = Ember.View.extend({
   didInsertElement: function() {
     this.$().find('*[data-toggle="tooltip"]').tooltip();
     return this.$().find('.menu-triggers li a').first().click();
+  },
+  actions: {
+    toggle: function() {
+      return this.toggleProperty('expanded');
+    }
   }
 });
 
