@@ -35,11 +35,11 @@ module.exports = function (grunt) {
         dest: "build/src/",
         ext: ".js"
       },
-      app: {
+      demo: {
         expand: true,
-        cwd: "app/",
+        cwd: "demo/",
         src: [ "**/*.coffee" ],
-        dest: "build/app/",
+        dest: "build/demo/",
         ext: ".js"
       },
       api: {
@@ -54,13 +54,13 @@ module.exports = function (grunt) {
     emberTemplates: {
       options: {
         templateName: function(sourceFile) {
-          return sourceFile.replace(/src\/widgets\/templates\//, '').replace(/src\/app\/templates\//, '').replace(/app\/templates\//, '').replace(/app\/account-module\/templates\//, '');
+          return sourceFile.replace(/src\/widgets\/templates\//, '').replace(/src\/app\/templates\//, '').replace(/demo\/widgets\/templates\//, '').replace(/demo\/app\/templates\//, '');
         }
       },
       'build/src/widgets/templates.js': ["src/widgets/templates/**/*.hbs"],
       'build/src/app/templates.js': ["src/app/templates/**/*.hbs"],
-      'build/app/templates.js': ["app/templates/**/*.hbs"],
-      'build/app/account-module/templates.js': ["app/account-module/templates/**/*.hbs"]
+      'build/demo/widgets/templates.js': ["demo/widgets/templates/**/*.hbs"],
+      'build/demo/app/templates.js': ["demo/app/templates/**/*.hbs"]
     },
 
     neuter: {
@@ -70,9 +70,10 @@ module.exports = function (grunt) {
       },
       "dist/menglifang-widgets.js":  "build/src/widgets/main.js",
       "dist/menglifang-app.js":  "build/src/app/main.js",
-      "examples/public/app.js":      "build/app/app.js",
-      "examples/public/account-module/app.js":      "build/app/account-module/app.js",
+      "examples/public/widgets/app.js":      "build/demo/widgets/app.js",
+      "examples/public/app/app.js":      "build/demo/app/app.js",
       "examples/app.js":      "build/api/app.js",
+      "examples/db-setup.js":      "build/api/db-setup.js"
     },
 
     clean: [
@@ -103,7 +104,7 @@ module.exports = function (grunt) {
           require: true
         }
       },
-      all: ["Gruntfile.js", "build/src/**/*.js"]
+      all: ["Gruntfile.js", "build/src/**/*.js", "build/demo/**/*.js", "build/api/**/*.js"]
     },
 
     less: {
@@ -114,8 +115,8 @@ module.exports = function (grunt) {
         files: {
           "./dist/menglifang-widgets.css": ["./src/widgets/less/menglifang-widgets.less"],
           "./dist/menglifang-app.css": ["./src/app/less/menglifang-app.less"],
-          "./examples/public/css/app.css": ["./app/assets/less/app.less"],
-          "./examples/public/account-module/css/app.css": ["./app/account-module/assets/less/app.less"]
+          "./examples/public/widgets/css/app.css": ["./demo/widgets/less/app.less"],
+          "./examples/public/app/css/app.css": ["./demo/app/less/app.less"]
         }
       }
     },
@@ -124,21 +125,41 @@ module.exports = function (grunt) {
       examples: {
         files: [
           {
-            src: ['app/index.html'],
-            dest: 'examples/public/index.html'
+            src: ['demo/widgets/index.html'],
+            dest: 'examples/public/widgets/index.html'
           }, {
             expand: true,
-            cwd: 'app/assets/images/',
+            cwd: 'demo/widgets/images/',
+            src: ['**'],
+            dest: 'examples/public/widgets/images/'
+          }, {
+            src: ['demo/app/index.html'],
+            dest: 'examples/public/app/index.html'
+          }, {
+            expand: true,
+            cwd: 'demo/app/images/',
+            src: ['**'],
+            dest: 'examples/public/app/images/'
+          }, {
+            expand: true,
+            cwd: 'build/api/func/',
+            src: ['**'],
+            dest: 'examples/func/'
+          }, {
+            expand: true,
+            cwd: 'src/app/images/',
+            src: ['**'],
+            dest: 'examples/public/widgets/images/'
+          }, {
+            expand: true,
+            cwd: 'src/app/images/',
+            src: ['**'],
+            dest: 'examples/public/app/images/'
+          }, {
+            expand: true,
+            cwd: 'src/app/images/',
             src: ['**'],
             dest: 'examples/public/images/'
-          }, {
-            src: ['app/account-module/index.html'],
-            dest: 'examples/public/account-module/index.html'
-          }, {
-            expand: true,
-            cwd: 'app/account-module/assets/images/',
-            src: ['**'],
-            dest: 'examples/public/account-module/images/'
           }, {
             expand: true,
             flatten: true,
@@ -216,19 +237,19 @@ module.exports = function (grunt) {
         tasks: ["default"]
       },
       code: {
-        files: ["src/**/*.coffee", "app/**/*.coffee", "api/**/*.coffee", "bower_components/**/*.js"],
+        files: ["src/**/*.coffee", "demo/**/*.coffee", "api/**/*.coffee", "bower_components/**/*.js"],
         tasks: ["coffee", "neuter"]
       },
       handlebars: {
-        files: ["src/**/*.hbs", "app/**/*.hbs"],
+        files: ["src/**/*.hbs", "demo/**/*.hbs"],
         tasks: ["emberTemplates", "neuter"]
       },
       less: {
-        files: ["app/assets/**/*.less", "app/assets/**/*.css", "app/account-module/assets/**/*.less", "src/**/*.less"],
+        files: ["demo/**/*.less", "demo/**/*.css", "src/**/*.less"],
         tasks: ["less", "copy"]
       },
       copy: {
-        files: ["app/index.html", "app/account-module/index.html"],
+        files: ["demo/widgets/index.html", "demo/app/index.html"],
         tasks: ["copy"]
       }
     }
@@ -237,10 +258,10 @@ module.exports = function (grunt) {
   // Default tasks.
   grunt.registerTask("build_src", ["coffee:src", "emberTemplates", "neuter"]);
 
-  grunt.registerTask("build_app", ["coffee:app", "emberTemplates", "neuter"]);
+  grunt.registerTask("build_demo", ["coffee:demo", "emberTemplates", "neuter"]);
 
-  grunt.registerTask("build_api", ["coffee:app", "neuter"]);
+  grunt.registerTask("build_api", ["coffee:demo", "neuter"]);
 
-  grunt.registerTask("default", ["build_src", "build_app", "build_api", "less", "copy", "uglify", "watch"]);
+  grunt.registerTask("default", ["build_src", "build_demo", "build_api", "less", "copy", "uglify", "watch"]);
 
 };
