@@ -1,5 +1,7 @@
 require 'build/src/app/controllers/account'
 require 'build/src/app/controllers/account-password'
 require 'build/src/app/controllers/account-profile'
-
 require 'build/src/app/controllers/authenticated'
+require 'build/src/app/controllers/login'
+require 'build/src/app/controllers/user'
+require 'build/src/app/controllers/users'

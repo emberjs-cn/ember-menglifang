@@ -4,7 +4,7 @@ Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.exte
     return new Ember.RSVP.Promise (resolve, reject) ->
       # make the request to authenticate the user at endoint /users/sign_in
       Ember.$.ajax
-        url:  '/users/sign_in.json'
+        url:  '/users/sign_in'
         type: 'POST'
         data:
           grant_type: 'password'

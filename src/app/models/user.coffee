@@ -11,8 +11,8 @@ Menglifang.App.User = DS.Model.extend
       return reject('您两次输入的新密码不匹配') if newPwd != pwdConfirmation
 
       $.ajax(
-        url: "/api/v1/password"
-        type: "PATCH"
+        url: "/#{Menglifang.App.namespace}/password"
+        type: "PUT"
         data:
           password:
             current_password: oldPwd

@@ -1,11 +1,11 @@
 Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
-  title: 'UM'
+  title: 'MLF'
 
   sidebar:
     menus: [{
-      icon: '/assets/settings.png', url: '#系统管理', text: '系统管理',
+      icon: '/images/settings.png', url: '#系统管理', text: '系统管理',
       items: [
-        { icon: '/assets/users.png', route: 'users', text: '用户管理' }
+        { icon: '/images/users.png', route: 'users', text: '用户管理' }
       ]
     }]
 
@@ -17,4 +17,5 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
 
   availableRoles: [
     { label: '管理员', value: 'admin' }
+    { label: '普通用户', value: 'user' }
   ]

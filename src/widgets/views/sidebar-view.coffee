@@ -14,3 +14,6 @@ Menglifang.Widgets.SidebarView = Ember.View.extend
   didInsertElement: ->
     this.$().find('*[data-toggle="tooltip"]').tooltip()
     this.$().find('.menu-triggers li a').first().click()
+
+  actions:
+    toggle: -> @toggleProperty('expanded')
