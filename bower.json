@@ -27,6 +27,8 @@
     "bootstrap": "~3.1.0",
     "font-awesome": "~4.0.3",
     "list-view": "https://github.com/emberjs-cn/list-view-shim.git",
-    "ember-simple-auth": "~0.1.1"
+    "ember-simple-auth": "~0.1.1",
+    "ember-data": "~1.0.0-beta.6",
+    "notifier": "https://github.com/Srirangan/notifer.js.git#1.0.0"
   }
 }
