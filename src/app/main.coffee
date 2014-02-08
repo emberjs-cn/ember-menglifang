@@ -32,8 +32,11 @@ require 'build/src/app/serializers'
 require 'build/src/app/routes'
 
 Menglifang.App.create = (options) ->
-  Menglifang.App.host = options.host
-  Menglifang.App.namespace = options.namespace
+  Menglifang.App.ApplicationAdapter.reopen
+    host: options.host
+    namespace: options.namespace
 
   app = Ember.Application.create()
-  app = $.extend(app, Menglifang.App)
+  $.extend(app, Menglifang.App, options || {})
+
+  app
