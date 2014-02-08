@@ -1,10 +1,10 @@
 {
   "name": "ember-menglifang",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "authors": [
     "Tower He <towerhe@gmail.com>"
   ],
-  "description": "梦立方Ember库",
+  "description": "Ember Menglifang",
   "main": [
     "dist/ember-menglifang.css",
     "dist/ember-menglifang.js"
