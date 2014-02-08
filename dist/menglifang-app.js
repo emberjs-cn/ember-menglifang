@@ -1113,10 +1113,7 @@ Menglifang.App.AuthenticatedView = Ember.View.extend({
 (function() {
 
 
-Menglifang.App.ApplicationAdapter = DS.ActiveModelAdapter.extend({
-  host: Menglifang.App.host,
-  namespace: 'v1'
-});
+Menglifang.App.ApplicationAdapter = DS.ActiveModelAdapter.extend();
 
 
 })();
@@ -1307,10 +1304,13 @@ Menglifang.App.UsersRoute = Ember.Route.extend({
 
 Menglifang.App.create = function(options) {
   var app;
-  Menglifang.App.host = options.host;
-  Menglifang.App.namespace = options.namespace;
+  Menglifang.App.ApplicationAdapter.reopen({
+    host: options.host,
+    namespace: options.namespace
+  });
   app = Ember.Application.create();
-  return app = $.extend(app, Menglifang.App);
+  $.extend(app, Menglifang.App, options || {});
+  return app;
 };
 
 

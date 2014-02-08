@@ -154,6 +154,11 @@ module.exports = function (grunt) {
             expand: true,
             cwd: 'src/app/images/',
             src: ['**'],
+            dest: 'dist/images/'
+          }, {
+            expand: true,
+            cwd: 'src/app/images/',
+            src: ['**'],
             dest: 'examples/public/app/images/'
           }, {
             expand: true,
