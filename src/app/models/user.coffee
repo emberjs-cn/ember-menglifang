@@ -18,6 +18,7 @@ Menglifang.App.User = DS.Model.extend
             current_password: oldPwd
             password: newPwd
             password_confirmation: pwdConfirmation
+        dataType: 'json'
       ).then ->
         resolve()
       , (jqXHR, textStatus, errorThrown) ->

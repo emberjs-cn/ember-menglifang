@@ -9,6 +9,7 @@ Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.exte
         data:
           grant_type: 'password'
           user: { login: credentials.identification, password: credentials.password }
+        dataType: 'json'
       .then (response) ->
         Ember.run ->
           # resolve (including the account id) as the AJAX request was successful; all properties this promise resolves

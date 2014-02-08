@@ -777,7 +777,8 @@ Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.exte
             login: credentials.identification,
             password: credentials.password
           }
-        }
+        },
+        dataType: 'json'
       }).then(function(response) {
         return Ember.run(function() {
           return resolve({
@@ -845,7 +846,8 @@ Menglifang.App.User = DS.Model.extend({
             password: newPwd,
             password_confirmation: pwdConfirmation
           }
-        }
+        },
+        dataType: 'json'
       }).then(function() {
         return resolve();
       }, function(jqXHR, textStatus, errorThrown) {
