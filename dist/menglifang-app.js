@@ -784,7 +784,8 @@ Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.exte
           return resolve({
             user_email: response.user.email,
             user_token: response.user.authentication_token,
-            account_id: response.user.id
+            account_id: response.user.id,
+            auth_token: response.user.authentication_token
           });
         });
       }, function(xhr, status, error) {
