@@ -14,6 +14,6 @@ Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.exte
         Ember.run ->
           # resolve (including the account id) as the AJAX request was successful; all properties this promise resolves
           # with will be available through the session
-          resolve({ user_email: response.user.email, user_token: response.user.authentication_token, account_id: response.user.id, auth_token: response.user.authentication_token })
+          resolve({ user_email: response.user.email, user_token: response.user.authentication_token, account_id: response.user.id, access_token: response.user.authentication_token })
       , (xhr, status, error) ->
         Ember.run -> reject(xhr.responseText)
