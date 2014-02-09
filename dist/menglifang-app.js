@@ -552,13 +552,13 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 
   data.buffer.push(escapeExpression((helper = helpers['login-form'] || (depth0 && depth0['login-form']),options={hash:{
-    'title': ("用户登录"),
-    'copyright': ("&copy; 2013-2014 北京梦立方网络科技有限公司"),
+    'title': ("title"),
+    'copyright': ("copyright"),
     'identification': ("identification"),
     'password': ("password"),
     'supportedBrowers': ("supportedBrowers"),
     'action': ("authenticate")
-  },hashTypes:{'title': "STRING",'copyright': "STRING",'identification': "ID",'password': "ID",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'title': depth0,'copyright': depth0,'identification': depth0,'password': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
+  },hashTypes:{'title': "ID",'copyright': "ID",'identification': "ID",'password': "ID",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'title': depth0,'copyright': depth0,'identification': depth0,'password': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
   data.buffer.push("\n");
   return buffer;
   
