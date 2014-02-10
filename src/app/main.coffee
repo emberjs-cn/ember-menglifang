@@ -12,7 +12,7 @@ if 'undefined' == typeof(Menglifang)
 ## Used for bundling files together using neuter
 #Menglifang.App = Ember.Namespace.create()
 Menglifang.App = {}
-Menglifang.App.VERSION = '0.0.1'
+Menglifang.App.VERSION = '0.1.1'
 
 Ember.libraries?.register 'Menglifang App', Menglifang.App.VERSION
 

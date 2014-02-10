@@ -266,7 +266,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.0.1';
+Menglifang.Widgets.VERSION = '0.1.1';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -388,7 +388,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.App = {};
 
-Menglifang.App.VERSION = '0.0.1';
+Menglifang.App.VERSION = '0.1.1';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang App', Menglifang.App.VERSION);
