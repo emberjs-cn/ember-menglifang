@@ -6,6 +6,11 @@ Menglifang.App.UserController = Ember.ObjectController.extend
 
   breadcrumbItems: Ember.computed.alias('controllers.users.breadcrumbItems')
 
+  modalButtons: [
+    Ember.Object.create title: '确认', clicked: "confirm"
+    Ember.Object.create title: '取消', dismiss: 'modal'
+  ]
+
   actions:
     revertChanges: ->
       @get('model').rollback() if @get('model.isDirty')
@@ -17,6 +22,13 @@ Menglifang.App.UserController = Ember.ObjectController.extend
       , -> Notifier.error('保存用户失败')
 
     remove: ->
+      Bootstrap.ModalManager.show('removeConfirmation')
+
+    cancel: ->
+      @get('model').rollback()
+      @transitionToRoute('users')
+
+    confirm: ->
       if @get('model.id') == @get('session.account.id')
         return Notifier.error('对不起，您不允许删除自己！')
 
@@ -26,6 +38,4 @@ Menglifang.App.UserController = Ember.ObjectController.extend
         @transitionToRoute('users')
       , -> Notifier.error('删除用户失败')
 
-    cancel: ->
-      @get('model').rollback()
-      @transitionToRoute('users')
+      Bootstrap.ModalManager.hide('removeConfirmation')
