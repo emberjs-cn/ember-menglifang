@@ -36,6 +36,10 @@ Menglifang.App.create = (options) ->
     host: options.host
     namespace: options.namespace
 
+  Menglifang.App.LoginController.reopen
+    title: options.title
+    copyright: options.copyright
+
   app = Ember.Application.create()
 
   # 必须将配置信息付给Menglifang.App，因为内部将使用该命名空间来查找配置项

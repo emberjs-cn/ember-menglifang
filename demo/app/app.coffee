@@ -7,6 +7,9 @@ require 'bower_components/ember-simple-auth/ember-simple-auth'
 require 'bower_components/bootstrap/dist/js/bootstrap'
 require 'bower_components/list-view/list-view'
 require 'bower_components/notifier/notifier'
+require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-core.max'
+require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-button.max'
+require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-modal.max'
 
 require 'dist/menglifang-app'
 
@@ -17,5 +20,8 @@ Menglifang.App.TRANSLATIONS =
 App = window.App = Menglifang.App.create
   host: 'http://localhost:8000'
   namespace: 'v1'
+
+  title: 'Menglifang App'
+  copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司'
 
 require 'build/demo/app/router'
