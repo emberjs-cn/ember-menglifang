@@ -398,6 +398,76 @@ if ((_ref = Ember.libraries) != null) {
 })();
 (function() {
 
+
+Menglifang.App.ModelManagerMixin = Ember.Mixin.create({
+  modelName: '',
+  humanModelName: '',
+  afterSaveRoute: (function() {
+    return this.get('modelName');
+  }).property('modelName'),
+  afterCancelRoute: (function() {
+    return Ember.String.pluralize(this.get('modelName'));
+  }).property('modelName'),
+  afterDestroyRoute: (function() {
+    return Ember.String.pluralize(this.get('modelName'));
+  }).property('modelName'),
+  removeConfirmationTitle: '确认删除',
+  removeConfirmationMessage: (function() {
+    return "您确认需要删除该" + (this.get('humanModelName')) + "吗？";
+  }).property('humanModelName'),
+  removeConfirmationButtons: [
+    Ember.Object.create({
+      title: '确认',
+      clicked: "confirmRemove"
+    }), Ember.Object.create({
+      title: '取消',
+      dismiss: 'modal'
+    })
+  ],
+  beforeConfirmRemove: Ember.K,
+  actions: {
+    revertChanges: function() {
+      if (this.get('model.isDirty')) {
+        return this.get('model').rollback();
+      }
+    },
+    save: function() {
+      var _this = this;
+      return this.get('model').save().then(function() {
+        Notifier.success("保存" + (_this.get('humanModelName')) + "成功");
+        return _this.transitionToRoute(_this.get('afterSaveRoute'), _this.get('model'));
+      }, function() {
+        return Notifier.error("保存" + (_this.get('humanModelName')) + "失败");
+      });
+    },
+    remove: function() {
+      return Bootstrap.ModalManager.show('removeConfirmation');
+    },
+    cancel: function() {
+      this.get('model').rollback();
+      return this.transitionToRoute(this.get('afterCancelRoute'));
+    },
+    confirmRemove: function() {
+      var _this = this;
+      Bootstrap.ModalManager.hide('removeConfirmation');
+      if (!this.beforeConfirmRemove()) {
+        return false;
+      }
+      this.get('model').deleteRecord();
+      return this.get('model').save().then(function() {
+        Notifier.success("删除" + (_this.get('humanModelName')) + "成功");
+        return _this.transitionToRoute(_this.get('afterDestroyRoute'));
+      }, function() {
+        return Notifier.error("删除" + (_this.get('humanModelName')) + "失败");
+      });
+    }
+  }
+});
+
+
+})();
+(function() {
+
 Ember.TEMPLATES["account"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -678,8 +748,12 @@ function program7(depth0,data) {
 
 function program9(depth0,data) {
   
-  
-  data.buffer.push("\n   <p>确认需要删除该用户吗？</p>\n");
+  var buffer = '', stack1;
+  data.buffer.push("\n  <p>");
+  stack1 = helpers._triageMustache.call(depth0, "removeConfirmationMessage", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</p>\n");
+  return buffer;
   }
 
   data.buffer.push("<form class=\"form-horizontal\" role=\"form\">\n  <h2>");
@@ -729,9 +803,9 @@ function program9(depth0,data) {
   stack1 = (helper = helpers['bs-modal'] || (depth0 && depth0['bs-modal']),options={hash:{
     'name': ("removeConfirmation"),
     'fade': (true),
-    'footerButtons': ("modalButtons"),
-    'title': ("确认删除")
-  },hashTypes:{'name': "STRING",'fade': "BOOLEAN",'footerButtons': "ID",'title': "STRING"},hashContexts:{'name': depth0,'fade': depth0,'footerButtons': depth0,'title': depth0},inverse:self.noop,fn:self.program(9, program9, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bs-modal", options));
+    'footerButtons': ("removeConfirmationButtons"),
+    'title': ("removeConfirmationTitle")
+  },hashTypes:{'name': "STRING",'fade': "BOOLEAN",'footerButtons': "ID",'title': "ID"},hashContexts:{'name': depth0,'fade': depth0,'footerButtons': depth0,'title': depth0},inverse:self.noop,fn:self.program(9, program9, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bs-modal", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
@@ -1042,55 +1116,19 @@ Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginC
 (function() {
 
 
-Menglifang.App.UserController = Ember.ObjectController.extend({
+Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.ModelManagerMixin, {
   needs: ['authenticated', 'users'],
   formLegend: '用户管理',
   availableRoles: Ember.computed.alias('controllers.authenticated.availableRoles'),
   breadcrumbItems: Ember.computed.alias('controllers.users.breadcrumbItems'),
-  modalButtons: [
-    Ember.Object.create({
-      title: '确认',
-      clicked: "confirm"
-    }), Ember.Object.create({
-      title: '取消',
-      dismiss: 'modal'
-    })
-  ],
-  actions: {
-    revertChanges: function() {
-      if (this.get('model.isDirty')) {
-        return this.get('model').rollback();
-      }
-    },
-    save: function() {
-      var _this = this;
-      return this.get('model').save().then(function() {
-        Notifier.success('保存用户成功');
-        return _this.transitionToRoute('user', _this.get('model'));
-      }, function() {
-        return Notifier.error('保存用户失败');
-      });
-    },
-    remove: function() {
-      return Bootstrap.ModalManager.show('removeConfirmation');
-    },
-    cancel: function() {
-      this.get('model').rollback();
-      return this.transitionToRoute('users');
-    },
-    confirm: function() {
-      var _this = this;
-      if (this.get('model.id') === this.get('session.account.id')) {
-        return Notifier.error('对不起，您不允许删除自己！');
-      }
-      this.get('model').deleteRecord();
-      this.get('model').save().then(function() {
-        Notifier.success('删除用户成功');
-        return _this.transitionToRoute('users');
-      }, function() {
-        return Notifier.error('删除用户失败');
-      });
-      return Bootstrap.ModalManager.hide('removeConfirmation');
+  modelName: 'user',
+  humanModelName: '用户',
+  beforeConfirmRemove: function() {
+    if (this.get('model.id') === this.get('session.account_id')) {
+      Notifier.error('对不起，您不允许删除自己！');
+      return false;
+    } else {
+      return true;
     }
   }
 });

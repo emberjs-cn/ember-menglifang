@@ -16,6 +16,7 @@ Menglifang.App.VERSION = '0.0.1'
 
 Ember.libraries?.register 'Menglifang App', Menglifang.App.VERSION
 
+require 'build/src/app/mixins'
 require 'build/src/app/templates'
 require 'build/src/app/initializers/simple-auth'
 
