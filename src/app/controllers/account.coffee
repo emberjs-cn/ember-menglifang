@@ -1,11 +1,12 @@
-Menglifang.App.AccountController = Ember.ObjectController.extend
+Menglifang.App.AccountController = Ember.ObjectController.extend Menglifang.App.MainToolbarMixin,
   needs: 'authenticated'
 
   availableRoles: Ember.computed.alias('controllers.authenticated.availableRoles')
 
-  breadcrumbItems: [
-    { text: '个人设置' }
-  ]
+  init: ->
+    @setupToolbar [{ text: '个人设置' }]
+
+    @_super()
 
   listItems: [
     { text: '个人信息', icon: 'fa fa-user', route: 'account.profile' }

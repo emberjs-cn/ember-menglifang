@@ -1,8 +1,4 @@
-Menglifang.App.AccountProfileController = Ember.ObjectController.extend
-  needs: 'account'
-
-  breadcrumbItems: Ember.computed.alias('controllers.account.breadcrumbItems')
-
+Menglifang.App.AccountProfileController = Ember.ObjectController.extend Menglifang.App.MainToolbarMixin,
   actions:
     revertChanges: ->
       @get('model').rollback() if @get('model.isDirty')

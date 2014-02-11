@@ -1,10 +1,8 @@
-Menglifang.App.UserController = Ember.ObjectController.extend Menglifang.App.ModelManagerMixin,
-  needs: ['authenticated', 'users']
+Menglifang.App.UserController = Ember.ObjectController.extend Menglifang.App.ModelManagerMixin, Menglifang.App.MainToolbarMixin,
+  needs: ['authenticated']
 
   formLegend: '用户管理'
   availableRoles: Ember.computed.alias('controllers.authenticated.availableRoles')
-
-  breadcrumbItems: Ember.computed.alias('controllers.users.breadcrumbItems')
 
   modelName: 'user'
   humanModelName: '用户'

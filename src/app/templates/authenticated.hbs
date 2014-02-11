@@ -1,3 +1,7 @@
 {{#view Menglifang.Widgets.AppView title=title sidebar=sidebar}}
-  {{outlet}}
+  {{main-toolbar items=breadcrumbItems links=toolbarLinks}}
+
+  <div class="container-fluid">
+    {{outlet}}
+  </div>
 {{/view}}

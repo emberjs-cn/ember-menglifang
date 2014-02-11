@@ -1,8 +1,4 @@
-Menglifang.App.AccountPasswordController = Ember.ObjectController.extend
-  needs: 'account'
-
-  breadcrumbItems: Ember.computed.alias('controllers.account.breadcrumbItems')
-
+Menglifang.App.AccountPasswordController = Ember.ObjectController.extend Menglifang.App.MainToolbarMixin,
   actions:
     save: ->
       @get('model').changePassword(
