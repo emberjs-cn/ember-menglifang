@@ -620,7 +620,7 @@ function program1(depth0,data) {
     'items': ("breadcrumbItems"),
     'links': ("toolbarLinks")
   },hashTypes:{'items': "ID",'links': "ID"},hashContexts:{'items': depth0,'links': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "main-toolbar", options))));
-  data.buffer.push("\n\n  <div class=\"container-fluid\">\n    ");
+  data.buffer.push("\n\n  <div class=\"mlf-container\">\n    ");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n  </div>\n");
