@@ -1,3 +1,14 @@
+<ul class="mlf-toolbar-links pull-right">
+  {{#each toolbarLinks}}
+    <li>
+      {{#link-to route}}
+        <i {{bind-attr class=icon}}></i>
+        {{text}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>
+
 {{#collection Menglifang.Widgets.ListView content=model height=100 width=300 rowHeight=60}}
   {{#link-to 'user' id}}
     <div class="name">

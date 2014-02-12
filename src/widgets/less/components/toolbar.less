@@ -34,27 +34,29 @@
       color: @white;
     }
   }
+}
 
-  ul.links {
-    list-style-type: none;
-    margin: 0;
-    li {
-      float: left;
+ul.mlf-toolbar-links {
+  list-style-type: none;
+  margin: 0;
+  margin-top: -60px;
+  background: @blue;
+  li {
+    float: left;
+    color: @white;
+    i {
+      margin-right: 10px;
+    }
+    a {
+      display: inline-block;
+      height: 60px;
+      line-height: 60px;
+      padding: 0 20px;
+      font-weight: bold;
+      border-left: 1px solid lighten(@blue, 20%);
       color: @white;
-      i {
-        margin-right: 10px;
-      }
-      a {
-        display: inline-block;
-        height: 60px;
-        line-height: 60px;
-        padding: 0 20px;
-        font-weight: bold;
-        border-left: 1px solid lighten(@blue, 20%);
-        color: @white;
-        &:hover {
-          background-color: @navy;
-        }
+      &:hover {
+        background-color: @navy;
       }
     }
   }
