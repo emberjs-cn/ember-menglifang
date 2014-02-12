@@ -71,7 +71,7 @@ function program1(depth0,data) {
 Ember.TEMPLATES["components/mlf-main-toolbar"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
@@ -111,39 +111,13 @@ function program5(depth0,data) {
   return buffer;
   }
 
-function program7(depth0,data) {
-  
-  var buffer = '', stack1, helper, options;
-  data.buffer.push("\n    <li>\n      ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    </li>\n  ");
-  return buffer;
-  }
-function program8(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\n        <i ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'class': ("icon")
-  },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push("></i>\n        ");
-  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n      ");
-  return buffer;
-  }
-
   data.buffer.push("<ol class=\"breadcrumb pull-left\">\n  ");
   stack1 = helpers.each.call(depth0, "view.parentItems", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n  <li class=\"active\">");
   stack1 = helpers._triageMustache.call(depth0, "view.activeItem.name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</li>\n</ol>\n\n<ul class=\"links pull-right\">\n  ");
-  stack1 = helpers.each.call(depth0, "view.links", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</ul>\n");
+  data.buffer.push("</li>\n</ol>\n");
   return buffer;
   
 });
@@ -451,50 +425,6 @@ Menglifang.App.translations = {
 (function() {
 
 
-Menglifang.App.BreadcrumbMixin = Ember.Mixin.create({
-  breadcrumbs: [],
-  actions: {
-    currentPathDidChange: function() {
-      var breadcrumbs, routes;
-      this.get('breadcrumbs').clear();
-      routes = this.container.lookup('router:main').get('router.currentHandlerInfos');
-      if (Ember.isEmpty(routes)) {
-        return;
-      }
-      breadcrumbs = [];
-      routes.forEach(function(route, i, arr) {
-        var breadcrumb, context, handler, name;
-        name = route.name;
-        if (name.indexOf('.index') !== -1 || name === 'application' || name === 'authenticated') {
-          return;
-        }
-        handler = route.handler;
-        breadcrumb = Ember.Object.create({
-          route: handler.routeName,
-          name: Ember.I18n.t("routes." + handler.routeName),
-          model: null
-        });
-        if (route.isDynamic) {
-          context = handler.context;
-          breadcrumb.setProperties({
-            model: context,
-            name: context.get('name') || context.get('id')
-          });
-        }
-        return breadcrumbs.pushObject(breadcrumb);
-      });
-      if (!Ember.isEmpty(breadcrumbs)) {
-        return this.set('breadcrumbs', breadcrumbs);
-      }
-    }
-  }
-});
-
-
-})();
-(function() {
-
-
 Menglifang.App.AuthenticatedRouteMixin = Ember.Mixin.create(Ember.SimpleAuth.AuthenticatedRouteMixin);
 
 
@@ -694,18 +624,15 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["authenticated"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  var buffer = '', stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\n  ");
-  data.buffer.push(escapeExpression(helpers.log.call(depth0, "breadcrumbs", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n  ");
   data.buffer.push(escapeExpression((helper = helpers['main-toolbar'] || (depth0 && depth0['main-toolbar']),options={hash:{
-    'items': ("breadcrumbs"),
-    'links': ("toolbarLinks")
-  },hashTypes:{'items': "ID",'links': "ID"},hashContexts:{'items': depth0,'links': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "main-toolbar", options))));
+    'items': ("breadcrumbs")
+  },hashTypes:{'items': "ID"},hashContexts:{'items': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "main-toolbar", options))));
   data.buffer.push("\n\n  <div class=\"mlf-container\">\n    ");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -757,18 +684,41 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["users"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
   var buffer = '', stack1, helper, options;
+  data.buffer.push("\n    <li>\n      ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    </li>\n  ");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n        <i ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("icon")
+  },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push("></i>\n        ");
+  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      ");
+  return buffer;
+  }
+
+function program4(depth0,data) {
+  
+  var buffer = '', stack1, helper, options;
   data.buffer.push("\n  ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "user", "id", options) : helperMissing.call(depth0, "link-to", "user", "id", options));
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "user", "id", options) : helperMissing.call(depth0, "link-to", "user", "id", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
   }
-function program2(depth0,data) {
+function program5(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n    <div class=\"name\">\n      ");
@@ -784,12 +734,16 @@ function program2(depth0,data) {
   return buffer;
   }
 
+  data.buffer.push("<ul class=\"mlf-toolbar-links pull-right\">\n  ");
+  stack1 = helpers.each.call(depth0, "toolbarLinks", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n</ul>\n\n");
   stack1 = (helper = helpers.collection || (depth0 && depth0.collection),options={hash:{
     'content': ("model"),
     'height': (100),
     'width': (300),
     'rowHeight': (60)
-  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "Menglifang.Widgets.ListView", options) : helperMissing.call(depth0, "collection", "Menglifang.Widgets.ListView", options));
+  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "Menglifang.Widgets.ListView", options) : helperMissing.call(depth0, "collection", "Menglifang.Widgets.ListView", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1145,7 +1099,7 @@ Menglifang.App.AccountProfileController = Ember.ObjectController.extend({
 (function() {
 
 
-Menglifang.App.AuthenticatedController = Ember.ObjectController.extend(Menglifang.App.BreadcrumbMixin, {
+Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
   title: 'MLF',
   sidebar: {
     menus: [
@@ -1186,7 +1140,43 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend(Menglifan
       label: '普通用户',
       value: 'user'
     }
-  ]
+  ],
+  breadcrumbs: [],
+  actions: {
+    currentPathDidChange: function() {
+      var breadcrumbs, routes;
+      this.get('breadcrumbs').clear();
+      routes = this.container.lookup('router:main').get('router.currentHandlerInfos');
+      if (Ember.isEmpty(routes)) {
+        return;
+      }
+      breadcrumbs = [];
+      routes.forEach(function(route, i, arr) {
+        var breadcrumb, context, handler, name;
+        name = route.name;
+        if (name.indexOf('.index') !== -1 || name === 'application' || name === 'authenticated') {
+          return;
+        }
+        handler = route.handler;
+        breadcrumb = Ember.Object.create({
+          route: handler.routeName,
+          name: Ember.I18n.t("routes." + handler.routeName),
+          model: null
+        });
+        if (route.isDynamic) {
+          context = handler.context;
+          breadcrumb.setProperties({
+            model: context,
+            name: context.get('name') || context.get('id')
+          });
+        }
+        return breadcrumbs.pushObject(breadcrumb);
+      });
+      if (!Ember.isEmpty(breadcrumbs)) {
+        return this.set('breadcrumbs', breadcrumbs);
+      }
+    }
+  }
 });
 
 
@@ -1248,7 +1238,15 @@ Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.Mod
 (function() {
 
 
-Menglifang.App.UsersController = Ember.ArrayController.extend();
+Menglifang.App.UsersController = Ember.ArrayController.extend({
+  toolbarLinks: [
+    {
+      text: '添加用户',
+      route: 'users.new',
+      icon: 'fa fa-plus'
+    }
+  ]
+});
 
 
 })();
