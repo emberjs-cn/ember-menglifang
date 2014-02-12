@@ -1,7 +1,9 @@
 # Ember Menglifang Dependencies
 require 'bower_components/jquery/jquery'
+require 'bower_components/cldr/plurals'
 require 'bower_components/handlebars/handlebars'
 require 'bower_components/ember/ember'
+require 'bower_components/ember-i18n/lib/i18n'
 require 'bower_components/ember-data/ember-data'
 require 'bower_components/ember-simple-auth/ember-simple-auth'
 require 'bower_components/bootstrap/dist/js/bootstrap'
@@ -12,10 +14,6 @@ require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-button.max'
 require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-modal.max'
 
 require 'dist/menglifang-app'
-
-Menglifang.App.TRANSLATIONS =
-  admin: '管理员'
-  user: '普通用户'
 
 App = window.App = Menglifang.App.create
   host: 'http://localhost:8000'
