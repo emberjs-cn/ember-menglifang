@@ -75,33 +75,52 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  var buffer = '', stack1, helper, options;
+  var buffer = '', stack1;
   data.buffer.push("\n    <li>\n      ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
+  stack1 = helpers['if'].call(depth0, "model", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(5, program5, data),fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </li>\n  ");
   return buffer;
   }
 function program2(depth0,data) {
   
-  var buffer = '', stack1;
+  var buffer = '', stack1, helper, options;
   data.buffer.push("\n        ");
-  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0,depth0],types:["ID","ID"],data:data},helper ? helper.call(depth0, "route", "model.id", options) : helperMissing.call(depth0, "link-to", "route", "model.id", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      ");
+  return buffer;
+  }
+function program3(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n          ");
+  stack1 = helpers._triageMustache.call(depth0, "name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n        ");
+  return buffer;
+  }
+
+function program5(depth0,data) {
+  
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n        ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n      ");
   return buffer;
   }
 
-function program4(depth0,data) {
+function program7(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\n    <li>\n      ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </li>\n  ");
   return buffer;
   }
-function program5(depth0,data) {
+function program8(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n        <i ");
@@ -119,10 +138,10 @@ function program5(depth0,data) {
   stack1 = helpers.each.call(depth0, "view.parentItems", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n  <li class=\"active\">");
-  stack1 = helpers._triageMustache.call(depth0, "view.activeItem.text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers._triageMustache.call(depth0, "view.activeItem.name", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</li>\n</ol>\n\n<ul class=\"links pull-right\">\n  ");
-  stack1 = helpers.each.call(depth0, "view.links", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.each.call(depth0, "view.links", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</ul>\n");
   return buffer;
@@ -307,7 +326,9 @@ Menglifang.Widgets.MainToolbarComponent = Ember.Component.extend({
   templateName: 'components/mlf-main-toolbar',
   classNames: ['mlf-main-toolbar'],
   parentItems: (function() {
-    return this.get('items').slice(0, this.get('items.length') - 1);
+    if (!Ember.isEmpty(this.get('items'))) {
+      return this.get('items').slice(0, this.get('items.length') - 1);
+    }
   }).property('items.@each'),
   activeItem: (function() {
     return this.get('items.lastObject');
@@ -386,9 +407,25 @@ if ('undefined' === typeof Menglifang) {
   }
 }
 
-Menglifang.App = {};
-
-Menglifang.App.VERSION = '0.1.1';
+Menglifang.App = {
+  VERSION: '0.1.1',
+  create: function(options) {
+    var app;
+    $.extend(Ember.I18n.translations, Menglifang.App.translations);
+    Menglifang.App.ApplicationAdapter.reopen({
+      host: options.host,
+      namespace: options.namespace
+    });
+    Menglifang.App.LoginController.reopen({
+      title: options.title,
+      copyright: options.copyright
+    });
+    app = Ember.Application.create();
+    $.extend(Menglifang.App, options || {});
+    $.extend(app, Menglifang.App);
+    return app;
+  }
+};
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang App', Menglifang.App.VERSION);
@@ -399,21 +436,66 @@ if ((_ref = Ember.libraries) != null) {
 (function() {
 
 
-Menglifang.App.MainToolbarMixin = Ember.Mixin.create({
-  needs: ['authenticated'],
-  breadcrumbItems: Ember.computed.alias('controllers.authenticated.breadcrumbItems'),
-  toolbarLinks: Ember.computed.alias('controllers.authenticated.toolbarLinks'),
-  setupToolbar: function(items, links) {
-    this.setBreadcrumbItems(items);
-    return this.setToolbarLinks(links);
-  },
-  setBreadcrumbItems: function(items) {
-    return this.set('breadcrumbItems', items);
-  },
-  setToolbarLinks: function(links) {
-    return this.set('toolbarLinks', links);
+Menglifang.App.translations = {
+  'models.role.admin': '管理员',
+  'models.role.user': '普通用户',
+  'routes.users': '用户管理',
+  'routes.users.new': '添加用户',
+  'routes.account': '个人设置',
+  'routes.account.profile': '个人信息',
+  'routes.account.password': '修改密码'
+};
+
+
+})();
+(function() {
+
+
+Menglifang.App.BreadcrumbMixin = Ember.Mixin.create({
+  breadcrumbs: [],
+  actions: {
+    currentPathDidChange: function() {
+      var breadcrumbs, routes;
+      this.get('breadcrumbs').clear();
+      routes = this.container.lookup('router:main').get('router.currentHandlerInfos');
+      if (Ember.isEmpty(routes)) {
+        return;
+      }
+      breadcrumbs = [];
+      routes.forEach(function(route, i, arr) {
+        var breadcrumb, context, handler, name;
+        name = route.name;
+        if (name.indexOf('.index') !== -1 || name === 'application' || name === 'authenticated') {
+          return;
+        }
+        handler = route.handler;
+        breadcrumb = Ember.Object.create({
+          route: handler.routeName,
+          name: Ember.I18n.t("routes." + handler.routeName),
+          model: null
+        });
+        if (route.isDynamic) {
+          context = handler.context;
+          breadcrumb.setProperties({
+            model: context,
+            name: context.get('name') || context.get('id')
+          });
+        }
+        return breadcrumbs.pushObject(breadcrumb);
+      });
+      if (!Ember.isEmpty(breadcrumbs)) {
+        return this.set('breadcrumbs', breadcrumbs);
+      }
+    }
   }
 });
+
+
+})();
+(function() {
+
+
+Menglifang.App.AuthenticatedRouteMixin = Ember.Mixin.create(Ember.SimpleAuth.AuthenticatedRouteMixin);
 
 
 })();
@@ -597,7 +679,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
     'placeholder': ("必填且唯一")
   },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <label class=\"col-sm-3 control-label\" for=\"role\">角色</label>\n    <div class=\"col-sm-9\">\n      <p class=\"form-control-static\">");
-  data.buffer.push(escapeExpression((helper = helpers.translate || (depth0 && depth0.translate),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "roles", options) : helperMissing.call(depth0, "translate", "roles", options))));
+  data.buffer.push(escapeExpression((helper = helpers.pt || (depth0 && depth0.pt),options={hash:{
+    'scope': ("models.role")
+  },hashTypes:{'scope': "STRING"},hashContexts:{'scope': depth0},contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "roles", options) : helperMissing.call(depth0, "pt", "roles", options))));
   data.buffer.push("</p>\n    </div>\n  </div>\n  <div class=\"form-group buttons\">\n    <div class=\"col-sm-3\"></div>\n    <div class=\"col-sm-9\">\n      <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">\n        <i class=\"fa fa-save\"></i> 保存\n      </button>\n      <button class=\"btn btn-link\" ");
@@ -610,14 +694,16 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["authenticated"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\n  ");
+  data.buffer.push(escapeExpression(helpers.log.call(depth0, "breadcrumbs", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n  ");
   data.buffer.push(escapeExpression((helper = helpers['main-toolbar'] || (depth0 && depth0['main-toolbar']),options={hash:{
-    'items': ("breadcrumbItems"),
+    'items': ("breadcrumbs"),
     'links': ("toolbarLinks")
   },hashTypes:{'items': "ID",'links': "ID"},hashContexts:{'items': depth0,'links': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "main-toolbar", options))));
   data.buffer.push("\n\n  <div class=\"mlf-container\">\n    ");
@@ -921,8 +1007,24 @@ Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
 (function() {
 
 
-Ember.Handlebars.helper('translate', function(value, options) {
-  return Menglifang.App.TRANSLATIONS[value];
+Ember.Route.reopen({
+  afterModel: function() {
+    var _this = this;
+    return Ember.run.next(this, function() {
+      return _this.controllerFor('authenticated').send('currentPathDidChange');
+    });
+  }
+});
+
+
+})();
+(function() {
+
+
+Ember.Handlebars.registerBoundHelper('pt', function(propName, options) {
+  var key, scope;
+  key = (scope = options.hash.scope) ? "" + scope + "." + propName : propName;
+  return Ember.I18n.t(key);
 });
 
 
@@ -937,6 +1039,7 @@ Menglifang.App.User = DS.Model.extend({
   password: DS.attr(),
   roles: DS.attr(),
   accessLocked: DS.attr('boolean'),
+  name: Ember.computed.any('realname', 'username'),
   changePassword: function(oldPwd, newPwd, pwdConfirmation) {
     var _this = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -968,17 +1071,9 @@ Menglifang.App.User = DS.Model.extend({
 (function() {
 
 
-Menglifang.App.AccountController = Ember.ObjectController.extend(Menglifang.App.MainToolbarMixin, {
+Menglifang.App.AccountController = Ember.ObjectController.extend({
   needs: 'authenticated',
   availableRoles: Ember.computed.alias('controllers.authenticated.availableRoles'),
-  init: function() {
-    this.setupToolbar([
-      {
-        text: '个人设置'
-      }
-    ]);
-    return this._super();
-  },
   listItems: [
     {
       text: '个人信息',
@@ -997,7 +1092,7 @@ Menglifang.App.AccountController = Ember.ObjectController.extend(Menglifang.App.
 (function() {
 
 
-Menglifang.App.AccountPasswordController = Ember.ObjectController.extend(Menglifang.App.MainToolbarMixin, {
+Menglifang.App.AccountPasswordController = Ember.ObjectController.extend({
   actions: {
     save: function() {
       var _this = this;
@@ -1027,7 +1122,7 @@ Menglifang.App.AccountPasswordController = Ember.ObjectController.extend(Menglif
 (function() {
 
 
-Menglifang.App.AccountProfileController = Ember.ObjectController.extend(Menglifang.App.MainToolbarMixin, {
+Menglifang.App.AccountProfileController = Ember.ObjectController.extend({
   actions: {
     revertChanges: function() {
       if (this.get('model.isDirty')) {
@@ -1050,7 +1145,7 @@ Menglifang.App.AccountProfileController = Ember.ObjectController.extend(Menglifa
 (function() {
 
 
-Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
+Menglifang.App.AuthenticatedController = Ember.ObjectController.extend(Menglifang.App.BreadcrumbMixin, {
   title: 'MLF',
   sidebar: {
     menus: [
@@ -1091,9 +1186,7 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
       label: '普通用户',
       value: 'user'
     }
-  ],
-  breadcrumbItems: [],
-  toolbarLinks: []
+  ]
 });
 
 
@@ -1134,7 +1227,7 @@ Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginC
 (function() {
 
 
-Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.ModelManagerMixin, Menglifang.App.MainToolbarMixin, {
+Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.ModelManagerMixin, {
   needs: ['authenticated'],
   formLegend: '用户管理',
   availableRoles: Ember.computed.alias('controllers.authenticated.availableRoles'),
@@ -1155,22 +1248,7 @@ Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.Mod
 (function() {
 
 
-Menglifang.App.UsersController = Ember.ArrayController.extend(Menglifang.App.MainToolbarMixin, {
-  init: function() {
-    this.setupToolbar([
-      {
-        text: '用户管理'
-      }
-    ], [
-      {
-        text: '添加用户',
-        route: 'users.new',
-        icon: 'fa fa-plus'
-      }
-    ]);
-    return this._super();
-  }
-});
+Menglifang.App.UsersController = Ember.ArrayController.extend();
 
 
 })();
@@ -1214,26 +1292,9 @@ Menglifang.App.ApplicationSerializer = DS.ActiveModelSerializer.extend();
 (function() {
 
 
-Menglifang.App.AccountPasswordRoute = Ember.Route.extend({
-  beforeModel: function() {
-    return this.controllerFor('account').set('breadcrumbItems', [
-      {
-        text: '个人设置',
-        route: 'account'
-      }, {
-        text: '修改密码'
-      }
-    ]);
-  },
+Menglifang.App.AccountPasswordRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
     return this.get('session.account');
-  },
-  actions: {
-    willTransition: function(transition) {
-      var controller;
-      controller = this.get('controller');
-      return controller.set('breadcrumbItems', controller.get('breadcrumbItems').slice(0, -1));
-    }
   }
 });
 
@@ -1242,26 +1303,9 @@ Menglifang.App.AccountPasswordRoute = Ember.Route.extend({
 (function() {
 
 
-Menglifang.App.AccountProfileRoute = Ember.Route.extend({
-  beforeModel: function() {
-    return this.controllerFor('account').set('breadcrumbItems', [
-      {
-        text: '个人设置',
-        route: 'account'
-      }, {
-        text: '个人信息'
-      }
-    ]);
-  },
+Menglifang.App.AccountProfileRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
     return this.get('session.account');
-  },
-  actions: {
-    willTransition: function(transition) {
-      var controller;
-      controller = this.get('controller');
-      return controller.set('breadcrumbItems', controller.get('breadcrumbItems').slice(0, -1));
-    }
   }
 });
 
@@ -1312,17 +1356,7 @@ Menglifang.App.LogoutRoute = Ember.Route.extend({
 (function() {
 
 
-Menglifang.App.UserRoute = Ember.Route.extend({
-  beforeModel: function() {
-    return this.controllerFor('users').set('breadcrumbItems', [
-      {
-        text: '用户管理',
-        route: 'users'
-      }, {
-        text: '编辑用户'
-      }
-    ]);
-  },
+Menglifang.App.UserRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function(params) {
     return this.store.find('user', params.user_id);
   },
@@ -1332,10 +1366,7 @@ Menglifang.App.UserRoute = Ember.Route.extend({
   },
   actions: {
     willTransition: function() {
-      var controller;
-      controller = this.get('controller');
-      controller.send('revertChanges');
-      return controller.set('breadcrumbItems', controller.get('breadcrumbItems').slice(0, -1));
+      return this.get('controller').send('revertChanges');
     }
   }
 });
@@ -1345,18 +1376,8 @@ Menglifang.App.UserRoute = Ember.Route.extend({
 (function() {
 
 
-Menglifang.App.UsersNewRoute = Ember.Route.extend({
+Menglifang.App.UsersNewRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   controllerName: 'user',
-  beforeModel: function() {
-    return this.controllerFor('users').set('breadcrumbItems', [
-      {
-        text: '用户管理',
-        route: 'users'
-      }, {
-        text: '添加用户'
-      }
-    ]);
-  },
   model: function() {
     return this.store.createRecord('user');
   },
@@ -1366,10 +1387,7 @@ Menglifang.App.UsersNewRoute = Ember.Route.extend({
   },
   actions: {
     willTransition: function() {
-      var controller;
-      controller = this.get('controller');
-      controller.send('revertChanges');
-      return controller.set('breadcrumbItems', controller.get('breadcrumbItems').slice(0, -1));
+      return this.get('controller').send('revertChanges');
     }
   }
 });
@@ -1379,31 +1397,11 @@ Menglifang.App.UsersNewRoute = Ember.Route.extend({
 (function() {
 
 
-Menglifang.App.UsersRoute = Ember.Route.extend({
+Menglifang.App.UsersRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
     return this.store.find('user');
   }
 });
-
-
-})();
-(function() {
-
-Menglifang.App.create = function(options) {
-  var app;
-  Menglifang.App.ApplicationAdapter.reopen({
-    host: options.host,
-    namespace: options.namespace
-  });
-  Menglifang.App.LoginController.reopen({
-    title: options.title,
-    copyright: options.copyright
-  });
-  app = Ember.Application.create();
-  $.extend(Menglifang.App, options || {});
-  $.extend(app, Menglifang.App);
-  return app;
-};
 
 
 })();
