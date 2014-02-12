@@ -1117,7 +1117,7 @@ Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginC
       url: 'http://www.apple.com/sg/safari/',
       icon: '/images/safari.png'
     }, {
-      name: 'IE 9+',
+      name: 'IE 10+',
       url: 'http://windows.microsoft.com/en-sg/internet-explorer/ie-10-worldwide-languages',
       icon: '/images/ie.png'
     }
