@@ -360,7 +360,7 @@ Menglifang.Widgets.ListView = Ember.ListView.extend({
   classNames: ['ember-list-view', 'mlf-list'],
   itemViewClass: Menglifang.Widgets.ListItemView,
   didInsertElement: function() {
-    this.set('height', Ember.$('.ember-list-view').parent().height() - 60);
+    this.set('height', Ember.$('.ember-list-view').parent().height());
     return this._super();
   }
 });

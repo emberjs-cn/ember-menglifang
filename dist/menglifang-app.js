@@ -366,7 +366,7 @@ Menglifang.Widgets.ListView = Ember.ListView.extend({
   classNames: ['ember-list-view', 'mlf-list'],
   itemViewClass: Menglifang.Widgets.ListItemView,
   didInsertElement: function() {
-    this.set('height', Ember.$('.ember-list-view').parent().height() - 60);
+    this.set('height', Ember.$('.ember-list-view').parent().height());
     return this._super();
   }
 });
@@ -393,6 +393,27 @@ Menglifang.App.VERSION = '0.1.1';
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang App', Menglifang.App.VERSION);
 }
+
+
+})();
+(function() {
+
+
+Menglifang.App.MainToolbarMixin = Ember.Mixin.create({
+  needs: ['authenticated'],
+  breadcrumbItems: Ember.computed.alias('controllers.authenticated.breadcrumbItems'),
+  toolbarLinks: Ember.computed.alias('controllers.authenticated.toolbarLinks'),
+  setupToolbar: function(items, links) {
+    this.setBreadcrumbItems(items);
+    return this.setToolbarLinks(links);
+  },
+  setBreadcrumbItems: function(items) {
+    return this.set('breadcrumbItems', items);
+  },
+  setToolbarLinks: function(links) {
+    return this.set('toolbarLinks', links);
+  }
+});
 
 
 })();
@@ -496,10 +517,6 @@ function program2(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push(escapeExpression((helper = helpers['main-toolbar'] || (depth0 && depth0['main-toolbar']),options={hash:{
-    'items': ("breadcrumbItems")
-  },hashTypes:{'items': "ID"},hashContexts:{'items': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "main-toolbar", options))));
-  data.buffer.push("\n\n");
   stack1 = (helper = helpers.collection || (depth0 && depth0.collection),options={hash:{
     'content': ("listItems"),
     'height': (100),
@@ -593,15 +610,20 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["authenticated"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, self=this;
+  var buffer = '', stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
-  var buffer = '', stack1;
+  var buffer = '', stack1, helper, options;
   data.buffer.push("\n  ");
+  data.buffer.push(escapeExpression((helper = helpers['main-toolbar'] || (depth0 && depth0['main-toolbar']),options={hash:{
+    'items': ("breadcrumbItems"),
+    'links': ("toolbarLinks")
+  },hashTypes:{'items': "ID",'links': "ID"},hashContexts:{'items': depth0,'links': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "main-toolbar", options))));
+  data.buffer.push("\n\n  <div class=\"container-fluid\">\n    ");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
+  data.buffer.push("\n  </div>\n");
   return buffer;
   }
 
@@ -649,7 +671,7 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["users"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
@@ -676,11 +698,6 @@ function program2(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push(escapeExpression((helper = helpers['main-toolbar'] || (depth0 && depth0['main-toolbar']),options={hash:{
-    'items': ("breadcrumbItems"),
-    'links': ("toolbarLinks")
-  },hashTypes:{'items': "ID",'links': "ID"},hashContexts:{'items': depth0,'links': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "main-toolbar", options))));
-  data.buffer.push("\n\n");
   stack1 = (helper = helpers.collection || (depth0 && depth0.collection),options={hash:{
     'content': ("model"),
     'height': (100),
@@ -951,14 +968,17 @@ Menglifang.App.User = DS.Model.extend({
 (function() {
 
 
-Menglifang.App.AccountController = Ember.ObjectController.extend({
+Menglifang.App.AccountController = Ember.ObjectController.extend(Menglifang.App.MainToolbarMixin, {
   needs: 'authenticated',
   availableRoles: Ember.computed.alias('controllers.authenticated.availableRoles'),
-  breadcrumbItems: [
-    {
-      text: '个人设置'
-    }
-  ],
+  init: function() {
+    this.setupToolbar([
+      {
+        text: '个人设置'
+      }
+    ]);
+    return this._super();
+  },
   listItems: [
     {
       text: '个人信息',
@@ -977,9 +997,7 @@ Menglifang.App.AccountController = Ember.ObjectController.extend({
 (function() {
 
 
-Menglifang.App.AccountPasswordController = Ember.ObjectController.extend({
-  needs: 'account',
-  breadcrumbItems: Ember.computed.alias('controllers.account.breadcrumbItems'),
+Menglifang.App.AccountPasswordController = Ember.ObjectController.extend(Menglifang.App.MainToolbarMixin, {
   actions: {
     save: function() {
       var _this = this;
@@ -1009,9 +1027,7 @@ Menglifang.App.AccountPasswordController = Ember.ObjectController.extend({
 (function() {
 
 
-Menglifang.App.AccountProfileController = Ember.ObjectController.extend({
-  needs: 'account',
-  breadcrumbItems: Ember.computed.alias('controllers.account.breadcrumbItems'),
+Menglifang.App.AccountProfileController = Ember.ObjectController.extend(Menglifang.App.MainToolbarMixin, {
   actions: {
     revertChanges: function() {
       if (this.get('model.isDirty')) {
@@ -1075,7 +1091,9 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
       label: '普通用户',
       value: 'user'
     }
-  ]
+  ],
+  breadcrumbItems: [],
+  toolbarLinks: []
 });
 
 
@@ -1116,11 +1134,10 @@ Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginC
 (function() {
 
 
-Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.ModelManagerMixin, {
-  needs: ['authenticated', 'users'],
+Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.ModelManagerMixin, Menglifang.App.MainToolbarMixin, {
+  needs: ['authenticated'],
   formLegend: '用户管理',
   availableRoles: Ember.computed.alias('controllers.authenticated.availableRoles'),
-  breadcrumbItems: Ember.computed.alias('controllers.users.breadcrumbItems'),
   modelName: 'user',
   humanModelName: '用户',
   beforeConfirmRemove: function() {
@@ -1138,19 +1155,21 @@ Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.Mod
 (function() {
 
 
-Menglifang.App.UsersController = Ember.ArrayController.extend({
-  breadcrumbItems: [
-    {
-      text: '用户管理'
-    }
-  ],
-  toolbarLinks: [
-    {
-      text: '添加用户',
-      route: 'users.new',
-      icon: 'fa fa-plus'
-    }
-  ]
+Menglifang.App.UsersController = Ember.ArrayController.extend(Menglifang.App.MainToolbarMixin, {
+  init: function() {
+    this.setupToolbar([
+      {
+        text: '用户管理'
+      }
+    ], [
+      {
+        text: '添加用户',
+        route: 'users.new',
+        icon: 'fa fa-plus'
+      }
+    ]);
+    return this._super();
+  }
 });
 
 
