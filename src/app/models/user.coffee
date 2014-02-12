@@ -6,6 +6,8 @@ Menglifang.App.User = DS.Model.extend
   roles: DS.attr()
   accessLocked: DS.attr('boolean')
 
+  name: Ember.computed.any('realname', 'username')
+
   changePassword: (oldPwd, newPwd, pwdConfirmation) ->
     new Ember.RSVP.Promise (resolve, reject) =>
       return reject('您两次输入的新密码不匹配') if newPwd != pwdConfirmation

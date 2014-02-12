@@ -3,7 +3,7 @@ Menglifang.Widgets.MainToolbarComponent = Ember.Component.extend
   classNames: ['mlf-main-toolbar']
 
   parentItems: (->
-    @get('items').slice(0, @get('items.length') - 1)
+    @get('items').slice(0, @get('items.length') - 1) unless Ember.isEmpty(@get('items'))
   ).property('items.@each')
 
   activeItem: (->

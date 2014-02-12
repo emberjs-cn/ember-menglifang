@@ -1,3 +1,2 @@
-Menglifang.App.UsersRoute = Ember.Route.extend
-  model: ->
-    @store.find('user')
+Menglifang.App.UsersRoute = Ember.Route.extend Menglifang.App.AuthenticatedRouteMixin,
+  model: -> @store.find('user')

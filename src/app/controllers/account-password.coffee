@@ -1,4 +1,4 @@
-Menglifang.App.AccountPasswordController = Ember.ObjectController.extend Menglifang.App.MainToolbarMixin,
+Menglifang.App.AccountPasswordController = Ember.ObjectController.extend
   actions:
     save: ->
       @get('model').changePassword(

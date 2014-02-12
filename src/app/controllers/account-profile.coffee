@@ -1,4 +1,4 @@
-Menglifang.App.AccountProfileController = Ember.ObjectController.extend Menglifang.App.MainToolbarMixin,
+Menglifang.App.AccountProfileController = Ember.ObjectController.extend
   actions:
     revertChanges: ->
       @get('model').rollback() if @get('model.isDirty')

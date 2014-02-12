@@ -1,4 +1,4 @@
-Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
+Menglifang.App.AuthenticatedController = Ember.ObjectController.extend Menglifang.App.BreadcrumbMixin,
   title: 'MLF'
 
   sidebar:
@@ -19,6 +19,3 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
     { label: '管理员', value: 'admin' }
     { label: '普通用户', value: 'user' }
   ]
-
-  breadcrumbItems: []
-  toolbarLinks: []

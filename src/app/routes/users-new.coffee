@@ -1,11 +1,5 @@
-Menglifang.App.UsersNewRoute = Ember.Route.extend
+Menglifang.App.UsersNewRoute = Ember.Route.extend Menglifang.App.AuthenticatedRouteMixin,
   controllerName: 'user'
-
-  beforeModel: ->
-    @controllerFor('users').set('breadcrumbItems', [
-      { text: '用户管理', route: 'users' }
-      { text: '添加用户' }
-    ])
 
   model: -> @store.createRecord('user')
 
@@ -16,7 +10,4 @@ Menglifang.App.UsersNewRoute = Ember.Route.extend
 
   actions:
     willTransition: ->
-      controller = @get('controller')
-
-      controller.send('revertChanges')
-      controller.set('breadcrumbItems', controller.get('breadcrumbItems').slice(0, -1))
+      @get('controller').send('revertChanges')

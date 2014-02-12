@@ -1,12 +1,18 @@
 <ol class="breadcrumb pull-left">
   {{#each view.parentItems}}
     <li>
-      {{#link-to route}}
-        {{text}}
-      {{/link-to}}
+      {{#if model}}
+        {{#link-to route model.id}}
+          {{name}}
+        {{/link-to}}
+      {{else}}
+        {{#link-to route}}
+          {{name}}
+        {{/link-to}}
+      {{/if}}
     </li>
   {{/each}}
-  <li class="active">{{view.activeItem.text}}</li>
+  <li class="active">{{view.activeItem.name}}</li>
 </ol>
 
 <ul class="links pull-right">

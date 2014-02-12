@@ -1,4 +1,4 @@
-Menglifang.App.UserController = Ember.ObjectController.extend Menglifang.App.ModelManagerMixin, Menglifang.App.MainToolbarMixin,
+Menglifang.App.UserController = Ember.ObjectController.extend Menglifang.App.ModelManagerMixin,
   needs: ['authenticated']
 
   formLegend: '用户管理'
