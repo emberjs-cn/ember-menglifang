@@ -267,6 +267,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask("build_api", ["coffee:demo", "neuter"]);
 
-  grunt.registerTask("default", ["build_src", "build_demo", "build_api", "less", "copy", "uglify", "watch"]);
+  grunt.registerTask("build", ["build_src", "build_demo", "build_api", "less", "copy", "uglify"]);
+
+  grunt.registerTask("default", ["build", "watch"]);
 
 };
