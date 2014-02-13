@@ -1,3 +1,7 @@
+*Ember Menglifang 0.2.1 (Feb 13 2014)*
+
+* [修正] 用户初次登录时，由于`session.account`未完成加载，侧边菜单栏处理逻辑错误。
+
 *Ember Menglifang 0.2.0 (Feb 13 2014)*
 
 * [功能] 支持按登录用户角色来生产对应的侧边菜单栏；
