@@ -382,10 +382,10 @@ if ('undefined' === typeof Menglifang) {
 }
 
 Menglifang.App = {
-  VERSION: '0.2.0',
+  VERSION: '0.2.1',
   create: function(options) {
     var app;
-    $.extend(Ember.I18n.translations, Menglifang.App.translations);
+    Ember.merge(Ember.I18n.translations, Menglifang.App.translations);
     Menglifang.App.ApplicationAdapter.reopen({
       host: options.host,
       namespace: options.namespace
@@ -395,8 +395,8 @@ Menglifang.App = {
       copyright: options.copyright
     });
     app = Ember.Application.create();
-    $.extend(Menglifang.App, options || {});
-    $.extend(app, Menglifang.App);
+    Ember.merge(Menglifang.App, options || {});
+    Ember.merge(app, Menglifang.App);
     return app;
   }
 };
