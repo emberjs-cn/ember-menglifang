@@ -25,3 +25,22 @@ Menglifang.App.User = DS.Model.extend
         resolve()
       , (jqXHR, textStatus, errorThrown) ->
         reject(jqXHR.responseJSON.errors.password)
+
+  hasRole: (roles, matchMode) ->
+    return false unless roles
+
+    roles = [roles] if typeof(roles) == 'string'
+
+    match = false
+    if matchMode == 'any'
+      roles.forEach (role) =>
+        if @get('roles') && @get('roles').split(', ').contains(role)
+          match = true
+          return false
+    else
+      roles.forEach (role) =>
+        if !@get('roles') || !@get('roles').split(', ').contains(role)
+          match = false
+          return false
+
+    match
