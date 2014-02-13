@@ -15,7 +15,7 @@ Menglifang.App =
   VERSION: '0.2.0'
 
   create: (options) ->
-    $.extend(Ember.I18n.translations, Menglifang.App.translations)
+    Ember.merge Ember.I18n.translations, Menglifang.App.translations
 
     Menglifang.App.ApplicationAdapter.reopen
       host: options.host
@@ -28,8 +28,8 @@ Menglifang.App =
     app = Ember.Application.create()
 
     # 必须将配置信息付给Menglifang.App，因为内部将使用该命名空间来查找配置项
-    $.extend(Menglifang.App, options || {})
-    $.extend(app, Menglifang.App)
+    Ember.merge Menglifang.App, options || {}
+    Ember.merge app, Menglifang.App
 
     app
 
