@@ -8,7 +8,7 @@ if 'undefined' == typeof(Menglifang)
 
 ## Used for bundling files together using neuter
 Menglifang.Widgets = Ember.Namespace.create()
-Menglifang.Widgets.VERSION = '0.1.1'
+Menglifang.Widgets.VERSION = '0.2.0'
 
 Ember.libraries?.register 'Menglifang Widgets', Menglifang.Widgets.VERSION
 

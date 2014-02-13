@@ -259,7 +259,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.1.1';
+Menglifang.Widgets.VERSION = '0.2.0';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -382,7 +382,7 @@ if ('undefined' === typeof Menglifang) {
 }
 
 Menglifang.App = {
-  VERSION: '0.1.1',
+  VERSION: '0.2.0',
   create: function(options) {
     var app;
     $.extend(Ember.I18n.translations, Menglifang.App.translations);

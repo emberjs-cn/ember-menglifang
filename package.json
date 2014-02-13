@@ -1,11 +1,11 @@
 {
     "name": "ember-menglifang",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "main": "Gruntfile.js",
     "scripts": {
         "test": "grunt"
     },
-    "repository": "http://gitlab.menglifang.org/base/ember-menglifang.git",
+    "repository": "https://gitlab.com/mlf-base/ember-menglifang.git",
     "license": "Beijing Menglifang",
     "devDependencies": {
         "grunt": "~0.4.1",
