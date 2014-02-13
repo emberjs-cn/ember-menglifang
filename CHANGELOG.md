@@ -1,3 +1,8 @@
+*Ember Menglifang 0.2.2 (Feb 13 2014)*
+
+* [修正] 代码没有同步；
+* [改进] 添加一个新的grunt任务用于构建项目。
+
 *Ember Menglifang 0.2.1 (Feb 13 2014)*
 
 * [修正] 用户初次登录时，由于`session.account`未完成加载，侧边菜单栏处理逻辑错误。
