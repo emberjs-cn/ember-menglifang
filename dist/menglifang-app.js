@@ -385,7 +385,7 @@ Menglifang.App = {
   VERSION: '0.2.0',
   create: function(options) {
     var app;
-    $.extend(Ember.I18n.translations, Menglifang.App.translations);
+    Ember.merge(Ember.I18n.translations, Menglifang.App.translations);
     Menglifang.App.ApplicationAdapter.reopen({
       host: options.host,
       namespace: options.namespace
@@ -395,8 +395,8 @@ Menglifang.App = {
       copyright: options.copyright
     });
     app = Ember.Application.create();
-    $.extend(Menglifang.App, options || {});
-    $.extend(app, Menglifang.App);
+    Ember.merge(Menglifang.App, options || {});
+    Ember.merge(app, Menglifang.App);
     return app;
   }
 };
@@ -1171,7 +1171,8 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
     }
   ],
   availableSidebar: (function() {
-    var menus, user;
+    var menus, user,
+      _this = this;
     menus = [];
     user = this.get('session.account.content');
     this.get('sidebar.menus').forEach(function(menu) {
@@ -1374,8 +1375,9 @@ Menglifang.App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.Applicatio
 Menglifang.App.AuthenticatedRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
   beforeModel: function() {
     if (!this.get('session.isAuthenticated')) {
-      return this.transitionTo('login');
+      this.transitionTo('login');
     }
+    return this.get('session.account');
   }
 });
 
