@@ -642,7 +642,7 @@ function program1(depth0,data) {
 
   stack1 = helpers.view.call(depth0, "Menglifang.Widgets.AppView", {hash:{
     'title': ("title"),
-    'sidebar': ("sidebar")
+    'sidebar': ("availableSidebar")
   },hashTypes:{'title': "ID",'sidebar': "ID"},hashContexts:{'title': depth0,'sidebar': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
@@ -1017,6 +1017,33 @@ Menglifang.App.User = DS.Model.extend({
         return reject(jqXHR.responseJSON.errors.password);
       });
     });
+  },
+  hasRole: function(roles, matchMode) {
+    var match,
+      _this = this;
+    if (!roles) {
+      return false;
+    }
+    if (typeof roles === 'string') {
+      roles = [roles];
+    }
+    match = false;
+    if (matchMode === 'any') {
+      roles.forEach(function(role) {
+        if (_this.get('roles') && _this.get('roles').split(', ').contains(role)) {
+          match = true;
+          return false;
+        }
+      });
+    } else {
+      roles.forEach(function(role) {
+        if (!_this.get('roles') || !_this.get('roles').split(', ').contains(role)) {
+          match = false;
+          return false;
+        }
+      });
+    }
+    return match;
   }
 });
 
@@ -1107,11 +1134,13 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
         icon: '/images/settings.png',
         url: '#系统管理',
         text: '系统管理',
+        roles: ['admin'],
         items: [
           {
             icon: '/images/users.png',
             route: 'users',
-            text: '用户管理'
+            text: '用户管理',
+            roles: ['admin']
           }
         ]
       }
@@ -1141,6 +1170,29 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
       value: 'user'
     }
   ],
+  availableSidebar: (function() {
+    var menus, user;
+    menus = [];
+    user = this.get('session.account.content');
+    this.get('sidebar.menus').forEach(function(menu) {
+      var items, newMenu;
+      if (user.hasRole(menu.roles, 'any')) {
+        newMenu = Ember.merge({}, menu);
+        menus.push(newMenu);
+        items = [];
+        menu.items.forEach(function(item) {
+          if (user.hasRole(item.roles, 'any')) {
+            return items.push(item);
+          }
+        });
+        return newMenu.items = items;
+      }
+    });
+    return {
+      menus: menus,
+      starterItems: this.get('sidebar.starterItems')
+    };
+  }).property().volatile(),
   breadcrumbs: [],
   actions: {
     currentPathDidChange: function() {
