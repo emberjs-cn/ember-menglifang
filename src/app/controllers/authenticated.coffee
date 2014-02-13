@@ -23,7 +23,7 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
   availableSidebar: (->
     menus = []
     user = @get('session.account.content')
-    @get('sidebar.menus').forEach (menu) ->
+    @get('sidebar.menus').forEach (menu) =>
       if user.hasRole(menu.roles, 'any')
         newMenu = Ember.merge {}, menu
         menus.push newMenu
