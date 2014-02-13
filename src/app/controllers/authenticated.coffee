@@ -3,9 +3,9 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
 
   sidebar:
     menus: [{
-      icon: '/images/settings.png', url: '#系统管理', text: '系统管理',
+      icon: '/images/settings.png', url: '#系统管理', text: '系统管理', roles: ['admin']
       items: [
-        { icon: '/images/users.png', route: 'users', text: '用户管理' }
+        { icon: '/images/users.png', route: 'users', text: '用户管理', roles: ['admin'] }
       ]
     }]
 
@@ -19,6 +19,23 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
     { label: '管理员', value: 'admin' }
     { label: '普通用户', value: 'user' }
   ]
+
+  availableSidebar: (->
+    menus = []
+    user = @get('session.account.content')
+    @get('sidebar.menus').forEach (menu) ->
+      if user.hasRole(menu.roles, 'any')
+        newMenu = Ember.merge {}, menu
+        menus.push newMenu
+
+        items = []
+        menu.items.forEach (item) ->
+          items.push item if user.hasRole(item.roles, 'any')
+
+        newMenu.items = items
+
+    { menus: menus, starterItems: @get('sidebar.starterItems') }
+  ).property().volatile()
 
   breadcrumbs: []
 
