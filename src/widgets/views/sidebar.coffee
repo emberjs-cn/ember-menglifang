@@ -17,3 +17,5 @@ Menglifang.Widgets.SidebarView = Ember.View.extend
 
   actions:
     toggle: -> @toggleProperty('expanded')
+
+Ember.Handlebars.helper 'sidebar', Menglifang.Widgets.SidebarView
