@@ -35,14 +35,15 @@ Menglifang.App =
 
 Ember.libraries?.register 'Menglifang App', Menglifang.App.VERSION
 
+require 'build/src/app/lib/devise-authenticator'
+require 'build/src/app/lib/devise-authorizer'
+require 'build/src/app/lib/route'
+require 'build/src/app/lib/utils'
+
 require 'build/src/app/translations'
 require 'build/src/app/mixins'
 require 'build/src/app/templates'
 require 'build/src/app/initializers/simple-auth'
-
-require 'build/src/app/lib/devise-authenticator'
-require 'build/src/app/lib/devise-authorizer'
-require 'build/src/app/lib/route'
 
 require 'build/src/app/helpers/application'
 require 'build/src/app/models'
