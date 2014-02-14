@@ -32,6 +32,7 @@
     "ember-data": "~1.0.0-beta.6",
     "notifier": "https://github.com/Srirangan/notifer.js.git#1.0.0",
     "ember-addons.bs_for_ember": "~0.6.0",
-    "ember-i18n": "~1.6.1"
+    "ember-i18n": "~1.6.1",
+    "select2": "~3.4.5"
   }
 }

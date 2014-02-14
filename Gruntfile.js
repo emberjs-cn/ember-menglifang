@@ -188,6 +188,11 @@ module.exports = function (grunt) {
             cwd: 'bower_components/font-awesome/fonts/',
             src: ['**'],
             dest: 'examples/public/fonts/'
+          }, {
+            expand: true,
+            cwd: 'bower_components/select2/',
+            src: ['*.png', '*.gif'],
+            dest: 'examples/public/css/'
           }
         ]
       },
