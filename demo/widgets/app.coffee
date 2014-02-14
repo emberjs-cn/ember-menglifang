@@ -21,7 +21,6 @@ require 'build/demo/widgets/views/application'
 # Components
 require 'build/demo/widgets/components/login-form'
 require 'build/demo/widgets/components/main-toolbar'
-require 'build/demo/widgets/components/select2'
 
 # Route
 require 'build/demo/widgets/routes/list'
