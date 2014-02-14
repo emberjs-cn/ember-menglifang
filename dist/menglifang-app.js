@@ -125,14 +125,14 @@ function program5(depth0,data) {
 Ember.TEMPLATES["mlf-app-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.SidebarView", {hash:{
+  data.buffer.push(escapeExpression((helper = helpers.sidebar || (depth0 && depth0.sidebar),options={hash:{
     'title': ("view.title"),
     'menus': ("view.sidebar.menus"),
     'starterItems': ("view.sidebar.starterItems")
-  },hashTypes:{'title': "ID",'menus': "ID",'starterItems': "ID"},hashContexts:{'title': depth0,'menus': depth0,'starterItems': depth0},contexts:[depth0],types:["ID"],data:data})));
+  },hashTypes:{'title': "ID",'menus': "ID",'starterItems': "ID"},hashContexts:{'title': depth0,'menus': depth0,'starterItems': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "sidebar", options))));
   data.buffer.push("\n\n<div class=\"mlf-app-main\">\n  ");
   stack1 = helpers._triageMustache.call(depth0, "yield", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -348,6 +348,8 @@ Menglifang.Widgets.SidebarView = Ember.View.extend({
   }
 });
 
+Ember.Handlebars.helper('sidebar', Menglifang.Widgets.SidebarView);
+
 
 })();
 (function() {
@@ -365,6 +367,32 @@ Menglifang.Widgets.ListView = Ember.ListView.extend({
     return this._super();
   }
 });
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.Select2 = Ember.Select.extend({
+  classNames: ['mlf-select2'],
+  placeholder: '请选择...',
+  allowClear: true,
+  minimumInputLength: 0,
+  maximumSelectionSize: 3,
+  didInsertElement: function() {
+    return this.$().select2({
+      placeholder: this.get('placeholder'),
+      allowClear: this.get('allowClear'),
+      minimumInputLength: this.get('minimumInputLength'),
+      maximumSelectionSize: this.get('maximumSelectionSize')
+    });
+  },
+  willDestroyElement: function() {
+    return this.$().select2('destroy');
+  }
+});
+
+Ember.Handlebars.helper('select2', Menglifang.Widgets.Select2);
 
 
 })();
@@ -404,6 +432,130 @@ Menglifang.App = {
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang App', Menglifang.App.VERSION);
 }
+
+
+})();
+(function() {
+
+
+Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend({
+  authenticate: function(credentials) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      return Ember.$.ajax({
+        url: '/users/sign_in',
+        type: 'POST',
+        data: {
+          grant_type: 'password',
+          user: {
+            login: credentials.identification,
+            password: credentials.password
+          }
+        },
+        dataType: 'json'
+      }).then(function(response) {
+        return Ember.run(function() {
+          return resolve({
+            user_email: response.user.email,
+            user_token: response.user.authentication_token,
+            account_id: response.user.id,
+            access_token: response.user.authentication_token
+          });
+        });
+      }, function(xhr, status, error) {
+        return Ember.run(function() {
+          return reject(xhr.responseText);
+        });
+      });
+    });
+  }
+});
+
+
+})();
+(function() {
+
+
+Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
+  authorize: function(jqXHR, requestOptions) {
+    if (!Ember.isEmpty(this.get('session.user_email')) && !Ember.isEmpty(this.get('session.user_token'))) {
+      jqXHR.setRequestHeader('X-User-Email', this.get('session.user_email'));
+      return jqXHR.setRequestHeader('X-User-Token', this.get('session.user_token'));
+    }
+  }
+});
+
+
+})();
+(function() {
+
+
+Ember.Route.reopen({
+  afterModel: function() {
+    var _this = this;
+    return Ember.run.next(this, function() {
+      return _this.controllerFor('authenticated').send('currentPathDidChange');
+    });
+  }
+});
+
+
+})();
+(function() {
+
+
+Menglifang.App.throttle = function(func, wait) {
+  var args, context, later, previous, result, timeout;
+  context = null;
+  args = null;
+  timeout = null;
+  result = null;
+  previous = 0;
+  later = function() {
+    previous = new Date();
+    timeout = null;
+    return result = func.apply(context, args);
+  };
+  return function() {
+    var now, remaining;
+    now = new Date();
+    remaining = wait - (now - previous);
+    context = this;
+    args = arguments;
+    if (remaining <= 0) {
+      clearTimeout(timeout);
+      timeout = null;
+      previous = now;
+      result = func.apply(context, args);
+    } else {
+      timeout = setTimeout(later, remaining);
+    }
+    return result;
+  };
+};
+
+Menglifang.App.debounce = function(func, wait, immediate) {
+  var result, timeout;
+  timeout = null;
+  result = null;
+  return function() {
+    var args, callNow, context, later;
+    context = this;
+    args = arguments;
+    later = function() {
+      timeout = null;
+      if (!immediate) {
+        return result = func.apply(context, args);
+      }
+    };
+    callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) {
+      result = func.apply(context, args);
+    }
+    return result;
+  };
+};
 
 
 })();
@@ -495,6 +647,146 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create({
       });
     }
   }
+});
+
+
+})();
+(function() {
+
+var defineProperty, get, keys;
+
+get = Ember.get;
+
+keys = Ember.keys;
+
+defineProperty = Ember.defineProperty;
+
+/*
+  `Menglifang.App.RemoteQueryBindingsMixin` packages the properties specified in the
+  `remoteQueryBindings` attribute into a plain object to be used as query
+  parameters for fetching data. To prevent excessive remote requests, the
+  notification of property changes that affect the query object is debounced
+  for a configurable number of milliseconds (700ms default).
+
+  This mixin is for use with controllers.
+
+  @example
+    App.PeopleController = Ember.ArrayController.extend(Menglifang.App.RemoteQueryBindingsMixin, {
+      remoteQueryBindings: ['query:q', 'sort', 'reverse'], // Map the 'query' property to 'q'
+      remoteQueryDidChange: function() {
+        // DO SOMETHING WHEN QUERY OBJECT CHANGES
+      }
+    })
+
+  @class RemoteQueryBindingsMixin
+  @namespace Menglifang.App
+*/
+
+
+Menglifang.App.RemoteQueryBindingsMixin = Ember.Mixin.create({
+  init: function() {
+    var ret;
+    ret = this._super();
+    this.applyRemoteQueryBindings();
+    get(this, 'remoteQuery');
+    return ret;
+  },
+  /*
+      The query object: a plain object to send as query parameters.
+  
+      @property remoteQuery
+      @type Object
+      @default null
+  */
+
+  remoteQuery: null,
+  /*
+      How long to wait after the last change to the query object before notifying
+      the host object of the change.
+  
+      @property remoteQueryDelay
+      @type Integer
+      @default 700
+  */
+
+  remoteQueryDelay: 700,
+  /*
+      Debounced notification function.
+  
+      @property debounceRemoteQueryChange
+      @type Function
+  */
+
+  debounceRemoteQueryChange: Ember.computed(function() {
+    var _this = this;
+    return Menglifang.App.debounce(function() {
+      return _this.remoteQueryDidChange(get(_this, 'remoteQuery'));
+    }, get(this, 'remoteQueryDelay'));
+  }).property('remoteQueryDelay'),
+  /*
+      Setup bindings to watch the properties named in the `remoteQueryBindings`
+      attribute of this object. As these properties change, the remote query
+      object will be re-assembled and set as the `remoteQuery` property.
+  
+      @method applyRemoteQueryBindings
+      @return null
+  */
+
+  applyRemoteQueryBindings: function() {
+    var lookup, params, properties, queryComputed, remoteQueryBindings,
+      _this = this;
+    remoteQueryBindings = this.remoteQueryBindings;
+    if (!remoteQueryBindings) {
+      return;
+    }
+    lookup = {};
+    remoteQueryBindings.forEach(function(binding) {
+      var param, property, _ref;
+      _ref = binding.split(':'), property = _ref[0], param = _ref[1];
+      return lookup[param || property] = property;
+    });
+    params = keys(lookup);
+    properties = params.map(function(param) {
+      return lookup[param];
+    });
+    queryComputed = Ember.computed(function() {
+      var result;
+      result = {};
+      params.forEach(function(param) {
+        var val;
+        val = get(_this, lookup[param]);
+        if (val) {
+          return result[param] = val;
+        }
+      });
+      return result;
+    });
+    queryComputed.property.apply(queryComputed, properties);
+    defineProperty(this, 'remoteQuery', queryComputed);
+    return null;
+  },
+  /*
+      Hook for performing actions when notified of updates to the remote
+      query object. Override to enable controller to respond to changes to the
+      query object.
+  
+      @method remoteQueryDidChange
+      @param {Object} query The query object
+  */
+
+  remoteQueryDidChange: Ember.K,
+  /*
+      @private
+  
+      Watches for all changes to the remote query object and calls the debounced
+      notification function.
+  
+      @method _remoteQueryChange
+  */
+
+  _remoteQueryChange: Ember.observer(function() {
+    return get(this, 'debounceRemoteQueryChange')();
+  }, 'remoteQuery')
 });
 
 
@@ -901,71 +1193,6 @@ Ember.Application.initializer({
       authorizer: Menglifang.App.DeviseAuthorizer,
       routeAfterAuthentication: 'authenticated',
       routeAfterInvalidation: 'login'
-    });
-  }
-});
-
-
-})();
-(function() {
-
-
-Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend({
-  authenticate: function(credentials) {
-    return new Ember.RSVP.Promise(function(resolve, reject) {
-      return Ember.$.ajax({
-        url: '/users/sign_in',
-        type: 'POST',
-        data: {
-          grant_type: 'password',
-          user: {
-            login: credentials.identification,
-            password: credentials.password
-          }
-        },
-        dataType: 'json'
-      }).then(function(response) {
-        return Ember.run(function() {
-          return resolve({
-            user_email: response.user.email,
-            user_token: response.user.authentication_token,
-            account_id: response.user.id,
-            access_token: response.user.authentication_token
-          });
-        });
-      }, function(xhr, status, error) {
-        return Ember.run(function() {
-          return reject(xhr.responseText);
-        });
-      });
-    });
-  }
-});
-
-
-})();
-(function() {
-
-
-Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
-  authorize: function(jqXHR, requestOptions) {
-    if (!Ember.isEmpty(this.get('session.user_email')) && !Ember.isEmpty(this.get('session.user_token'))) {
-      jqXHR.setRequestHeader('X-User-Email', this.get('session.user_email'));
-      return jqXHR.setRequestHeader('X-User-Token', this.get('session.user_token'));
-    }
-  }
-});
-
-
-})();
-(function() {
-
-
-Ember.Route.reopen({
-  afterModel: function() {
-    var _this = this;
-    return Ember.run.next(this, function() {
-      return _this.controllerFor('authenticated').send('currentPathDidChange');
     });
   }
 });
