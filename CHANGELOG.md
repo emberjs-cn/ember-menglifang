@@ -1,3 +1,14 @@
+*Ember Menglifang 0.2.3 (Feb X 2014)*
+
+* [修正] 修正api代码没有编译的问题；
+* [修正] 修正Demo中侧边菜单栏的icons不存在的问题；
+* [功能] 添加Demo首页；
+* [改进] 将LICENSE改为MIT；
+* [修正] 在README.md中更新操作说明；
+* [改进] 注册`{{sidebar}}`助手；
+* [功能] 增加`{{select2}}`控件；
+* [功能] 添加`Menglifang.App.RemoteQueryBindingsMixin`。
+
 *Ember Menglifang 0.2.2 (Feb 13 2014)*
 
 * [修正] 代码没有同步；
