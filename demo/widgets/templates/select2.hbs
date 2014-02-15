@@ -9,5 +9,8 @@
   {{select2 content=regions optionGroupPath='city' optionLabelPath='content.label' optionValuePath='content.value'}}
 
   <h4>多选项</h4>
-  {{select2 multiple=true content=regions optionGroupPath='city' optionLabelPath='content.label' optionValuePath='content.value'}}
+  {{select2 multiple=true content=regions optionGroupPath='city'
+  optionLabelPath='content.label' optionValuePath='content.value' selection=query.selectedRegions value=query.selectedRegionValues}}
+  
+  {{select2 multiple=true content=cities selection=query.selectedCities}}
 </div>

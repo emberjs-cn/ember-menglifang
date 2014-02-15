@@ -31,3 +31,13 @@ App.Select2Controller = Ember.Controller.extend
     { label: '海珠区', value: 'GZ-HZ', city: '广州市' }
     { label: '天河区', value: 'GZ-TH', city: '广州市' }
   ]
+
+  query: {}
+
+  logSelectedRegions: (->
+    console.log @get('query.selectedRegions')
+  ).observes('query.selectedRegions.@each')
+
+  logSelectedCities: (->
+    console.log @get('query.selectedCities')
+  ).observes('query.selectedCities.@each')
