@@ -128,6 +128,9 @@ module.exports = function (grunt) {
             src: ['demo/widgets/index.html'],
             dest: 'examples/public/widgets/index.html'
           }, {
+            src: ['demo/index.html'],
+            dest: 'examples/public/index.html'
+          }, {
             expand: true,
             cwd: 'demo/widgets/images/',
             src: ['**'],
@@ -259,7 +262,7 @@ module.exports = function (grunt) {
         tasks: ["less", "copy"]
       },
       copy: {
-        files: ["demo/widgets/index.html", "demo/app/index.html"],
+        files: ["demo/index.html", "demo/widgets/index.html", "demo/app/index.html"],
         tasks: ["copy"]
       }
     }
@@ -270,7 +273,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask("build_demo", ["coffee:demo", "emberTemplates", "neuter"]);
 
-  grunt.registerTask("build_api", ["coffee:demo", "neuter"]);
+  grunt.registerTask("build_api", ["coffee:api", "neuter"]);
 
   grunt.registerTask("build", ["build_src", "build_demo", "build_api", "less", "copy", "uglify"]);
 
