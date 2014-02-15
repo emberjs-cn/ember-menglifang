@@ -119,14 +119,14 @@ function program5(depth0,data) {
 Ember.TEMPLATES["mlf-app-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression;
+  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.SidebarView", {hash:{
+  data.buffer.push(escapeExpression((helper = helpers.sidebar || (depth0 && depth0.sidebar),options={hash:{
     'title': ("view.title"),
     'menus': ("view.sidebar.menus"),
     'starterItems': ("view.sidebar.starterItems")
-  },hashTypes:{'title': "ID",'menus': "ID",'starterItems': "ID"},hashContexts:{'title': depth0,'menus': depth0,'starterItems': depth0},contexts:[depth0],types:["ID"],data:data})));
+  },hashTypes:{'title': "ID",'menus': "ID",'starterItems': "ID"},hashContexts:{'title': depth0,'menus': depth0,'starterItems': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "sidebar", options))));
   data.buffer.push("\n\n<div class=\"mlf-app-main\">\n  ");
   stack1 = helpers._triageMustache.call(depth0, "yield", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -253,7 +253,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.2.0';
+Menglifang.Widgets.VERSION = '0.2.3';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -342,6 +342,8 @@ Menglifang.Widgets.SidebarView = Ember.View.extend({
   }
 });
 
+Ember.Handlebars.helper('sidebar', Menglifang.Widgets.SidebarView);
+
 
 })();
 (function() {
@@ -359,6 +361,41 @@ Menglifang.Widgets.ListView = Ember.ListView.extend({
     return this._super();
   }
 });
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.Select2 = Ember.Select.extend({
+  classNames: ['mlf-select2'],
+  placeholder: '请选择...',
+  allowClear: true,
+  closeOnSelect: true,
+  minimumInputLength: 0,
+  maximumSelectionSize: 0,
+  selectedDidChange: (function() {
+    return this.$().select2('val', this.$().val());
+  }).observes('selection.@each'),
+  didInsertElement: function() {
+    return Ember.run.scheduleOnce('afterRender', this, 'processChildElements');
+  },
+  processChildElements: function() {
+    var options;
+    options = {};
+    options.placeholder = this.get('prompt') || this.get('placeholder');
+    options.allowClear = this.get('allowClear');
+    options.closeOnSelect = this.get('closeOnSelect');
+    options.minimumInputLength = this.get('minimumInputLength');
+    options.maximumSelectionSize = this.get('maximumSelectionSize');
+    return this.$().select2(options);
+  },
+  willDestroyElement: function() {
+    return this.$().select2('destroy');
+  }
+});
+
+Ember.Handlebars.helper('select2', Menglifang.Widgets.Select2);
 
 
 })();

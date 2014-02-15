@@ -1,0 +1,16 @@
+<div class="col-md-6 readme">
+  说明
+</div>
+<div class="col-md-6 demo">
+  <h3>基础Select2</h3>
+  {{select2 content=cities}}
+
+  <h4>分组选项</h4>
+  {{select2 content=regions optionGroupPath='city' optionLabelPath='content.label' optionValuePath='content.value'}}
+
+  <h4>多选项</h4>
+  {{select2 multiple=true content=regions optionGroupPath='city'
+  optionLabelPath='content.label' optionValuePath='content.value' selection=query.selectedRegions value=query.selectedRegionValues}}
+  
+  {{select2 multiple=true content=cities selection=query.selectedCities}}
+</div>

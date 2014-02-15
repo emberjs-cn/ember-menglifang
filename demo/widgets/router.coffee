@@ -8,7 +8,7 @@ App.Router.map ->
   @route 'toolbar'
   @route 'form'
   @route 'list'
-
+  @route 'select2'
 
   @route 'firstRoute'
   @route 'secondRoute'
