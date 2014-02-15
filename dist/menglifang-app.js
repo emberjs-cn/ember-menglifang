@@ -377,15 +377,24 @@ Menglifang.Widgets.Select2 = Ember.Select.extend({
   classNames: ['mlf-select2'],
   placeholder: '请选择...',
   allowClear: true,
+  closeOnSelect: true,
   minimumInputLength: 0,
-  maximumSelectionSize: 3,
+  maximumSelectionSize: 0,
+  selectedDidChange: (function() {
+    return this.$().select2('val', this.$().val());
+  }).observes('selection.@each'),
   didInsertElement: function() {
-    return this.$().select2({
-      placeholder: this.get('placeholder'),
-      allowClear: this.get('allowClear'),
-      minimumInputLength: this.get('minimumInputLength'),
-      maximumSelectionSize: this.get('maximumSelectionSize')
-    });
+    return Ember.run.scheduleOnce('afterRender', this, 'processChildElements');
+  },
+  processChildElements: function() {
+    var options;
+    options = {};
+    options.placeholder = this.get('prompt') || this.get('placeholder');
+    options.allowClear = this.get('allowClear');
+    options.closeOnSelect = this.get('closeOnSelect');
+    options.minimumInputLength = this.get('minimumInputLength');
+    options.maximumSelectionSize = this.get('maximumSelectionSize');
+    return this.$().select2(options);
   },
   willDestroyElement: function() {
     return this.$().select2('destroy');
