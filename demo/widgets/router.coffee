@@ -9,6 +9,7 @@ App.Router.map ->
   @route 'form'
   @route 'list'
   @route 'select2'
+  @route 'datetimePicker'
 
   @route 'firstRoute'
   @route 'secondRoute'

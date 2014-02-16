@@ -33,6 +33,7 @@
     "notifier": "https://github.com/Srirangan/notifer.js.git#1.0.0",
     "ember-addons.bs_for_ember": "~0.6.0",
     "ember-i18n": "~1.6.1",
-    "select2": "~3.4.5"
+    "select2": "~3.4.5",
+    "bootstrap-datetimepicker": "https://github.com/smalot/bootstrap-datetimepicker.git"
   }
 }

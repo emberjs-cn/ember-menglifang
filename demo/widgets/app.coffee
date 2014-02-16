@@ -3,6 +3,8 @@ require 'bower_components/bootstrap/dist/js/bootstrap'
 require 'bower_components/list-view/list-view'
 require 'bower_components/select2/select2'
 require 'bower_components/select2/select2_locale_zh-CN'
+require 'bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker'
+require 'bower_components/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN'
 require 'dist/menglifang-widgets'
 
 window.App = Ember.Application.create
