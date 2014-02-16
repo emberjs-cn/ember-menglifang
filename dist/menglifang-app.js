@@ -314,6 +314,37 @@ Menglifang.Widgets.MainToolbarComponent = Ember.Component.extend({
 (function() {
 
 
+Menglifang.Widgets.DatetimePicker = Ember.TextField.extend({
+  resetable: true,
+  format: 'yyyy-mm-dd hh:ii',
+  autoclose: true,
+  todayBtn: true,
+  startDate: '1949-10-01',
+  minuteStep: 10,
+  minView: 0,
+  maxView: 4,
+  didInsertElement: function() {
+    var options;
+    options = {
+      format: this.get('format'),
+      autoclose: this.get('autoclose'),
+      todayBtn: this.get('todayBtn'),
+      startDate: this.get('startDate'),
+      minuteStep: this.get('minuteStep'),
+      minView: this.get('minView'),
+      maxView: this.get('maxView')
+    };
+    return this.$().datetimepicker(options);
+  }
+});
+
+Ember.Handlebars.helper('datetime-picker', Menglifang.Widgets.DatetimePicker);
+
+
+})();
+(function() {
+
+
 Menglifang.Widgets.AppView = Ember.View.extend({
   layoutName: 'mlf-app-view',
   classNames: ['mlf-app'],
@@ -402,6 +433,42 @@ Menglifang.Widgets.Select2 = Ember.Select.extend({
 });
 
 Ember.Handlebars.helper('select2', Menglifang.Widgets.Select2);
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
+  classNames: ['mlf-tagging-select2'],
+  placeholder: '请选择...',
+  allowClear: true,
+  closeOnSelect: true,
+  minimumInputLength: 0,
+  maximumSelectionSize: 0,
+  tokenSeparators: [",", " ", ";", "，", "；"],
+  didInsertElement: function() {
+    return Ember.run.scheduleOnce('afterRender', this, 'processChildElements');
+  },
+  processChildElements: function() {
+    var options;
+    options = {
+      placeholder: this.get('placeholder'),
+      allowClear: this.get('allowClear'),
+      closeOnSelect: this.get('closeOnSelect'),
+      tags: this.get('tags') || [],
+      tokenSeparators: this.get('tokenSeparators'),
+      minimumInputLength: this.get('minimumInputLength'),
+      maximumSelectionSize: this.get('maximumSelectionSize')
+    };
+    return this.$().select2(options);
+  },
+  willDestroyElement: function() {
+    return this.$().select2("destroy");
+  }
+});
+
+Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
 
 
 })();
