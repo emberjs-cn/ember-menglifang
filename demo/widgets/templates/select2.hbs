@@ -13,4 +13,10 @@
   optionLabelPath='content.label' optionValuePath='content.value' selection=query.selectedRegions value=query.selectedRegionValues}}
   
   {{select2 multiple=true content=cities selection=query.selectedCities}}
+
+  <h3>标签Select2</h3>
+  {{tagging-select2 tags=cities value=query.selectedCities name='basic-tagging-select2'}}
+
+  <h4>单一标签</h4>
+  {{tagging-select2 tags=cities maximumSelectionSize=1 value=query.selectedCities}}
 </div>
