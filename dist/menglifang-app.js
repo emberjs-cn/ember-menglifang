@@ -270,8 +270,8 @@ if ((_ref = Ember.libraries) != null) {
 (function() {
 
 
-Menglifang.Widgets.LoginFormComponent = Ember.Component.extend({
-  templateName: 'components/mlf-login-form',
+Menglifang.Widgets.LoginForm = Ember.Component.extend({
+  layoutName: 'components/mlf-login-form',
   classNames: ['mlf-login-form'],
   title: '用户登录',
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司',
@@ -291,13 +291,15 @@ Menglifang.Widgets.LoginFormComponent = Ember.Component.extend({
   }
 });
 
+Ember.Handlebars.helper('login-form', Menglifang.Widgets.LoginForm);
+
 
 })();
 (function() {
 
 
-Menglifang.Widgets.MainToolbarComponent = Ember.Component.extend({
-  templateName: 'components/mlf-main-toolbar',
+Menglifang.Widgets.MainToolbar = Ember.Component.extend({
+  layoutName: 'components/mlf-main-toolbar',
   classNames: ['mlf-main-toolbar'],
   parentItems: (function() {
     if (!Ember.isEmpty(this.get('items'))) {
@@ -308,6 +310,8 @@ Menglifang.Widgets.MainToolbarComponent = Ember.Component.extend({
     return this.get('items.lastObject');
   }).property('items.@each')
 });
+
+Ember.Handlebars.helper('main-toolbar', Menglifang.Widgets.MainToolbar);
 
 
 })();
@@ -1609,14 +1613,7 @@ Menglifang.App.UsersController = Ember.ArrayController.extend({
 (function() {
 
 
-Menglifang.App.LoginFormComponent = Menglifang.Widgets.LoginFormComponent.extend();
 
-
-})();
-(function() {
-
-
-Menglifang.App.MainToolbarComponent = Menglifang.Widgets.MainToolbarComponent.extend();
 
 
 })();
