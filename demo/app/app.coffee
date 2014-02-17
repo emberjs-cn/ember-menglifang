@@ -20,6 +20,6 @@ App = window.App = Menglifang.App.create
   namespace: 'v1'
 
   title: 'Menglifang App'
-  copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司'
+  copyright: '&copy; 2011-2014 EmberJS.CN'
 
 require 'build/demo/app/router'
