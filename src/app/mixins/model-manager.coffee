@@ -2,9 +2,9 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create
   modelName: ''
   humanModelName: ''
 
-  afterSaveRoute: (-> @get('modelName')).property('modelName')
-  afterCancelRoute: (-> Ember.String.pluralize(@get('modelName'))).property('modelName')
-  afterDestroyRoute: (-> Ember.String.pluralize(@get('modelName'))).property('modelName')
+  afterSaveRoute: (-> @get('modelName').underscore()).property('modelName')
+  afterCancelRoute: (-> @get('modelName').underscore().pluralize()).property('modelName')
+  afterDestroyRoute: (-> @get('modelName').underscore().pluralize()).property('modelName')
 
   removeConfirmationTitle: '确认删除'
   removeConfirmationMessage: (->
