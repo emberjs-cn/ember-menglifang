@@ -345,65 +345,6 @@ Ember.Handlebars.helper('datetime-picker', Menglifang.Widgets.DatetimePicker);
 (function() {
 
 
-Menglifang.Widgets.AppView = Ember.View.extend({
-  layoutName: 'mlf-app-view',
-  classNames: ['mlf-app'],
-  title: '',
-  sidebar: {
-    menus: Ember.A(),
-    starterItems: Ember.A()
-  }
-});
-
-
-})();
-(function() {
-
-
-Menglifang.Widgets.SidebarView = Ember.View.extend({
-  templateName: 'mlf-sidebar-view',
-  classNames: ['mlf-sidebar'],
-  classNameBindings: ['expanded:mlf-sidebar-expanded'],
-  expanded: true,
-  title: 'A Title',
-  menus: Ember.A(),
-  starterItems: Ember.A(),
-  didInsertElement: function() {
-    this.$().find('*[data-toggle="tooltip"]').tooltip();
-    return this.$().find('.menu-triggers li a').first().click();
-  },
-  actions: {
-    toggle: function() {
-      return this.toggleProperty('expanded');
-    }
-  }
-});
-
-Ember.Handlebars.helper('sidebar', Menglifang.Widgets.SidebarView);
-
-
-})();
-(function() {
-
-
-Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend({
-  classNames: ['ember-list-item-view', 'mlf-list-item']
-});
-
-Menglifang.Widgets.ListView = Ember.ListView.extend({
-  classNames: ['ember-list-view', 'mlf-list'],
-  itemViewClass: Menglifang.Widgets.ListItemView,
-  didInsertElement: function() {
-    this.set('height', Ember.$('.ember-list-view').parent().height());
-    return this._super();
-  }
-});
-
-
-})();
-(function() {
-
-
 Menglifang.Widgets.Select2 = Ember.Select.extend({
   classNames: ['mlf-select2'],
   placeholder: '请选择...',
@@ -469,6 +410,65 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
 });
 
 Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.AppView = Ember.View.extend({
+  layoutName: 'mlf-app-view',
+  classNames: ['mlf-app'],
+  title: '',
+  sidebar: {
+    menus: Ember.A(),
+    starterItems: Ember.A()
+  }
+});
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.SidebarView = Ember.View.extend({
+  templateName: 'mlf-sidebar-view',
+  classNames: ['mlf-sidebar'],
+  classNameBindings: ['expanded:mlf-sidebar-expanded'],
+  expanded: true,
+  title: 'A Title',
+  menus: Ember.A(),
+  starterItems: Ember.A(),
+  didInsertElement: function() {
+    this.$().find('*[data-toggle="tooltip"]').tooltip();
+    return this.$().find('.menu-triggers li a').first().click();
+  },
+  actions: {
+    toggle: function() {
+      return this.toggleProperty('expanded');
+    }
+  }
+});
+
+Ember.Handlebars.helper('sidebar', Menglifang.Widgets.SidebarView);
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend({
+  classNames: ['ember-list-item-view', 'mlf-list-item']
+});
+
+Menglifang.Widgets.ListView = Ember.ListView.extend({
+  classNames: ['ember-list-view', 'mlf-list'],
+  itemViewClass: Menglifang.Widgets.ListItemView,
+  didInsertElement: function() {
+    this.set('height', Ember.$('.ember-list-view').parent().height());
+    return this._super();
+  }
+});
 
 
 })();
@@ -664,13 +664,13 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create({
   modelName: '',
   humanModelName: '',
   afterSaveRoute: (function() {
-    return this.get('modelName');
+    return this.get('modelName').underscore();
   }).property('modelName'),
   afterCancelRoute: (function() {
-    return Ember.String.pluralize(this.get('modelName'));
+    return this.get('modelName').underscore().pluralize();
   }).property('modelName'),
   afterDestroyRoute: (function() {
-    return Ember.String.pluralize(this.get('modelName'));
+    return this.get('modelName').underscore().pluralize();
   }).property('modelName'),
   removeConfirmationTitle: '确认删除',
   removeConfirmationMessage: (function() {
