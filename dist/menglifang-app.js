@@ -1519,7 +1519,7 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
           name: Ember.I18n.t("routes." + handler.routeName),
           model: null
         });
-        if (route.isDynamic) {
+        if (!Ember.isEmpty(Ember.keys(route.params))) {
           context = handler.context;
           breadcrumb.setProperties({
             model: context,
