@@ -5,6 +5,10 @@ require 'bower_components/select2/select2'
 require 'bower_components/select2/select2_locale_zh-CN'
 require 'bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker'
 require 'bower_components/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN'
+require 'bower_components/antiscroll/antiscroll'
+require 'bower_components/jquery-ui/ui/jquery-ui'
+require 'bower_components/jquery-mousewheel/jquery.mousewheel'
+require 'bower_components/ember-table/dist/ember-table'
 require 'dist/menglifang-widgets'
 
 window.App = Ember.Application.create
@@ -16,6 +20,7 @@ require 'build/demo/widgets/controllers/sidebar'
 require 'build/demo/widgets/controllers/toolbar'
 require 'build/demo/widgets/controllers/form'
 require 'build/demo/widgets/controllers/select2'
+require 'build/demo/widgets/controllers/grid'
 
 # Views
 require 'build/demo/widgets/views/application'
