@@ -122,6 +122,26 @@ function program5(depth0,data) {
   
 });
 
+Ember.TEMPLATES["header-cell"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<div class=\"ember-table-content-container\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "sortByColumn", "view.content", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n  <span class=\"ember-table-content\">\n    ");
+  stack1 = helpers._triageMustache.call(depth0, "view.content.headerCellName", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    <i class=\"fa\" ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("sortDirection")
+  },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push("></i>\n  </span>\n</div>\n");
+  return buffer;
+  
+});
+
 Ember.TEMPLATES["mlf-app-view"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -414,6 +434,26 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
 });
 
 Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.Grid = Ember.Table.EmberTableComponent.extend({
+  sortAction: 'orderBy',
+  actions: {
+    addColumn: Ember.K,
+    sortByColumn: function(column) {
+      var sortAscending;
+      sortAscending = !column.get('sortAscending');
+      column.set('sortAscending', sortAscending);
+      return this.sendAction('sortAction', column.get('contentPath'), sortAscending);
+    }
+  }
+});
+
+Ember.Handlebars.helper('basic-grid', Menglifang.Widgets.Grid);
 
 
 })();
