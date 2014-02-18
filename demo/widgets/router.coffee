@@ -10,6 +10,7 @@ App.Router.map ->
   @route 'list'
   @route 'select2'
   @route 'datetimePicker'
+  @route 'grid'
 
   @route 'firstRoute'
   @route 'secondRoute'
