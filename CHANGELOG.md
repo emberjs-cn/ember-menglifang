@@ -1,5 +1,6 @@
 *Ember Menglifang 0.2.4 (Feb X, 2014)*
 
+* [功能] 增加基于ember-table实现的`{{basic-grid}}`控件
 * [改进] 清理了`{{login-form}}`和`{{main-toolbar}}`的实现，使用`layoutName`替代`templateName`；
 * [改进] 升级Ember到1.4；
 * [修正] `Menglifang.App`假定所有的路由定义采用下划线连接的惯例；
