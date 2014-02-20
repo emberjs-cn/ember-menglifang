@@ -18,6 +18,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend
   start: 1
   current: 1
   size: 9
+  total: 0
   url: ''
 
   sizingClassName: (->
@@ -38,7 +39,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend
         url: @get('url')
         content: i
         current: @get('current')
-  ).property('start', 'size', 'current', 'url')
+  ).property('start', 'end', 'current', 'url')
 
   atFirstPage: (->
     @get('current') == 1
