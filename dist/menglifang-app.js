@@ -969,6 +969,54 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create({
 })();
 (function() {
 
+var get;
+
+get = Ember.get;
+
+Menglifang.App.Pageable = Ember.Mixin.create({
+  isPageable: true,
+  total: 0,
+  pageSize: 20,
+  currentPage: 0,
+  windowSize: 9,
+  startPage: (function() {
+    var currentPage, startPage, totalPages;
+    currentPage = get(this, 'currentPage');
+    totalPages = get(this, 'totalPages');
+    if (totalPages <= this.windowSize) {
+      return 1;
+    }
+    if (startPage = currentPage - Math.floor(this.windowSize / 2) > 1) {
+      currentPage - Math.floor(this.windowSize / 2);
+    } else {
+      1;
+
+    }
+    if (startPage + (this.windowSize - 1) >= totalPages) {
+      startPage = totalPages - this.windowSize + 1;
+    }
+    return startPage;
+  }).property('currentPage'),
+  endPage: (function() {
+    var currentPage, startPage, totalPages;
+    startPage = get(this, 'startPage');
+    currentPage = get(this, 'currentPage');
+    totalPages = get(this, 'totalPages');
+    if (startPage + this.windowSize - 1 >= totalPages) {
+      return totalPages;
+    } else {
+      return startPage + this.windowSize - 1;
+    }
+  }).property('startPage', 'totalPages'),
+  totalPages: (function() {
+    return Math.ceil(get(this, 'total') / get(this, 'pageSize')) || 0;
+  }).property('total', 'pageSize')
+});
+
+
+})();
+(function() {
+
 var defineProperty, get, keys;
 
 get = Ember.get;
