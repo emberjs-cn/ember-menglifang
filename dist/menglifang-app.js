@@ -590,7 +590,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
       _this = this;
     return (function() {
       _results = [];
-      for (var _i = _ref = this.get('start'), _ref1 = this.get('end'); _ref <= _ref1 ? _i < _ref1 : _i > _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
+      for (var _i = _ref = this.get('start'), _ref1 = this.get('end'); _ref <= _ref1 ? _i <= _ref1 : _i >= _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
       return _results;
     }).apply(this).map(function(i) {
       return Menglifang.Widgets.BsPaginationItem.create({

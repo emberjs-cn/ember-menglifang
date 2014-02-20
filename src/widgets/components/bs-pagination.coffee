@@ -34,7 +34,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend
 
 
   pages: (->
-    [@get('start')...@get('end')].map (i) =>
+    [@get('start')..@get('end')].map (i) =>
       Menglifang.Widgets.BsPaginationItem.create
         url: @get('url')
         content: i
