@@ -17,7 +17,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend
 
   start: 1
   current: 1
-  size: 7
+  size: 9
   url: ''
 
   sizingClassName: (->
@@ -27,8 +27,13 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend
     ''
   ).property('sizing')
 
+  end: (->
+    if @get('start') + @get('size') - 1 >= @get('total') then @get('total') else @get('start') + @get('size') - 1
+  ).property('start', 'total')
+
+
   pages: (->
-    [@get('start')...(@get('start') + @get('size'))].map (i) =>
+    [@get('start')...@get('end')].map (i) =>
       Menglifang.Widgets.BsPaginationItem.create
         url: @get('url')
         content: i
