@@ -560,7 +560,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
   classNameBindings: ['sizingClassName'],
   start: 1,
   current: 1,
-  size: 7,
+  size: 9,
   url: '',
   sizingClassName: (function() {
     if (this.get('sizing') === 'large') {
@@ -571,12 +571,19 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
     }
     return '';
   }).property('sizing'),
+  end: (function() {
+    if (this.get('start') + this.get('size') - 1 >= this.get('total')) {
+      return this.get('total');
+    } else {
+      return this.get('start') + this.get('size') - 1;
+    }
+  }).property('start', 'total'),
   pages: (function() {
     var _i, _ref, _ref1, _results,
       _this = this;
     return (function() {
       _results = [];
-      for (var _i = _ref = this.get('start'), _ref1 = this.get('start') + this.get('size'); _ref <= _ref1 ? _i < _ref1 : _i > _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
+      for (var _i = _ref = this.get('start'), _ref1 = this.get('end'); _ref <= _ref1 ? _i < _ref1 : _i > _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
       return _results;
     }).apply(this).map(function(i) {
       return Menglifang.Widgets.BsPaginationItem.create({

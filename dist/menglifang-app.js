@@ -566,7 +566,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
   classNameBindings: ['sizingClassName'],
   start: 1,
   current: 1,
-  size: 7,
+  size: 9,
   url: '',
   sizingClassName: (function() {
     if (this.get('sizing') === 'large') {
@@ -577,12 +577,19 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
     }
     return '';
   }).property('sizing'),
+  end: (function() {
+    if (this.get('start') + this.get('size') - 1 >= this.get('total')) {
+      return this.get('total');
+    } else {
+      return this.get('start') + this.get('size') - 1;
+    }
+  }).property('start', 'total'),
   pages: (function() {
     var _i, _ref, _ref1, _results,
       _this = this;
     return (function() {
       _results = [];
-      for (var _i = _ref = this.get('start'), _ref1 = this.get('start') + this.get('size'); _ref <= _ref1 ? _i < _ref1 : _i > _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
+      for (var _i = _ref = this.get('start'), _ref1 = this.get('end'); _ref <= _ref1 ? _i < _ref1 : _i > _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
       return _results;
     }).apply(this).map(function(i) {
       return Menglifang.Widgets.BsPaginationItem.create({
@@ -811,6 +818,24 @@ Ember.Route.reopen({
     return Ember.run.next(this, function() {
       return _this.controllerFor('authenticated').send('currentPathDidChange');
     });
+  },
+  parentRoute: function() {
+    var current, handlerInfos, parent,
+      _this = this;
+    handlerInfos = this.router.router.state.handlerInfos;
+    if (!handlerInfos) {
+      return;
+    }
+    parent = null;
+    current = null;
+    handlerInfos.forEach(function(h) {
+      current = h.handler;
+      if (current === _this) {
+        return false;
+      }
+      return parent = current;
+    });
+    return parent;
   }
 });
 
@@ -986,28 +1011,12 @@ Menglifang.App.Pageable = Ember.Mixin.create({
     if (totalPages <= this.windowSize) {
       return 1;
     }
-    if (startPage = currentPage - Math.floor(this.windowSize / 2) > 1) {
-      currentPage - Math.floor(this.windowSize / 2);
-    } else {
-      1;
-
-    }
+    startPage = currentPage - Math.floor(this.windowSize / 2) > 1 ? currentPage - Math.floor(this.windowSize / 2) : 1;
     if (startPage + (this.windowSize - 1) >= totalPages) {
       startPage = totalPages - this.windowSize + 1;
     }
     return startPage;
   }).property('currentPage'),
-  endPage: (function() {
-    var currentPage, startPage, totalPages;
-    startPage = get(this, 'startPage');
-    currentPage = get(this, 'currentPage');
-    totalPages = get(this, 'totalPages');
-    if (startPage + this.windowSize - 1 >= totalPages) {
-      return totalPages;
-    } else {
-      return startPage + this.windowSize - 1;
-    }
-  }).property('startPage', 'totalPages'),
   totalPages: (function() {
     return Math.ceil(get(this, 'total') / get(this, 'pageSize')) || 0;
   }).property('total', 'pageSize')
