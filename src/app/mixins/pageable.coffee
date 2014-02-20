@@ -13,7 +13,7 @@ Menglifang.App.Pageable = Ember.Mixin.create
 
     return 1 if totalPages <= @windowSize
 
-    if startPage = currentPage - Math.floor((@windowSize / 2)) > 1 then currentPage - Math.floor((@windowSize / 2)) else 1
+    startPage = if currentPage - Math.floor((@windowSize / 2)) > 1 then currentPage - Math.floor((@windowSize / 2)) else 1
     startPage = totalPages - @windowSize + 1 if startPage + (@windowSize - 1) >= totalPages
 
     startPage
