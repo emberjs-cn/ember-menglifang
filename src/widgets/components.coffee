@@ -7,3 +7,5 @@ require 'build/src/widgets/components/select2'
 require 'build/src/widgets/components/tagging-select2'
 
 require 'build/src/widgets/components/grid'
+
+require 'build/src/widgets/components/bs-pagination'

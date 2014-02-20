@@ -1,0 +1,27 @@
+<div class="col-md-6 readme">
+  说明
+</div>
+<div class="col-md-6 demo">
+  <h3>基于Bootstrap的分页</h3>
+
+  <div class="container">
+    <h4>设置大小</h4>
+    <div>
+      {{bs-pagination sizing='large' current=3 start=1 size=7 total=10}}
+    </div>
+    <div>
+      {{bs-pagination current=3 start=1 size=7 total=10}}
+    </div>
+    <div>
+      {{bs-pagination sizing='small' current=3 start=1 size=7 total=10}}
+    </div>
+
+    <h4>禁止</h4>
+    <div>
+      {{bs-pagination current=1 start=1}}
+    </div>
+    <div>
+      {{bs-pagination current=10 start=4 total=10}}
+    </div>
+  </div>
+</div>

@@ -6,6 +6,95 @@ var Menglifang, Mlf, _ref;
 })();
 (function() {
 
+Ember.TEMPLATES["components/mlf-bs-pagination-nav-button"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<a ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'href': ("href")
+  },hashTypes:{'href': "ID"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(">");
+  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</a>\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["components/mlf-bs-pagination"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n  <li ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("disabled:active")
+  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(">\n    ");
+  stack1 = helpers['if'].call(depth0, "disabled", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n  </li>\n");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n      <a href=\"javascript:void(0);\">");
+  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(" <span class=\"sr-only\">(current)</span></a>\n    ");
+  return buffer;
+  }
+
+function program4(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n      <a ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'href': ("href")
+  },hashTypes:{'href': "ID"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(">");
+  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</a>\n    ");
+  return buffer;
+  }
+
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BsPaginationStart", {hash:{
+    'url': ("view.url"),
+    'current': ("view.current")
+  },hashTypes:{'url': "ID",'current': "ID"},hashContexts:{'url': depth0,'current': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BsPaginationPrev", {hash:{
+    'url': ("view.url"),
+    'current': ("view.current")
+  },hashTypes:{'url': "ID",'current': "ID"},hashContexts:{'url': depth0,'current': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n");
+  stack1 = helpers.each.call(depth0, "view.pages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BsPaginationNext", {hash:{
+    'url': ("view.url"),
+    'current': ("view.current"),
+    'total': ("view.total")
+  },hashTypes:{'url': "ID",'current': "ID",'total': "ID"},hashContexts:{'url': depth0,'current': depth0,'total': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BsPaginationEnd", {hash:{
+    'url': ("view.url"),
+    'current': ("view.current"),
+    'total': ("view.total")
+  },hashTypes:{'url': "ID",'current': "ID",'total': "ID"},hashContexts:{'url': depth0,'current': depth0,'total': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n");
+  return buffer;
+  
+});
+
 Ember.TEMPLATES["components/mlf-login-form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -448,6 +537,113 @@ Menglifang.Widgets.Grid = Ember.Table.EmberTableComponent.extend({
 });
 
 Ember.Handlebars.helper('basic-grid', Menglifang.Widgets.Grid);
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.BsPaginationItem = Ember.ObjectProxy.extend({
+  text: Ember.computed.alias('content'),
+  href: (function() {
+    return "" + (this.get('url')) + "/" + (this.get('content'));
+  }).property('content', 'url'),
+  disabled: (function() {
+    return this.get('content') === this.get('current');
+  }).property('content', 'current')
+});
+
+Menglifang.Widgets.BsPagination = Ember.Component.extend({
+  tagName: 'ul',
+  layoutName: 'components/mlf-bs-pagination',
+  classNames: ['pagination'],
+  classNameBindings: ['sizingClassName'],
+  start: 1,
+  current: 1,
+  size: 7,
+  url: '',
+  sizingClassName: (function() {
+    if (this.get('sizing') === 'large') {
+      return 'pagination-lg';
+    }
+    if (this.get('sizing') === 'small') {
+      return 'pagination-sm';
+    }
+    return '';
+  }).property('sizing'),
+  pages: (function() {
+    var _i, _ref, _ref1, _results,
+      _this = this;
+    return (function() {
+      _results = [];
+      for (var _i = _ref = this.get('start'), _ref1 = this.get('start') + this.get('size'); _ref <= _ref1 ? _i < _ref1 : _i > _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
+      return _results;
+    }).apply(this).map(function(i) {
+      return Menglifang.Widgets.BsPaginationItem.create({
+        url: _this.get('url'),
+        content: i,
+        current: _this.get('current')
+      });
+    });
+  }).property('start', 'size', 'current', 'url'),
+  atFirstPage: (function() {
+    return this.get('current') === 1;
+  }).property('current'),
+  atLastPage: (function() {
+    return this.get('current') === this.get('total');
+  }).property('current', 'total')
+});
+
+Menglifang.Widgets.BsPaginationNavButton = Ember.Component.extend({
+  tagName: 'li',
+  layoutName: 'components/mlf-bs-pagination-nav-button',
+  classNameBindings: ['disabled:disabled'],
+  href: (function() {
+    if (this.get('disabled')) {
+      return 'javascript:void(0);';
+    } else {
+      return "" + (this.get('url')) + "/" + (this.get('page'));
+    }
+  }).property('disabled', 'url')
+});
+
+Menglifang.Widgets.BsPaginationStart = Menglifang.Widgets.BsPaginationNavButton.extend({
+  page: 1,
+  text: (function() {
+    return Ember.String.htmlSafe('&laquo;');
+  }).property(),
+  disabled: Ember.computed.equal('current', 1)
+});
+
+Menglifang.Widgets.BsPaginationPrev = Menglifang.Widgets.BsPaginationStart.extend({
+  page: (function() {
+    return this.get('current') - 1;
+  }).property('current'),
+  text: (function() {
+    return Ember.String.htmlSafe('&lsaquo;');
+  }).property()
+});
+
+Menglifang.Widgets.BsPaginationEnd = Menglifang.Widgets.BsPaginationNavButton.extend({
+  page: Ember.computed.alias('total'),
+  text: (function() {
+    return Ember.String.htmlSafe('&raquo;');
+  }).property(),
+  disabled: (function() {
+    return this.get('current') === this.get('total');
+  }).property('current', 'total')
+});
+
+Menglifang.Widgets.BsPaginationNext = Menglifang.Widgets.BsPaginationEnd.extend({
+  page: (function() {
+    return this.get('current') + 1;
+  }).property('current'),
+  text: (function() {
+    return Ember.String.htmlSafe('&rsaquo;');
+  }).property()
+});
+
+Ember.Handlebars.helper('bs-pagination', Menglifang.Widgets.BsPagination);
 
 
 })();
