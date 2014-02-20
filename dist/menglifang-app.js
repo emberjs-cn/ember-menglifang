@@ -567,6 +567,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
   start: 1,
   current: 1,
   size: 9,
+  total: 0,
   url: '',
   sizingClassName: (function() {
     if (this.get('sizing') === 'large') {
@@ -598,7 +599,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
         current: _this.get('current')
       });
     });
-  }).property('start', 'size', 'current', 'url'),
+  }).property('start', 'end', 'current', 'url'),
   atFirstPage: (function() {
     return this.get('current') === 1;
   }).property('current'),
@@ -2045,6 +2046,34 @@ Menglifang.App.UsersNewRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRo
 Menglifang.App.UsersRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
     return this.store.find('user');
+  }
+});
+
+
+})();
+(function() {
+
+
+Menglifang.App.PageRoute = Ember.Route.extend({
+  model: function(params) {
+    return Ember.Object.create(params);
+  },
+  setupController: function(controller, model) {
+    var page;
+    page = model && model.get('page') ? parseInt(model.get('page')) : 1;
+    controller = this.currentController();
+    return controller.set('currentPage', page);
+  },
+  renderTemplate: function() {
+    var parentRouteName, template;
+    parentRouteName = this.parentRoute().get('routeName');
+    template = parentRouteName;
+    return this.render(template, {
+      controller: this.currentController()
+    });
+  },
+  currentController: function() {
+    return this.controllerFor(this.parentRoute().get('routeName').camelize());
   }
 });
 

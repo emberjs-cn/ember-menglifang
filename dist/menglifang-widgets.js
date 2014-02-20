@@ -561,6 +561,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
   start: 1,
   current: 1,
   size: 9,
+  total: 0,
   url: '',
   sizingClassName: (function() {
     if (this.get('sizing') === 'large') {
@@ -592,7 +593,7 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
         current: _this.get('current')
       });
     });
-  }).property('start', 'size', 'current', 'url'),
+  }).property('start', 'end', 'current', 'url'),
   atFirstPage: (function() {
     return this.get('current') === 1;
   }).property('current'),
