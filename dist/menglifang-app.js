@@ -952,7 +952,11 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create({
       dismiss: 'modal'
     })
   ],
+  beforeSave: Ember.K,
+  afterSave: Ember.K,
   beforeConfirmRemove: Ember.K,
+  beforeRemove: Ember.K,
+  afterRemove: Ember.K,
   actions: {
     revertChanges: function() {
       if (this.get('model.isDirty')) {
@@ -961,8 +965,12 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create({
     },
     save: function() {
       var _this = this;
+      if (!this.beforeSave()) {
+        return;
+      }
       return this.get('model').save().then(function() {
         Notifier.success("保存" + (_this.get('humanModelName')) + "成功");
+        _this.afterSave();
         return _this.transitionToRoute(_this.get('afterSaveRoute'), _this.get('model'));
       }, function() {
         return Notifier.error("保存" + (_this.get('humanModelName')) + "失败");
@@ -978,12 +986,13 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create({
     confirmRemove: function() {
       var _this = this;
       Bootstrap.ModalManager.hide('removeConfirmation');
-      if (!this.beforeConfirmRemove()) {
+      if (!(this.beforeConfirmRemove() && this.beforeRemove())) {
         return false;
       }
       this.get('model').deleteRecord();
       return this.get('model').save().then(function() {
         Notifier.success("删除" + (_this.get('humanModelName')) + "成功");
+        _this.afterRemove();
         return _this.transitionToRoute(_this.get('afterDestroyRoute'));
       }, function() {
         return Notifier.error("删除" + (_this.get('humanModelName')) + "失败");
