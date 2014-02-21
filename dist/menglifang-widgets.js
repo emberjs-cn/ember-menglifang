@@ -523,20 +523,21 @@ Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
 (function() {
 
 
-Menglifang.Widgets.Grid = Ember.Table.EmberTableComponent.extend({
-  sortAction: 'orderBy',
-  actions: {
-    addColumn: Ember.K,
-    sortByColumn: function(column) {
-      var sortAscending;
-      sortAscending = !column.get('sortAscending');
-      column.set('sortAscending', sortAscending);
-      return this.sendAction('sortAction', column.get('contentPath'), sortAscending);
+if (Ember.Table && Ember.Table.EmberTableComponent) {
+  Menglifang.Widgets.Grid = Ember.Table.EmberTableComponent.extend({
+    sortAction: 'orderBy',
+    actions: {
+      addColumn: Ember.K,
+      sortByColumn: function(column) {
+        var sortAscending;
+        sortAscending = !column.get('sortAscending');
+        column.set('sortAscending', sortAscending);
+        return this.sendAction('sortAction', column.get('contentPath'), sortAscending);
+      }
     }
-  }
-});
-
-Ember.Handlebars.helper('basic-grid', Menglifang.Widgets.Grid);
+  });
+  Ember.Handlebars.helper('basic-grid', Menglifang.Widgets.Grid);
+}
 
 
 })();
