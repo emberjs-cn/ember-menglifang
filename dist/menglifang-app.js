@@ -1592,6 +1592,22 @@ Ember.Handlebars.registerBoundHelper('pt', function(propName, options) {
   return Ember.I18n.t(key);
 });
 
+Ember.Handlebars.helper('format-date', function(value, options) {
+  var format;
+  if (!value) {
+    return '';
+  }
+  format = options.hash['format'] || "YYYY-MM-DD hh:mm:ss";
+  return new Handlebars.SafeString(moment(value).format(format));
+});
+
+Ember.Handlebars.helper('time-ago', function(value, options) {
+  if (!value) {
+    return '';
+  }
+  return new Handlebars.SafeString(moment(value).fromNow());
+});
+
 
 })();
 (function() {
