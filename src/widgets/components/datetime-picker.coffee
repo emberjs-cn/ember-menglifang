@@ -8,6 +8,7 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend
   minuteStep: 10
   minView: 0
   maxView: 4
+  language: 'zh-CN'
 
   didInsertElement: ->
     options =
@@ -18,6 +19,7 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend
       minuteStep: @get('minuteStep')
       minView: @get('minView')
       maxView: @get('maxView')
+      language: @get('language')
 
     @$().datetimepicker(options)
 

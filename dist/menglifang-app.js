@@ -436,6 +436,7 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend({
   minuteStep: 10,
   minView: 0,
   maxView: 4,
+  language: 'zh-CN',
   didInsertElement: function() {
     var options;
     options = {
@@ -445,7 +446,8 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend({
       startDate: this.get('startDate'),
       minuteStep: this.get('minuteStep'),
       minView: this.get('minView'),
-      maxView: this.get('maxView')
+      maxView: this.get('maxView'),
+      language: this.get('language')
     };
     return this.$().datetimepicker(options);
   }
@@ -519,7 +521,12 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
   },
   willDestroyElement: function() {
     return this.$().select2("destroy");
-  }
+  },
+  resetSelection: (function() {
+    if (!Ember.isEmpty(this.get('tags'))) {
+      return this.processChildElements();
+    }
+  }).observes('tags.@each')
 });
 
 Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);

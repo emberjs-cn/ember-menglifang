@@ -26,4 +26,8 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend
   willDestroyElement: ->
     @$().select2("destroy")
 
+  resetSelection: (->
+    @processChildElements() unless Ember.isEmpty(@get('tags'))
+  ).observes('tags.@each')
+
 Ember.Handlebars.helper 'tagging-select2', Menglifang.Widgets.TaggingSelect2
