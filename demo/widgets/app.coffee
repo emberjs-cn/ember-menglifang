@@ -1,5 +1,7 @@
 # Ember Menglifang Dependencies
 require 'bower_components/bootstrap/dist/js/bootstrap'
+require 'bower_components/momentjs/moment'
+require 'bower_components/momentjs/lang/zh-cn'
 require 'bower_components/list-view/list-view'
 require 'bower_components/select2/select2'
 require 'bower_components/select2/select2_locale_zh-CN'
@@ -20,6 +22,8 @@ require 'build/demo/widgets/controllers/sidebar'
 require 'build/demo/widgets/controllers/toolbar'
 require 'build/demo/widgets/controllers/form'
 require 'build/demo/widgets/controllers/select2'
+
+require 'build/demo/widgets/controllers/basic-table'
 require 'build/demo/widgets/controllers/grid'
 
 # Views

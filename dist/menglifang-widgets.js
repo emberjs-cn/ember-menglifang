@@ -6,6 +6,50 @@ var Menglifang, Mlf, _ref;
 })();
 (function() {
 
+Ember.TEMPLATES["components/mlf-basic-table-row"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n  ");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BasicTableCell", {hash:{
+    'width': ("width"),
+    'row': ("view.content"),
+    'valuePath': ("cellContentPath")
+  },hashTypes:{'width': "ID",'row': "ID",'valuePath': "ID"},hashContexts:{'width': depth0,'row': depth0,'valuePath': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n");
+  return buffer;
+  }
+
+  stack1 = helpers.each.call(depth0, "view.columns", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["components/mlf-basic-table"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BasicTableHead", {hash:{
+    'content': ("view.headContent")
+  },hashTypes:{'content': "ID"},hashContexts:{'content': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n");
+  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BasicTableBody", {hash:{
+    'columns': ("view.columns"),
+    'content': ("view.content")
+  },hashTypes:{'columns': "ID",'content': "ID"},hashContexts:{'columns': depth0,'content': depth0},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\n");
+  return buffer;
+  
+});
+
 Ember.TEMPLATES["components/mlf-bs-pagination-nav-button"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -373,6 +417,66 @@ if ((_ref = Ember.libraries) != null) {
 (function() {
 
 
+Ember.AddeparMixins = Ember.AddeparMixins || Ember.Namespace.create();
+
+Menglifang.Widgets.StyleBindingsMixin = Ember.AddeparMixins.StyleBindingsMixin = Ember.Mixin.create({
+  concatenatedProperties: ["styleBindings"],
+  attributeBindings: ["style"],
+  unitType: "px",
+  createStyleString: function(styleName, property) {
+    var value;
+    value = this.get(property);
+    if (value === void 0) {
+      return;
+    }
+    if (Ember.typeOf(value) === "number") {
+      value = value + this.get("unitType");
+    }
+    return "" + styleName + ":" + value + ";";
+  },
+  applyStyleBindings: function() {
+    var lookup, properties, styleBindings, styleComputed, styles, _this;
+    _this = this;
+    styleBindings = this.styleBindings;
+    if (!styleBindings) {
+      return;
+    }
+    lookup = {};
+    styleBindings.forEach(function(binding) {
+      var property, style, tmp;
+      tmp = binding.split(":");
+      property = tmp[0];
+      style = tmp[1];
+      return lookup[style || property] = property;
+    });
+    styles = Ember.keys(lookup);
+    properties = styles.map(function(style) {
+      return lookup[style];
+    });
+    styleComputed = Ember.computed(function() {
+      var styleString, styleTokens;
+      styleTokens = styles.map(function(style) {
+        return _this.createStyleString(style, lookup[style]);
+      });
+      styleString = styleTokens.join("");
+      if (styleString.length !== 0) {
+        return styleString;
+      }
+    });
+    styleComputed.property.apply(styleComputed, properties);
+    return Ember.defineProperty(this, "style", styleComputed);
+  },
+  init: function() {
+    this.applyStyleBindings();
+    return this._super();
+  }
+});
+
+
+})();
+(function() {
+
+
 Menglifang.Widgets.LoginForm = Ember.Component.extend({
   layoutName: 'components/mlf-login-form',
   classNames: ['mlf-login-form'],
@@ -524,6 +628,87 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
 });
 
 Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.BasicTableColumn = Ember.Object.extend({
+  title: null,
+  width: 100,
+  cellContentPath: null
+});
+
+Menglifang.Widgets.BasicTableCell = Ember.Component.extend({
+  tagName: 'td',
+  classNames: ['mlf-basic-table-cell'],
+  defaultTemplate: function(context, options) {
+    options = {
+      data: options.data,
+      hash: {}
+    };
+    return Ember.Handlebars.helpers.bind.call(context, "view.value", options);
+  },
+  value: (function() {
+    return this.get('row').get(this.get('valuePath'));
+  }).property('row', 'valuePath')
+});
+
+Menglifang.Widgets.BasicTableRow = Ember.Component.extend({
+  tagName: 'tr',
+  templateName: 'components/mlf-basic-table-row',
+  classNames: ['mlf-basic-table-row'],
+  columnsBinding: 'parentView.columns'
+});
+
+Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend({
+  tagName: 'tbody',
+  classNames: ['mlf-basic-table-body'],
+  itemViewClass: Menglifang.Widgets.BasicTableRow,
+  columns: []
+});
+
+Menglifang.Widgets.BasicTableHeadCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
+  tagName: 'td',
+  classNames: ['mlf-basic-table-head-cell'],
+  styleBindings: ['width'],
+  widthBinding: 'content.width',
+  defaultTemplate: function(context, options) {
+    options = {
+      data: options.data,
+      hash: {}
+    };
+    return Ember.Handlebars.helpers.bind.call(context, "view.content.title", options);
+  }
+});
+
+Menglifang.Widgets.BasicTableHeadRow = Ember.CollectionView.extend({
+  tagName: 'tr',
+  classNames: ['mlf-basic-table-head-row'],
+  itemViewClass: Menglifang.Widgets.BasicTableHeadCell
+});
+
+Menglifang.Widgets.BasicTableHead = Ember.CollectionView.extend({
+  tagName: 'thead',
+  classNames: ['mlf-basic-table-head'],
+  itemViewClass: Menglifang.Widgets.BasicTableHeadRow
+});
+
+Menglifang.Widgets.BasicTable = Ember.Component.extend({
+  tagName: 'table',
+  classNames: ['table', 'table-bordered', 'table-hover', 'mlf-basic-table'],
+  templateName: 'components/mlf-basic-table',
+  headContent: (function() {
+    var content, headContent;
+    headContent = Ember.A();
+    content = this.get('columns') || [];
+    headContent.pushObject(content);
+    return headContent;
+  }).property('columns.@each')
+});
+
+Ember.Handlebars.helper('basic-table', Menglifang.Widgets.BasicTable);
 
 
 })();
