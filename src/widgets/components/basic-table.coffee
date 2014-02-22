@@ -32,9 +32,9 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
 Menglifang.Widgets.BasicTableHeadCell = Ember.Component.extend Menglifang.Widgets.StyleBindingsMixin,
   tagName: 'td'
   classNames: ['mlf-basic-table-head-cell']
-  styleBindings: ['width']
+  styleBindings: ['minWidth:min-width']
 
-  widthBinding: 'content.width'
+  minWidthBinding: 'content.width'
 
   defaultTemplate: (context, options) ->
     options =  data: options.data, hash: {}
