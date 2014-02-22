@@ -11,9 +11,20 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend
     options =  data: options.data, hash: {}
     Ember.Handlebars.helpers.bind.call(context, "view.value", options)
 
-  value: (->
-    @get('row').get(@get('valuePath'))
-  ).property('row', 'valuePath')
+  init: ->
+    @valuePathDidChange()
+
+    @_super()
+
+  valuePathDidChange: (->
+    valuePath = @get('valuePath')
+
+    return unless valuePath
+
+    Ember.defineProperty(@, 'value', Ember.computed(->
+      @get('row').get(valuePath)
+    ).property(valuePath))
+  ).observes('valuePath')
 
 Menglifang.Widgets.BasicTableRow = Ember.Component.extend
   tagName: 'tr'
