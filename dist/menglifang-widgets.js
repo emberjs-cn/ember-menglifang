@@ -739,14 +739,22 @@ Menglifang.Widgets.BasicTable = Ember.Component.extend({
     var content, headContent;
     headContent = Ember.A();
     content = this.get('columns') || [];
-    content.unshiftObject(Ember.Object.create({
-      title: '#',
-      width: 30,
-      textAlign: 'center'
-    }));
+    if (!this.get('indexed')) {
+      content = content.filter(function(i) {
+        return Ember.isNone(i.get('isIndex'));
+      });
+    }
+    if (this.get('indexed') && !content.get('firstObject.isIndex')) {
+      content.unshiftObject(Ember.Object.create({
+        title: '#',
+        width: 30,
+        textAlign: 'center',
+        isIndex: true
+      }));
+    }
     headContent.pushObject(content);
     return headContent;
-  }).property('columns.@each')
+  }).property('columns.@each', 'indexed')
 });
 
 Ember.Handlebars.helper('basic-table', Menglifang.Widgets.BasicTable);

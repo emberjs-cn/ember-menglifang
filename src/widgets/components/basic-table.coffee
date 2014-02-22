@@ -83,10 +83,15 @@ Menglifang.Widgets.BasicTable= Ember.Component.extend
   headContent: (->
     headContent = Ember.A()
     content = @get('columns') || []
-    content.unshiftObject Ember.Object.create(title: '#', width: 30, textAlign: 'center')
+
+    content = content.filter((i) -> Ember.isNone(i.get('isIndex'))) unless @get('indexed')
+
+    if @get('indexed') && !content.get('firstObject.isIndex')
+      content.unshiftObject Ember.Object.create(title: '#', width: 30, textAlign: 'center', isIndex: true)
+
     headContent.pushObject content
 
     headContent
-  ).property('columns.@each')
+  ).property('columns.@each', 'indexed')
 
 Ember.Handlebars.helper 'basic-table', Menglifang.Widgets.BasicTable
