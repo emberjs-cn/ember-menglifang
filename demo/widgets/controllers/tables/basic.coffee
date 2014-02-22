@@ -1,4 +1,4 @@
-App.BasicTableController = Ember.Controller.extend
+App.TablesBasicController = Ember.Controller.extend
   columns: Ember.computed ->
     dateColumn = Menglifang.Widgets.BasicTableColumn.create
       title: '日期'

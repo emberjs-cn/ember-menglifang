@@ -23,7 +23,7 @@ require 'build/demo/widgets/controllers/toolbar'
 require 'build/demo/widgets/controllers/form'
 require 'build/demo/widgets/controllers/select2'
 
-require 'build/demo/widgets/controllers/basic-table'
+require 'build/demo/widgets/controllers/tables/basic'
 require 'build/demo/widgets/controllers/grid'
 
 # Views
