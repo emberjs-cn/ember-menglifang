@@ -650,9 +650,20 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend({
     };
     return Ember.Handlebars.helpers.bind.call(context, "view.value", options);
   },
-  value: (function() {
-    return this.get('row').get(this.get('valuePath'));
-  }).property('row', 'valuePath')
+  init: function() {
+    this.valuePathDidChange();
+    return this._super();
+  },
+  valuePathDidChange: (function() {
+    var valuePath;
+    valuePath = this.get('valuePath');
+    if (!valuePath) {
+      return;
+    }
+    return Ember.defineProperty(this, 'value', Ember.computed(function() {
+      return this.get('row').get(valuePath);
+    }).property(valuePath));
+  }).observes('valuePath')
 });
 
 Menglifang.Widgets.BasicTableRow = Ember.Component.extend({
@@ -672,8 +683,8 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend({
 Menglifang.Widgets.BasicTableHeadCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
   tagName: 'td',
   classNames: ['mlf-basic-table-head-cell'],
-  styleBindings: ['width'],
-  widthBinding: 'content.width',
+  styleBindings: ['minWidth:min-width'],
+  minWidthBinding: 'content.width',
   defaultTemplate: function(context, options) {
     options = {
       data: options.data,
