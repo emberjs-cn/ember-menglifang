@@ -20,13 +20,13 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend Menglifang.Widgets.St
     @_super()
 
   valuePathDidChange: (->
-    valuePath = @get('column.cellContentPath')
+    valuePath = 'row.' + @get('column.cellContentPath')
 
     return unless valuePath
 
     Ember.defineProperty(@, 'value', Ember.computed(->
-      @get('row').get(valuePath)
-    ).property('row', valuePath))
+      @get(valuePath)
+    ).property(valuePath))
   ).observes('row', 'column.cellContentPath')
 
 Menglifang.Widgets.BasicTableRow = Ember.Component.extend

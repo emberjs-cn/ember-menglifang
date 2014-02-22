@@ -672,13 +672,13 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.St
   },
   valuePathDidChange: (function() {
     var valuePath;
-    valuePath = this.get('column.cellContentPath');
+    valuePath = 'row.' + this.get('column.cellContentPath');
     if (!valuePath) {
       return;
     }
     return Ember.defineProperty(this, 'value', Ember.computed(function() {
-      return this.get('row').get(valuePath);
-    }).property('row', valuePath));
+      return this.get(valuePath);
+    }).property(valuePath));
   }).observes('row', 'column.cellContentPath')
 });
 
