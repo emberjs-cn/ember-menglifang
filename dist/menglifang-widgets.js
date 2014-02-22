@@ -13,18 +13,31 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
+  var buffer = '', stack1;
+  data.buffer.push("\n  <td class='index'>");
+  stack1 = helpers._triageMustache.call(depth0, "view.index", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</td>\n");
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
   var buffer = '';
   data.buffer.push("\n  ");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BasicTableCell", {hash:{
     'width': ("width"),
     'row': ("view.content"),
-    'valuePath': ("cellContentPath")
-  },hashTypes:{'width': "ID",'row': "ID",'valuePath': "ID"},hashContexts:{'width': depth0,'row': depth0,'valuePath': depth0},contexts:[depth0],types:["ID"],data:data})));
+    'column': ("")
+  },hashTypes:{'width': "ID",'row': "ID",'column': "ID"},hashContexts:{'width': depth0,'row': depth0,'column': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n");
   return buffer;
   }
 
-  stack1 = helpers.each.call(depth0, "view.columns", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "view.indexed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n");
+  stack1 = helpers.each.call(depth0, "view.columns", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
@@ -43,8 +56,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   data.buffer.push("\n");
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BasicTableBody", {hash:{
     'columns': ("view.columns"),
-    'content': ("view.content")
-  },hashTypes:{'columns': "ID",'content': "ID"},hashContexts:{'columns': depth0,'content': depth0},contexts:[depth0],types:["ID"],data:data})));
+    'content': ("view.content"),
+    'indexed': ("view.indexed")
+  },hashTypes:{'columns': "ID",'content': "ID",'indexed': "ID"},hashContexts:{'columns': depth0,'content': depth0,'indexed': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n");
   return buffer;
   
@@ -640,9 +654,11 @@ Menglifang.Widgets.BasicTableColumn = Ember.Object.extend({
   cellContentPath: null
 });
 
-Menglifang.Widgets.BasicTableCell = Ember.Component.extend({
+Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
   tagName: 'td',
   classNames: ['mlf-basic-table-cell'],
+  styleBindings: ['textAlign:text-align'],
+  textAlignBinding: 'column.textAlign',
   defaultTemplate: function(context, options) {
     options = {
       data: options.data,
@@ -656,35 +672,43 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend({
   },
   valuePathDidChange: (function() {
     var valuePath;
-    valuePath = this.get('valuePath');
+    valuePath = this.get('column.cellContentPath');
     if (!valuePath) {
       return;
     }
     return Ember.defineProperty(this, 'value', Ember.computed(function() {
       return this.get('row').get(valuePath);
-    }).property(valuePath));
-  }).observes('valuePath')
+    }).property('row', valuePath));
+  }).observes('row', 'column.cellContentPath')
 });
 
 Menglifang.Widgets.BasicTableRow = Ember.Component.extend({
   tagName: 'tr',
   templateName: 'components/mlf-basic-table-row',
   classNames: ['mlf-basic-table-row'],
-  columnsBinding: 'parentView.columns'
+  indexedBinding: 'parentView.indexed',
+  columns: Ember.computed.filter('parentView.columns', function(c) {
+    return c.get('cellContentPath');
+  }),
+  index: (function() {
+    return this.get('contentIndex') + 1;
+  }).property('contentIndex')
 });
 
 Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend({
   tagName: 'tbody',
   classNames: ['mlf-basic-table-body'],
   itemViewClass: Menglifang.Widgets.BasicTableRow,
+  indexed: false,
   columns: []
 });
 
 Menglifang.Widgets.BasicTableHeadCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
   tagName: 'td',
   classNames: ['mlf-basic-table-head-cell'],
-  styleBindings: ['minWidth:min-width'],
+  styleBindings: ['minWidth:min-width', 'textAlign:text-align'],
   minWidthBinding: 'content.width',
+  textAlignBinding: 'content.textAlign',
   defaultTemplate: function(context, options) {
     options = {
       data: options.data,
@@ -710,10 +734,16 @@ Menglifang.Widgets.BasicTable = Ember.Component.extend({
   tagName: 'table',
   classNames: ['table', 'table-bordered', 'table-hover', 'mlf-basic-table'],
   templateName: 'components/mlf-basic-table',
+  indexed: false,
   headContent: (function() {
     var content, headContent;
     headContent = Ember.A();
     content = this.get('columns') || [];
+    content.unshiftObject(Ember.Object.create({
+      title: '#',
+      width: 30,
+      textAlign: 'center'
+    }));
     headContent.pushObject(content);
     return headContent;
   }).property('columns.@each')

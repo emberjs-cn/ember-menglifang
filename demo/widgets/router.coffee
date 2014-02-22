@@ -15,6 +15,8 @@ App.Router.map ->
 
   @resource 'tables', ->
     @route 'basic'
+    @route 'indexed'
+    @route 'align'
 
   @route 'firstRoute'
   @route 'secondRoute'

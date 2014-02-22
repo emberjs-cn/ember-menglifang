@@ -24,6 +24,9 @@ require 'build/demo/widgets/controllers/form'
 require 'build/demo/widgets/controllers/select2'
 
 require 'build/demo/widgets/controllers/tables/basic'
+require 'build/demo/widgets/controllers/tables/indexed'
+require 'build/demo/widgets/controllers/tables/align'
+
 require 'build/demo/widgets/controllers/grid'
 
 # Views
