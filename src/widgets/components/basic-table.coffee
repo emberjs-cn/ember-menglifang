@@ -23,8 +23,8 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend
 
     Ember.defineProperty(@, 'value', Ember.computed(->
       @get('row').get(valuePath)
-    ).property(valuePath))
-  ).observes('valuePath')
+    ).property('row', valuePath))
+  ).observes('row', 'valuePath')
 
 Menglifang.Widgets.BasicTableRow = Ember.Component.extend
   tagName: 'tr'
