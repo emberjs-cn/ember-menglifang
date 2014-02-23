@@ -4,5 +4,5 @@
     {{view Menglifang.Widgets.BasicTableActionGroup class="pull-right" content=view.rightActions}}
   {{/view}}
 {{/if}}
-{{view Menglifang.Widgets.BasicTableHead content=view.headContent hasIndexCell=view.indexed hasSelectAllCell=view.rowSelectable}}
-{{view Menglifang.Widgets.BasicTableBody columns=view.columns content=view.content indexed=view.indexed rowSelectable=view.rowSelectable selection=view.selection}}
+{{view Menglifang.Widgets.BasicTableHead content=view.headContent hasIndexCell=view.indexed hasSelectAllCell=view.multiple}}
+{{view Menglifang.Widgets.BasicTableBody columns=view.columns content=view.content indexed=view.indexed rowSelectable=view.rowSelectable multiple=view.multiple selection=view.selection}}

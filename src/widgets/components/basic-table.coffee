@@ -36,6 +36,7 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend
   classNames: ['mlf-basic-table-row']
 
   indexedBinding: 'parentView.indexed'
+  multipleBinding: 'parentView.multiple'
   selectableBinding: 'parentView.rowSelectable'
   selectionBinding: 'parentView.selection'
   allRowsSelectedBinding: 'parentView.allRowsSelected'
@@ -69,6 +70,7 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
   itemViewClass: Menglifang.Widgets.BasicTableRow
 
   indexed: false
+  multiple: false
   rowSelectable: false
 
   # 保存被选中的行绑定的对象
@@ -148,6 +150,9 @@ Menglifang.Widgets.BasicTable= Ember.Component.extend
   tagName: 'table'
   classNames: ['table', 'table-bordered', 'table-hover', 'mlf-basic-table']
   layoutName: 'components/mlf-basic-table'
+
+  # 标记是否可以多选
+  multiple: false
 
   # 缓存所有选中的行绑定的对象
   selection: new Ember.Set()

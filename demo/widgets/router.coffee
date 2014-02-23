@@ -19,7 +19,7 @@ App.Router.map ->
     @route 'align'
     @route 'topbar'
     @route 'formatCellContent'
-    @route 'rowSelection'
+    @route 'multipleSelection'
 
   @route 'firstRoute'
   @route 'secondRoute'
