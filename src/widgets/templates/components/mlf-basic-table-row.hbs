@@ -1,3 +1,6 @@
+{{#if view.selectable}}
+  <td class='selection-cell'>{{input type='checkbox' checked=view.selected}}</td>
+{{/if}}
 {{#if view.indexed}}
   <td class='index'>{{view.index}}</td>
 {{/if}}

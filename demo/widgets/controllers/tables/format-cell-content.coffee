@@ -14,21 +14,25 @@ App.TablesFormatCellContentController = App.TablesBasicController.extend
     openColumn = Menglifang.Widgets.BasicTableColumn.create
       title: '开盘价'
       width: 100
+      textAlign: 'right'
       cellContentPath: 'open'
       formatCellContent: (value) -> formatPrice(value)
     highColumn = Menglifang.Widgets.BasicTableColumn.create
       title: '最高价'
       width: 100
+      textAlign: 'right'
       cellContentPath: 'high'
       formatCellContent: (value) -> formatPrice(value)
     lowColumn = Menglifang.Widgets.BasicTableColumn.create
       title: '最低价'
       width: 100
+      textAlign: 'right'
       cellContentPath: 'low'
       formatCellContent: (value) -> formatPrice(value)
     closeColumn = Menglifang.Widgets.BasicTableColumn.create
       title: '收盘价'
       width: 100
+      textAlign: 'right'
       cellContentPath: 'close'
       formatCellContent: (value) -> formatPrice(value)
     [dateColumn, openColumn, highColumn, lowColumn, closeColumn]
