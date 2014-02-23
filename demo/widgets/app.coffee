@@ -27,6 +27,7 @@ require 'build/demo/widgets/controllers/tables/basic'
 require 'build/demo/widgets/controllers/tables/indexed'
 require 'build/demo/widgets/controllers/tables/align'
 require 'build/demo/widgets/controllers/tables/topbar'
+require 'build/demo/widgets/controllers/tables/format-cell-content'
 
 require 'build/demo/widgets/controllers/grid'
 

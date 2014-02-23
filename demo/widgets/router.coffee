@@ -18,6 +18,7 @@ App.Router.map ->
     @route 'indexed'
     @route 'align'
     @route 'topbar'
+    @route 'formatCellContent'
 
   @route 'firstRoute'
   @route 'secondRoute'

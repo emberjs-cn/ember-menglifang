@@ -20,12 +20,13 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend Menglifang.Widgets.St
     @_super()
 
   valuePathDidChange: (->
+    formatValue = @get('column.formatCellContent')
     valuePath = 'row.' + @get('column.cellContentPath')
 
     return unless valuePath
 
     Ember.defineProperty(@, 'value', Ember.computed(->
-      @get(valuePath)
+      if formatValue then formatValue(@get(valuePath)) else @get(valuePath)
     ).property(valuePath))
   ).observes('row', 'column.cellContentPath')
 
