@@ -31,7 +31,7 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend Menglifang.Widgets.St
 
 Menglifang.Widgets.BasicTableRow = Ember.Component.extend
   tagName: 'tr'
-  templateName: 'components/mlf-basic-table-row'
+  layoutName: 'components/mlf-basic-table-row'
   classNames: ['mlf-basic-table-row']
 
   indexedBinding: 'parentView.indexed'
@@ -72,13 +72,32 @@ Menglifang.Widgets.BasicTableHead = Ember.CollectionView.extend
   classNames: ['mlf-basic-table-head']
   itemViewClass: Menglifang.Widgets.BasicTableHeadRow
 
+Menglifang.Widgets.BasicTableAction = Ember.Component.extend
+  tagName: 'a'
+  layoutName: 'components/mlf-basic-table-action'
+
+Menglifang.Widgets.BasicTableActionGroup = Ember.CollectionView.extend
+  classNames: ['mlf-basic-table-action-group']
+  itemViewClass: Menglifang.Widgets.BasicTableAction
+
+Menglifang.Widgets.BasicTableTopBar = Ember.Component.extend
+  tagName: 'caption'
+  classNames: ['mlf-basic-table-top-bar']
+
+  barActions: []
+  leftActions: Ember.computed.filterBy('barActions', 'position', 'left')
+  rightActions: Ember.computed.filterBy('barActions', 'position', 'right')
+
 Menglifang.Widgets.BasicTable= Ember.Component.extend
   tagName: 'table'
   classNames: ['table', 'table-bordered', 'table-hover', 'mlf-basic-table']
-  templateName: 'components/mlf-basic-table'
+  layoutName: 'components/mlf-basic-table'
 
   # 标记是否需要在第一列显示序号
   indexed: false
+
+  topActions: []
+  hasTopActions: Ember.computed.notEmpty('topActions')
 
   headContent: (->
     headContent = Ember.A()
@@ -93,5 +112,13 @@ Menglifang.Widgets.BasicTable= Ember.Component.extend
 
     headContent
   ).property('columns.@each', 'indexed')
+
+  click: (evt) ->
+    view = Ember.View.views[evt.target.id]
+    @triggerAction action: view.get('content.name') if @_clickFromAction(view)
+
+  _clickFromAction: (target) ->
+    target && target.constructor == Menglifang.Widgets.BasicTableAction
+
 
 Ember.Handlebars.helper 'basic-table', Menglifang.Widgets.BasicTable

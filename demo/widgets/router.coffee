@@ -17,6 +17,7 @@ App.Router.map ->
     @route 'basic'
     @route 'indexed'
     @route 'align'
+    @route 'topbar'
 
   @route 'firstRoute'
   @route 'secondRoute'

@@ -1,2 +1,8 @@
+{{#if view.hasTopActions}}
+  {{#view Menglifang.Widgets.BasicTableTopBar barActions=view.topActions}}
+    {{view Menglifang.Widgets.BasicTableActionGroup class="pull-left" content=view.leftActions}}
+    {{view Menglifang.Widgets.BasicTableActionGroup class="pull-right" content=view.rightActions}}
+  {{/view}}
+{{/if}}
 {{view Menglifang.Widgets.BasicTableHead content=view.headContent}}
 {{view Menglifang.Widgets.BasicTableBody columns=view.columns content=view.content indexed=view.indexed}}
