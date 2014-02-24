@@ -36,44 +36,52 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend
   classNames: ['mlf-basic-table-row']
 
   indexedBinding: 'parentView.indexed'
-  singleBinding: 'parentView.single'
-  multipleBinding: 'parentView.multiple'
-  selectableBinding: 'parentView.rowSelectable'
-  selectionBinding: 'parentView.selection'
-  allRowsSelectedBinding: 'parentView.allRowsSelected'
-
-  selected: false
-
-  allRowsSelectedDidChange: (->
-    @set('selected', true) if @get('allRowsSelected')
-  ).observes('allRowsSelected')
-
-  selectionDidChange: (->
-    @set('selected', false) if @get('selection.length') == 0
-  ).observes('selection.length')
-
-  selectedDidChange: (->
-    if @get('selected')
-      @get('selection').add(@get('content'))
-      @triggerAction action: 'selectRow', actionContext: @ if @get('single')
-    else
-      @get('selection').remove(@get('content'))
-  ).observes('selected')
-
-  click: ->
-    # 单选时才可以通过点击行来激活选中
-    @toggleProperty('selected') if @get('single')
-
-  columns: Ember.computed.filter('parentView.columns', (c) -> c.get('cellContentPath'))
+  columnsBinding: 'parentView.columns'
 
   index: (->
     @get('contentIndex') + 1
   ).property('contentIndex')
 
+Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.extend
+  selectionBinding: 'parentView.selection'
+
+Menglifang.Widgets.BasicTableSingleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend
+  click: ->
+    @triggerAction action: 'selectRow', actionContext: @
+
+Menglifang.Widgets.BasicTableMultipleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend
+  layoutName: 'components/mlf-basic-table-multiple-selectable-row'
+
+  selected: false
+  multipleBinding: 'parentView.multiple'
+  allRowsSelectedBinding: 'parentView.allRowsSelected'
+
+  allRowsSelectedDidChange: (->
+    @set('selected', true) if @get('allRowsSelected')
+  ).observes('allRowsSelected')
+
+  selectedDidChange: (->
+    if @get('selected')
+      @get('selection').add(@get('content'))
+    else
+      @get('selection').remove(@get('content'))
+  ).observes('selected')
+
+  selectionDidChange: (->
+    @set('selected', false) if @get('selection.length') == 0
+  ).observes('selection.length')
+
 Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
   tagName: 'tbody'
   classNames: ['mlf-basic-table-body']
-  itemViewClass: Menglifang.Widgets.BasicTableRow
+  itemViewClass: (->
+    return Menglifang.Widgets.BasicTableRow unless @get('rowSelectable')
+
+    if @get('multiple')
+      Menglifang.Widgets.BasicTableMultipleSelectableRow
+    else
+      Menglifang.Widgets.BasicTableSingleSelectableRow
+  ).property('rowSelectable', 'multiple')
 
   indexed: false
   multiple: false
@@ -82,11 +90,11 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
   # 保存被选中的行绑定的对象
   selection: null
 
+  columns: []
+
   single: (->
     !@get('multiple') && @get('rowSelectable')
   ).property('multiple', 'rowSelectable')
-
-  columns: []
 
   allRowsSelected: (->
     @get('selection.length') == @get('content.length')
@@ -200,7 +208,9 @@ Menglifang.Widgets.BasicTable= Ember.Component.extend
 
   actions:
     selectRow: (row) ->
-      @triggerAction action: 'select', actionContext: row.content
+      @get('selection').clear()
+      @get('selection').add(row.get('content'))
+      @triggerAction action: 'select', actionContext: row.get('content')
 
     selectAll: ->
       @get('selection').addEach(@get('content'))
