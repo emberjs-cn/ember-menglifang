@@ -755,6 +755,9 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
   willDestroyElement: function() {
     return this.$().select2("destroy");
   },
+  valueDidChange: (function() {
+    return this.$().val(this.get('value')).trigger('change');
+  }).property('value'),
   resetSelection: (function() {
     if (!Ember.isEmpty(this.get('tags'))) {
       return this.processChildElements();
