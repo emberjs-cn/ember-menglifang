@@ -36,6 +36,7 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend
   classNames: ['mlf-basic-table-row']
 
   indexedBinding: 'parentView.indexed'
+  singleBinding: 'parentView.single'
   multipleBinding: 'parentView.multiple'
   selectableBinding: 'parentView.rowSelectable'
   selectionBinding: 'parentView.selection'
@@ -54,9 +55,14 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend
   selectedDidChange: (->
     if @get('selected')
       @get('selection').add(@get('content'))
+      @triggerAction action: 'selectRow', actionContext: @ if @get('single')
     else
       @get('selection').remove(@get('content'))
   ).observes('selected')
+
+  click: ->
+    # 单选时才可以通过点击行来激活选中
+    @toggleProperty('selected') if @get('single')
 
   columns: Ember.computed.filter('parentView.columns', (c) -> c.get('cellContentPath'))
 
@@ -75,6 +81,10 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
 
   # 保存被选中的行绑定的对象
   selection: null
+
+  single: (->
+    !@get('multiple') && @get('rowSelectable')
+  ).property('multiple', 'rowSelectable')
 
   columns: []
 
@@ -147,15 +157,20 @@ Menglifang.Widgets.BasicTableTopBar = Ember.Component.extend
   rightActions: Ember.computed.filterBy('barActions', 'position', 'right')
 
 Menglifang.Widgets.BasicTable= Ember.Component.extend
+  init: ->
+    @_super()
+    @set 'selection', new Ember.Set() if Ember.isNone(@get('selection'))
+
   tagName: 'table'
   classNames: ['table', 'table-bordered', 'table-hover', 'mlf-basic-table']
+  classNameBindings: ['clickable:table-clickable']
   layoutName: 'components/mlf-basic-table'
 
   # 标记是否可以多选
   multiple: false
 
   # 缓存所有选中的行绑定的对象
-  selection: new Ember.Set()
+  selection: null
 
   # 标记是否需要在第一列显示序号
   indexed: false
@@ -165,6 +180,10 @@ Menglifang.Widgets.BasicTable= Ember.Component.extend
 
   topActions: []
   hasTopActions: Ember.computed.notEmpty('topActions')
+
+  clickable: (->
+    !@get('multiple') && @get('rowSelectable')
+  ).property('multiple', 'rowSelectable')
 
   headContent: (->
     headContent = Ember.A()
@@ -180,6 +199,9 @@ Menglifang.Widgets.BasicTable= Ember.Component.extend
     target && target.constructor == Menglifang.Widgets.BasicTableAction
 
   actions:
+    selectRow: (row) ->
+      @triggerAction action: 'select', actionContext: row.content
+
     selectAll: ->
       @get('selection').addEach(@get('content'))
 
