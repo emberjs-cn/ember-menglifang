@@ -5,7 +5,7 @@ Ember.Handlebars.registerBoundHelper 'pt', (propName, options) ->
 Ember.Handlebars.helper 'format-date', (value, options) ->
   return '' unless value
 
-  format = options.hash['format'] || "YYYY-MM-DD hh:mm:ss"
+  format = options.hash['format'] || "YYYY-MM-DD HH:mm:ss"
   new Handlebars.SafeString(moment(value).format(format))
 
 Ember.Handlebars.helper 'time-ago', (value, options) ->
