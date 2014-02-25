@@ -20,6 +20,7 @@ window.App = Ember.Application.create
 require 'build/demo/widgets/controllers/login-form'
 require 'build/demo/widgets/controllers/sidebar'
 require 'build/demo/widgets/controllers/toolbar'
+require 'build/demo/widgets/controllers/pagination'
 require 'build/demo/widgets/controllers/form'
 require 'build/demo/widgets/controllers/select2'
 

@@ -1,24 +1,37 @@
-Menglifang.Widgets.BsPaginationItem = Ember.ObjectProxy.extend
-  text: Ember.computed.alias('content')
-  href: (->
-    "#{@get('url')}/#{@get('content')}"
-  ).property('content', 'url')
+Menglifang.Widgets.BsPaginationButton = Ember.Component.extend
+  tagName: 'li'
+  layoutName: 'components/mlf-bs-pagination-button'
+
+  classNameBindings: ['disabled:disabled', 'active:active']
+
+  currentBinding: 'parentView.current'
 
   disabled: (->
-    @get('content') == @get('current')
-  ).property('content', 'current')
+    page = @get('content.page')
+    page != @get('content.text') && page == @get('current')
+  ).property('current', 'content.{page, text}')
 
-Menglifang.Widgets.BsPagination = Ember.Component.extend
+  active: (->
+    page = @get('content.page')
+    page == @get('content.text') && page == @get('current')
+  ).property('current', 'content.{page, text}')
+
+  actions:
+    page: (page) ->
+      @triggerAction action: 'page', actionContext: page
+
+Menglifang.Widgets.BsPagination = Ember.CollectionView.extend
   tagName: 'ul'
-  layoutName: 'components/mlf-bs-pagination'
 
   classNames: ['pagination']
   classNameBindings: ['sizingClassName']
 
+  itemViewClass: Menglifang.Widgets.BsPaginationButton
+
   start: 1
   current: 1
   size: 9
-  total: 0
+  total: 1
   url: ''
 
   sizingClassName: (->
@@ -28,56 +41,30 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend
     ''
   ).property('sizing')
 
+  prev: (->
+    if @get('current') > 1 then @get('current') - 1 else 1
+  ).property('current')
+
+  next: (->
+    if @get('current') < @get('total') then @get('current') + 1 else @get('total')
+  ).property('current', 'total')
+
   end: (->
     if @get('start') + @get('size') - 1 >= @get('total') then @get('total') else @get('start') + @get('size') - 1
   ).property('start', 'total')
 
+  content: (->
+    content = Ember.A()
+    content.pushObject Ember.Object.create page: 1, text: '&laquo;'.htmlSafe()
+    content.pushObject Ember.Object.create page: @get('prev'), text: '&lsaquo;'.htmlSafe()
 
-  pages: (->
     [@get('start')..@get('end')].map (i) =>
-      Menglifang.Widgets.BsPaginationItem.create
-        url: @get('url')
-        content: i
-        current: @get('current')
-  ).property('start', 'end', 'current', 'url')
+      content.pushObject Ember.Object.create page: i, text: i
 
-  atFirstPage: (->
-    @get('current') == 1
-  ).property('current')
+    content.pushObject Ember.Object.create page: @get('next'), text: '&rsaquo;'.htmlSafe()
+    content.pushObject Ember.Object.create page: @get('total'), text: '&raquo;'.htmlSafe()
 
-  atLastPage: (->
-    @get('current') == @get('total')
-  ).property('current', 'total')
-
-Menglifang.Widgets.BsPaginationNavButton = Ember.Component.extend
-  tagName: 'li'
-  layoutName: 'components/mlf-bs-pagination-nav-button'
-
-  classNameBindings: ['disabled:disabled']
-
-  href: (->
-    if @get('disabled') then 'javascript:void(0);' else "#{@get('url')}/#{@get('page')}"
-  ).property('disabled', 'url')
-
-Menglifang.Widgets.BsPaginationStart = Menglifang.Widgets.BsPaginationNavButton.extend
-  page: 1
-  text: (-> Ember.String.htmlSafe('&laquo;')).property()
-  disabled: Ember.computed.equal('current', 1)
-
-Menglifang.Widgets.BsPaginationPrev = Menglifang.Widgets.BsPaginationStart.extend
-  page: (-> @get('current') - 1).property('current')
-  text: (-> Ember.String.htmlSafe('&lsaquo;')).property()
-
-Menglifang.Widgets.BsPaginationEnd = Menglifang.Widgets.BsPaginationNavButton.extend
-  page: Ember.computed.alias('total')
-  text: (-> Ember.String.htmlSafe('&raquo;')).property()
-
-  disabled: (->
-    @get('current') == @get('total')
-  ).property('current', 'total')
-
-Menglifang.Widgets.BsPaginationNext = Menglifang.Widgets.BsPaginationEnd.extend
-  page: (-> @get('current') + 1).property('current')
-  text: (-> Ember.String.htmlSafe('&rsaquo;')).property()
+    content
+  ).property('start', 'end', 'current')
 
 Ember.Handlebars.helper 'bs-pagination', Menglifang.Widgets.BsPagination
