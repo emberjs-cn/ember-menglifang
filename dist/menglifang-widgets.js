@@ -185,91 +185,18 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["components/mlf-bs-pagination-nav-button"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+Ember.TEMPLATES["components/mlf-bs-pagination-button"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   var buffer = '', stack1, escapeExpression=this.escapeExpression;
 
 
   data.buffer.push("<a ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'href': ("href")
-  },hashTypes:{'href': "ID"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "page", "content.page", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
   data.buffer.push(">");
-  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers._triageMustache.call(depth0, "content.text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</a>\n");
-  return buffer;
-  
-});
-
-Ember.TEMPLATES["components/mlf-bs-pagination"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
-
-function program1(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\n  <li ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'class': ("disabled:active")
-  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(">\n    ");
-  stack1 = helpers['if'].call(depth0, "disabled", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n  </li>\n");
-  return buffer;
-  }
-function program2(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\n      <a href=\"javascript:void(0);\">");
-  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" <span class=\"sr-only\">(current)</span></a>\n    ");
-  return buffer;
-  }
-
-function program4(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\n      <a ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'href': ("href")
-  },hashTypes:{'href': "ID"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(">");
-  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</a>\n    ");
-  return buffer;
-  }
-
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BsPaginationStart", {hash:{
-    'url': ("view.url"),
-    'current': ("view.current")
-  },hashTypes:{'url': "ID",'current': "ID"},hashContexts:{'url': depth0,'current': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BsPaginationPrev", {hash:{
-    'url': ("view.url"),
-    'current': ("view.current")
-  },hashTypes:{'url': "ID",'current': "ID"},hashContexts:{'url': depth0,'current': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n");
-  stack1 = helpers.each.call(depth0, "view.pages", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BsPaginationNext", {hash:{
-    'url': ("view.url"),
-    'current': ("view.current"),
-    'total': ("view.total")
-  },hashTypes:{'url': "ID",'current': "ID",'total': "ID"},hashContexts:{'url': depth0,'current': depth0,'total': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BsPaginationEnd", {hash:{
-    'url': ("view.url"),
-    'current': ("view.current"),
-    'total': ("view.total")
-  },hashTypes:{'url': "ID",'current': "ID",'total': "ID"},hashContexts:{'url': depth0,'current': depth0,'total': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n");
   return buffer;
   
 });
@@ -1053,25 +980,40 @@ if (Ember.Table && Ember.Table.EmberTableComponent) {
 (function() {
 
 
-Menglifang.Widgets.BsPaginationItem = Ember.ObjectProxy.extend({
-  text: Ember.computed.alias('content'),
-  href: (function() {
-    return "" + (this.get('url')) + "/" + (this.get('content'));
-  }).property('content', 'url'),
+Menglifang.Widgets.BsPaginationButton = Ember.Component.extend({
+  tagName: 'li',
+  layoutName: 'components/mlf-bs-pagination-button',
+  classNameBindings: ['disabled:disabled', 'active:active'],
+  currentBinding: 'parentView.current',
   disabled: (function() {
-    return this.get('content') === this.get('current');
-  }).property('content', 'current')
+    var page;
+    page = this.get('content.page');
+    return page !== this.get('content.text') && page === this.get('current');
+  }).property('current', 'content.{page, text}'),
+  active: (function() {
+    var page;
+    page = this.get('content.page');
+    return page === this.get('content.text') && page === this.get('current');
+  }).property('current', 'content.{page, text}'),
+  actions: {
+    page: function(page) {
+      return this.triggerAction({
+        action: 'page',
+        actionContext: page
+      });
+    }
+  }
 });
 
-Menglifang.Widgets.BsPagination = Ember.Component.extend({
+Menglifang.Widgets.BsPagination = Ember.CollectionView.extend({
   tagName: 'ul',
-  layoutName: 'components/mlf-bs-pagination',
   classNames: ['pagination'],
   classNameBindings: ['sizingClassName'],
+  itemViewClass: Menglifang.Widgets.BsPaginationButton,
   start: 1,
   current: 1,
   size: 9,
-  total: 0,
+  total: 1,
   url: '',
   sizingClassName: (function() {
     if (this.get('sizing') === 'large') {
@@ -1082,6 +1024,20 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
     }
     return '';
   }).property('sizing'),
+  prev: (function() {
+    if (this.get('current') > 1) {
+      return this.get('current') - 1;
+    } else {
+      return 1;
+    }
+  }).property('current'),
+  next: (function() {
+    if (this.get('current') < this.get('total')) {
+      return this.get('current') + 1;
+    } else {
+      return this.get('total');
+    }
+  }).property('current', 'total'),
   end: (function() {
     if (this.get('start') + this.get('size') - 1 >= this.get('total')) {
       return this.get('total');
@@ -1089,76 +1045,38 @@ Menglifang.Widgets.BsPagination = Ember.Component.extend({
       return this.get('start') + this.get('size') - 1;
     }
   }).property('start', 'total'),
-  pages: (function() {
-    var _i, _ref, _ref1, _results,
+  content: (function() {
+    var content, _i, _ref, _ref1, _results,
       _this = this;
-    return (function() {
+    content = Ember.A();
+    content.pushObject(Ember.Object.create({
+      page: 1,
+      text: '&laquo;'.htmlSafe()
+    }));
+    content.pushObject(Ember.Object.create({
+      page: this.get('prev'),
+      text: '&lsaquo;'.htmlSafe()
+    }));
+    (function() {
       _results = [];
       for (var _i = _ref = this.get('start'), _ref1 = this.get('end'); _ref <= _ref1 ? _i <= _ref1 : _i >= _ref1; _ref <= _ref1 ? _i++ : _i--){ _results.push(_i); }
       return _results;
     }).apply(this).map(function(i) {
-      return Menglifang.Widgets.BsPaginationItem.create({
-        url: _this.get('url'),
-        content: i,
-        current: _this.get('current')
-      });
+      return content.pushObject(Ember.Object.create({
+        page: i,
+        text: i
+      }));
     });
-  }).property('start', 'end', 'current', 'url'),
-  atFirstPage: (function() {
-    return this.get('current') === 1;
-  }).property('current'),
-  atLastPage: (function() {
-    return this.get('current') === this.get('total');
-  }).property('current', 'total')
-});
-
-Menglifang.Widgets.BsPaginationNavButton = Ember.Component.extend({
-  tagName: 'li',
-  layoutName: 'components/mlf-bs-pagination-nav-button',
-  classNameBindings: ['disabled:disabled'],
-  href: (function() {
-    if (this.get('disabled')) {
-      return 'javascript:void(0);';
-    } else {
-      return "" + (this.get('url')) + "/" + (this.get('page'));
-    }
-  }).property('disabled', 'url')
-});
-
-Menglifang.Widgets.BsPaginationStart = Menglifang.Widgets.BsPaginationNavButton.extend({
-  page: 1,
-  text: (function() {
-    return Ember.String.htmlSafe('&laquo;');
-  }).property(),
-  disabled: Ember.computed.equal('current', 1)
-});
-
-Menglifang.Widgets.BsPaginationPrev = Menglifang.Widgets.BsPaginationStart.extend({
-  page: (function() {
-    return this.get('current') - 1;
-  }).property('current'),
-  text: (function() {
-    return Ember.String.htmlSafe('&lsaquo;');
-  }).property()
-});
-
-Menglifang.Widgets.BsPaginationEnd = Menglifang.Widgets.BsPaginationNavButton.extend({
-  page: Ember.computed.alias('total'),
-  text: (function() {
-    return Ember.String.htmlSafe('&raquo;');
-  }).property(),
-  disabled: (function() {
-    return this.get('current') === this.get('total');
-  }).property('current', 'total')
-});
-
-Menglifang.Widgets.BsPaginationNext = Menglifang.Widgets.BsPaginationEnd.extend({
-  page: (function() {
-    return this.get('current') + 1;
-  }).property('current'),
-  text: (function() {
-    return Ember.String.htmlSafe('&rsaquo;');
-  }).property()
+    content.pushObject(Ember.Object.create({
+      page: this.get('next'),
+      text: '&rsaquo;'.htmlSafe()
+    }));
+    content.pushObject(Ember.Object.create({
+      page: this.get('total'),
+      text: '&raquo;'.htmlSafe()
+    }));
+    return content;
+  }).property('start', 'end', 'current')
 });
 
 Ember.Handlebars.helper('bs-pagination', Menglifang.Widgets.BsPagination);
