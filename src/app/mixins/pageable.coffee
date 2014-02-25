@@ -22,3 +22,6 @@ Menglifang.App.Pageable = Ember.Mixin.create
   totalPages: (->
     Math.ceil(get(@, 'total') / get(@, 'pageSize')) || 0
   ).property('total', 'pageSize')
+
+  actions:
+    page: (page) -> @set('currentPage', page)
