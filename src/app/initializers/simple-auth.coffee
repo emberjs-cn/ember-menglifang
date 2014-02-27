@@ -1,6 +1,7 @@
 Ember.Application.initializer
   name: 'authentication'
   initialize: (container, application) ->
+
     # customize the session so that it allows access to the account object
     Ember.SimpleAuth.Session.reopen
       account: (->
@@ -9,7 +10,9 @@ Ember.Application.initializer
           container.lookup('store:main').find('user', accountId)
       ).property('accountId')
 
-    Ember.SimpleAuth.setup application,
+    container.register('app:authenticators:devise', Menglifang.App.DeviseAuthenticator)
+
+    Ember.SimpleAuth.setup container, application,
       authorizer: Menglifang.App.DeviseAuthorizer
       routeAfterAuthentication: 'authenticated'
       routeAfterInvalidation: 'login'

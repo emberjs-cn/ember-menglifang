@@ -1,5 +1,5 @@
 Menglifang.App.LoginController  = Ember.Controller.extend Ember.SimpleAuth.LoginControllerMixin,
-  authenticator: Menglifang.App.DeviseAuthenticator
+  authenticator: 'app:authenticators:devise'
 
   supportedBrowers: [
     { name: 'Chrome', url: 'http://www.google.com/chrome', icon: '/images/chrome.png' }

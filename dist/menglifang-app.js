@@ -2005,7 +2005,8 @@ Ember.Application.initializer({
         }
       }).property('accountId')
     });
-    return Ember.SimpleAuth.setup(application, {
+    container.register('app:authenticators:devise', Menglifang.App.DeviseAuthenticator);
+    return Ember.SimpleAuth.setup(container, application, {
       authorizer: Menglifang.App.DeviseAuthorizer,
       routeAfterAuthentication: 'authenticated',
       routeAfterInvalidation: 'login'
@@ -2297,7 +2298,7 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
 
 
 Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin, {
-  authenticator: Menglifang.App.DeviseAuthenticator,
+  authenticator: 'app:authenticators:devise',
   supportedBrowers: [
     {
       name: 'Chrome',
