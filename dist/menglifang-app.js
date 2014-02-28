@@ -1191,6 +1191,7 @@ if ((_ref = Ember.libraries) != null) {
 
 
 Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend({
+  refreshAccessTokens: false,
   authenticate: function(credentials) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
       return Ember.$.ajax({

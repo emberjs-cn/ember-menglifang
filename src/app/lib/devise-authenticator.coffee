@@ -1,5 +1,7 @@
 # the devise authenticator that handles the authenticated account
 Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend
+  refreshAccessTokens: false
+
   authenticate: (credentials) ->
     return new Ember.RSVP.Promise (resolve, reject) ->
       # make the request to authenticate the user at endoint /users/sign_in
