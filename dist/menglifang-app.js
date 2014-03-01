@@ -748,6 +748,7 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend({
   tagName: 'tr',
   layoutName: 'components/mlf-basic-table-row',
   classNames: ['mlf-basic-table-row'],
+  classNameBindings: ['selected:info'],
   indexedBinding: 'parentView.indexed',
   columnsBinding: 'parentView.columns',
   index: (function() {
@@ -756,11 +757,16 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend({
 });
 
 Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.extend({
-  selectionBinding: 'parentView.selection'
+  selectionBinding: 'parentView.selection',
+  selected: (function() {
+    return this.get('selection').contains(this.get('content'));
+  }).property('selection.length')
 });
 
 Menglifang.Widgets.BasicTableSingleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend({
   click: function() {
+    this.get('selection').clear();
+    this.get('selection').add(this.get('content'));
     return this.triggerAction({
       action: 'selectRow',
       actionContext: this
@@ -770,26 +776,14 @@ Menglifang.Widgets.BasicTableSingleSelectableRow = Menglifang.Widgets.BasicTable
 
 Menglifang.Widgets.BasicTableMultipleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend({
   layoutName: 'components/mlf-basic-table-multiple-selectable-row',
-  selected: false,
   multipleBinding: 'parentView.multiple',
-  allRowsSelectedBinding: 'parentView.allRowsSelected',
-  allRowsSelectedDidChange: (function() {
-    if (this.get('allRowsSelected')) {
-      return this.set('selected', true);
-    }
-  }).observes('allRowsSelected'),
   selectedDidChange: (function() {
     if (this.get('selected')) {
       return this.get('selection').add(this.get('content'));
     } else {
       return this.get('selection').remove(this.get('content'));
     }
-  }).observes('selected'),
-  selectionDidChange: (function() {
-    if (this.get('selection.length') === 0) {
-      return this.set('selected', false);
-    }
-  }).observes('selection.length')
+  }).observes('selected')
 });
 
 Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend({
@@ -812,10 +806,7 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend({
   columns: [],
   single: (function() {
     return !this.get('multiple') && this.get('rowSelectable');
-  }).property('multiple', 'rowSelectable'),
-  allRowsSelected: (function() {
-    return this.get('selection.length') === this.get('content.length');
-  }).property('selection.length', 'content.length')
+  }).property('multiple', 'rowSelectable')
 });
 
 Menglifang.Widgets.BasicTableHeadCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
