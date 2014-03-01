@@ -34,6 +34,7 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend
   tagName: 'tr'
   layoutName: 'components/mlf-basic-table-row'
   classNames: ['mlf-basic-table-row']
+  classNameBindings: ['selected:info']
 
   indexedBinding: 'parentView.indexed'
   columnsBinding: 'parentView.columns'
@@ -45,20 +46,21 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend
 Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.extend
   selectionBinding: 'parentView.selection'
 
+  selected: (->
+    @get('selection').contains(@get('content'))
+  ).property('selection.length')
+
+
 Menglifang.Widgets.BasicTableSingleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend
   click: ->
+    @get('selection').clear()
+    @get('selection').add(@get('content'))
     @triggerAction action: 'selectRow', actionContext: @
 
 Menglifang.Widgets.BasicTableMultipleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend
   layoutName: 'components/mlf-basic-table-multiple-selectable-row'
 
-  selected: false
   multipleBinding: 'parentView.multiple'
-  allRowsSelectedBinding: 'parentView.allRowsSelected'
-
-  allRowsSelectedDidChange: (->
-    @set('selected', true) if @get('allRowsSelected')
-  ).observes('allRowsSelected')
 
   selectedDidChange: (->
     if @get('selected')
@@ -66,10 +68,6 @@ Menglifang.Widgets.BasicTableMultipleSelectableRow = Menglifang.Widgets.BasicTab
     else
       @get('selection').remove(@get('content'))
   ).observes('selected')
-
-  selectionDidChange: (->
-    @set('selected', false) if @get('selection.length') == 0
-  ).observes('selection.length')
 
 Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
   tagName: 'tbody'
@@ -95,10 +93,6 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
   single: (->
     !@get('multiple') && @get('rowSelectable')
   ).property('multiple', 'rowSelectable')
-
-  allRowsSelected: (->
-    @get('selection.length') == @get('content.length')
-  ).property('selection.length', 'content.length')
 
 Menglifang.Widgets.BasicTableHeadCell = Ember.Component.extend Menglifang.Widgets.StyleBindingsMixin,
   tagName: 'td'
