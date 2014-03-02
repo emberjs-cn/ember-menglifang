@@ -657,6 +657,7 @@ Ember.Handlebars.helper('select2', Menglifang.Widgets.Select2);
 
 Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
   classNames: ['mlf-tagging-select2'],
+  tags: [],
   placeholder: '请选择...',
   allowClear: true,
   closeOnSelect: true,
@@ -684,7 +685,7 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
   },
   valueDidChange: (function() {
     return this.$().val(this.get('value')).trigger('change');
-  }).property('value'),
+  }).observes('value'),
   resetSelection: (function() {
     if (!Ember.isEmpty(this.get('tags'))) {
       return this.processChildElements();
