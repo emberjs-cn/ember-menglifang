@@ -37,7 +37,7 @@
     "ember-i18n": "~1.6.1",
     "select2": "~3.4.5",
     "bootstrap-datetimepicker": "https://github.com/smalot/bootstrap-datetimepicker.git",
-    "antiscroll": "*",
+    "antiscroll": "https://github.com/LearnBoost/antiscroll.git",
     "jquery-ui": "~1.10.4",
     "jquery-mousewheel": "~3.1.9",
     "ember-table": "https://github.com/emberjs-cn/ember-table.git",
