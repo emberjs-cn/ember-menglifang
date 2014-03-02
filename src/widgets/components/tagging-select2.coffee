@@ -1,6 +1,7 @@
 Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend
   classNames: ['mlf-tagging-select2']
 
+  tags: []
   placeholder: '请选择...'
   allowClear: true
   closeOnSelect: true
@@ -28,7 +29,7 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend
 
   valueDidChange: (->
     @$().val(@get('value')).trigger('change')
-  ).property('value')
+  ).observes('value')
 
   resetSelection: (->
     @processChildElements() unless Ember.isEmpty(@get('tags'))
