@@ -46,8 +46,16 @@ Menglifang.Widgets.BasicTableRow = Ember.Component.extend
 Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.extend
   selectionBinding: 'parentView.selection'
 
-  selected: (->
-    @get('selection').contains(@get('content'))
+  selected: ((key, value) ->
+    if value?
+      if value
+        @get('selection').add(@get('content'))
+      else
+        @get('selection').remove(@get('content'))
+
+      value
+    else
+      @get('selection').contains(@get('content'))
   ).property('selection.length')
 
 
@@ -61,13 +69,6 @@ Menglifang.Widgets.BasicTableMultipleSelectableRow = Menglifang.Widgets.BasicTab
   layoutName: 'components/mlf-basic-table-multiple-selectable-row'
 
   multipleBinding: 'parentView.multiple'
-
-  selectedDidChange: (->
-    if @get('selected')
-      @get('selection').add(@get('content'))
-    else
-      @get('selection').remove(@get('content'))
-  ).observes('selected')
 
 Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
   tagName: 'tbody'
