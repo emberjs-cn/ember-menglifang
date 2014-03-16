@@ -1,5 +1,12 @@
-*Ember Menglifang 0.2.4 (Feb X, 2014)*
+*Ember Menglifang 0.2.4 (Mar 16, 2014)*
 
+* [更新] 升级`ember-simple-auth`到0.1.3
+* [功能] 增加`{{bs-pagination}}`分页控件；
+* [功能] 增加`{{basic-table}}`控件；
+  * 支持设定单元格对齐方式；
+  * 支持设定顶部工具栏；
+  * 支持选择行；
+  * 支持显示序号。
 * [功能] 增加基于ember-table实现的`{{basic-grid}}`控件
 * [改进] 清理了`{{login-form}}`和`{{main-toolbar}}`的实现，使用`layoutName`替代`templateName`；
 * [改进] 升级Ember到1.4；
