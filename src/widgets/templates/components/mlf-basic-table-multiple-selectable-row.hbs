@@ -1,0 +1,9 @@
+{{#if view.multiple}}
+  <td class='selection-cell'>{{input type='checkbox' checked=selected}}</td>
+{{/if}}
+{{#if view.indexed}}
+  <td class='index'>{{view.index}}</td>
+{{/if}}
+{{#each view.columns}}
+  {{view Menglifang.Widgets.BasicTableCell width=width row=view.content column=this}}
+{{/each}}

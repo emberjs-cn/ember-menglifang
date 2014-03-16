@@ -1,5 +1,5 @@
-Menglifang.Widgets.LoginFormComponent = Ember.Component.extend
-  templateName: 'components/mlf-login-form'
+Menglifang.Widgets.LoginForm = Ember.Component.extend
+  layoutName: 'components/mlf-login-form'
   classNames: ['mlf-login-form']
 
   title: '用户登录'
@@ -19,3 +19,5 @@ Menglifang.Widgets.LoginFormComponent = Ember.Component.extend
   actions:
     login: ->
       @sendAction('action')
+
+Ember.Handlebars.helper 'login-form', Menglifang.Widgets.LoginForm

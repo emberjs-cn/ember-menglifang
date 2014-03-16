@@ -1,0 +1,6 @@
+{{#if view.indexed}}
+  <td class='index'>{{view.index}}</td>
+{{/if}}
+{{#each view.columns}}
+  {{view Menglifang.Widgets.BasicTableCell width=width row=view.content column=this}}
+{{/each}}

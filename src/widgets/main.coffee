@@ -8,7 +8,7 @@ if 'undefined' == typeof(Menglifang)
 
 ## Used for bundling files together using neuter
 Menglifang.Widgets = Ember.Namespace.create()
-Menglifang.Widgets.VERSION = '0.2.3'
+Menglifang.Widgets.VERSION = '0.2.4'
 
 Ember.libraries?.register 'Menglifang Widgets', Menglifang.Widgets.VERSION
 
@@ -17,5 +17,6 @@ Ember.libraries?.register 'Menglifang Widgets', Menglifang.Widgets.VERSION
 # Utils
 
 # Menglifang Widgets
+require 'build/src/widgets/mixins'
 require 'build/src/widgets/components'
 require 'build/src/widgets/views'
