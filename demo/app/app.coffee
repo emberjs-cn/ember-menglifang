@@ -1,5 +1,5 @@
 # Ember Menglifang Dependencies
-require 'bower_components/jquery/jquery'
+require 'bower_components/jquery/dist/jquery'
 require 'bower_components/cldr/plurals'
 require 'bower_components/handlebars/handlebars'
 require 'bower_components/ember/ember'
@@ -16,7 +16,7 @@ require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-modal.max'
 require 'dist/menglifang-app'
 
 App = window.App = Menglifang.App.create
-  host: 'http://localhost:8000'
+  host: 'http://192.168.0.25:8000'
   namespace: 'v1'
 
   title: 'Menglifang App'
