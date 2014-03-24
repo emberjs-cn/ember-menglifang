@@ -47,3 +47,8 @@ require 'build/demo/widgets/router'
 
 # Compiled Handlebars templates
 require 'build/demo/widgets/templates'
+
+# IE8不支持css3的calc算子
+$(document).ready ->
+  if $.browser.msie && $.browser.version == '8.0'
+    $('.container-fluid').height($(window).height() - 52)

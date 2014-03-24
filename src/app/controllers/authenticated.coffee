@@ -1,5 +1,5 @@
 Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
-  title: 'MLF'
+  brand: { name: 'MLF' }
 
   sidebar:
     menus: [{
