@@ -19,8 +19,10 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create
   beforeSave: Ember.K
   afterSave: Ember.K
 
-  # TODO 删除该方法
-  beforeConfirmRemove: Ember.K
+  # @deprecated
+  beforeConfirmRemove: ->
+    Ember.deprecate('`ModelManager#beforeConfirmRemove` is droped, please use `ModelManager#beforeRemove` instead.')
+    true
 
   beforeRemove: Ember.K
   afterRemove: Ember.K

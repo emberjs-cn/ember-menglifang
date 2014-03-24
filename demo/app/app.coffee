@@ -1,5 +1,6 @@
 # Ember Menglifang Dependencies
 require 'bower_components/jquery/dist/jquery'
+require 'bower_components/jquery.browser/dist/jquery.browser'
 require 'bower_components/cldr/plurals'
 require 'bower_components/handlebars/handlebars'
 require 'bower_components/ember/ember'

@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form">
+<form class="form-horizontal form-fluid" role="form">
   <h2>{{formLegend}}</h2>
   <div class="form-group">
     <label class="col-sm-3 control-label" for="username">用户名</label>
@@ -57,6 +57,6 @@
   </div>
 </form>
 
-{{#bs-modal name="removeConfirmation" fade=true footerButtons=removeConfirmationButtons title=removeConfirmationTitle}}
+{{#bs-modal name=removeConfirmationName fade=true footerButtons=removeConfirmationButtons title=removeConfirmationTitle}}
   <p>{{removeConfirmationMessage}}</p>
 {{/bs-modal}}

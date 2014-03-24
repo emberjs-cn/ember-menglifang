@@ -1,2 +1,2 @@
 Menglifang.App.AuthenticatedView = Ember.View.extend
-  classNames: ['mlf-authenticated-view']
+  classNames: ['mlf-authenticated']

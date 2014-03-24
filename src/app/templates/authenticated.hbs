@@ -1,7 +1,7 @@
-{{#view Menglifang.Widgets.AppView brand=brand sidebar=availableSidebar}}
+{{#view Menglifang.App.AppView brand=brand sidebar=availableSidebar}}
   {{main-toolbar items=breadcrumbs}}
 
-  <div class="mlf-container">
+  {{#view Menglifang.App.MainContentView}}
     {{outlet}}
-  </div>
+  {{/view}}
 {{/view}}
