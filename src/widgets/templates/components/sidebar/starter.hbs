@@ -1,0 +1,16 @@
+<a class="home dropdown-toggle" href="#" data-toggle="dropdown">
+  <span class="fa-stack fa-2x">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="fa fa-th-large fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+<ul class="dropdown-menu">
+  {{#each view.items}}
+    <li>
+      <a {{bind-attr href="url"}}>
+        <i {{bind-attr class="icon"}}></i>
+         {{text}}
+      </a>
+    </li>
+  {{/each}}
+</ul>

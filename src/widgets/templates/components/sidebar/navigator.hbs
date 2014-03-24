@@ -1,0 +1,26 @@
+<div class="menu-items">
+  {{#each view.menus}}
+    <ul {{bind-attr id=text}}>
+      {{#each items}}
+        <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
+          {{#link-to route}}
+            <div class="icon">
+              <img {{bind-attr src=icon}} />
+              <div class="title">{{text}}</div>
+            </div>
+          {{/link-to}}
+        </li>
+      {{/each}}
+    </ul>
+  {{/each}}
+</div>
+<ul class="menu-triggers">
+  {{#each view.menus}}
+    <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
+      <a {{bind-attr href=url}} data-toggle="tab">
+        <img class="menu-trigger" {{bind-attr src=icon}} />
+        <div class="title">{{text}}</div>
+      </a>
+    </li>
+  {{/each}}
+</ul>

@@ -1,0 +1,6 @@
+<div class="logo">
+  {{view.logo}}
+</div>
+{{#if view.sidebarExpandable}}
+  <div class="switch-button" {{action 'toggle' target="view"}}></div>
+{{/if}}
