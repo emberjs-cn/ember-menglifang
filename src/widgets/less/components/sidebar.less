@@ -1,11 +1,10 @@
 .mlf-sidebar {
   background: @blue;
-
   float: left;
   height: 100%;
   width: 100px;
 
-  #brand {
+  .brand {
     height: 60px;
     width: inherit;
     padding: 10px;
@@ -47,7 +46,7 @@
     }
   }
 
-  #navigator {
+  .navigator {
     width: inherit;
 
     .menu-items {
@@ -110,7 +109,6 @@
       > li {
         height: 40px;
         margin-bottom: 10px;
-        .border-radius(2px);
         text-align: center;
         vertical-align: middle;
         line-height: 40px;
@@ -138,7 +136,7 @@
     }
   }
 
-  #starter {
+  .starter {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -148,16 +146,14 @@
     height: 90px;
     text-align: center;
     vertical-align: middle;
-    line-height: 58px;
+    line-height: 60px;
     cursor: pointer;
     background: @deep-blue;
-    > a {
+    > a.home {
       height: 60px;
       display: block;
       .border-radius(100%);
       background: @deep-blue;
-      border: 2px @white solid;
-      color: @white;
       &:hover {
         background: lighten(@deep-blue, 20%) !important;
       }
@@ -166,7 +162,6 @@
       position: absolute;
       top: 20px;
       left: 102px;
-      .border-radius(3px);
       text-align: left;
     }
     i { margin: 0; }
@@ -175,7 +170,7 @@
 
 .mlf-sidebar-expanded {
   width: 200px;
-  #brand {
+  .brand {
     padding: 10px 20px;
     .logo {
       float: left;
@@ -197,7 +192,7 @@
     }
   }
 
-  #navigator {
+  .navigator {
     .menu-trigger {
       li {
         background: none !important;
@@ -242,12 +237,8 @@
     }
   }
 
-  #starter {
+  .starter {
     padding: 10px 68px 20px;
-    a#home {
-      width: 58px;
-      height: 58px;
-    }
     ul.dropdown-menu {
       left: 202px;
     }

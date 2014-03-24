@@ -1,0 +1,20 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">{{title}}</h4>
+        </div>
+        <div class="modal-body">
+            {{#if body}}
+                {{view view.body}}
+            {{else}}
+                {{yield}}
+            {{/if}}
+        </div>
+        <div class="modal-footer">
+            {{#each footerButtons}}
+                {{bs-button title=this.title clicked=this.clicked dismiss=this.dismiss targetObjectBinding="view.targetObject"}}
+            {{/each}}
+        </div>
+    </div>
+</div>

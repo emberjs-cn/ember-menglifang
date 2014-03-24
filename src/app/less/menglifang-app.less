@@ -1,12 +1,30 @@
 @import '../../widgets/less/menglifang-widgets';
+@import './overrides/bootstrap';
+@import './overrides/select2';
 
-.mlf-authenticated-view {
+.mlf-authenticated {
   height: 100%;
 }
 
-#starter {
-  ul.dropdown-menu {
-    top: -25px !important;
+.mlf-app { height: 100%; }
+
+.mlf-app-main {
+  height: 100%;
+}
+
+.mlf-main-content {
+  height: calc(~"100% - 60px");
+  .form-fluid {
+    height: 100%;
+    overflow: auto;
+  }
+}
+
+.mlf-sidebar {
+  .starter {
+    ul.dropdown-menu {
+      top: -25px !important;
+    }
   }
 }
 
@@ -22,9 +40,4 @@
     height: 25px;
     line-height: 25px;
   }
-}
-
-.mlf-container {
-  padding: 0;
-  height: calc(~"100% - 60px");
 }

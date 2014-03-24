@@ -6,6 +6,7 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create
   afterCancelRoute: (-> @get('modelName').underscore().pluralize()).property('modelName')
   afterDestroyRoute: (-> @get('modelName').underscore().pluralize()).property('modelName')
 
+  removeConfirmationName: ''
   removeConfirmationTitle: '确认删除'
   removeConfirmationMessage: (->
     "您确认需要删除该#{@get('humanModelName')}吗？"
@@ -18,8 +19,11 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create
   beforeSave: Ember.K
   afterSave: Ember.K
 
-  # TODO 删除该方法
-  beforeConfirmRemove: Ember.K
+  # @deprecated
+  beforeConfirmRemove: ->
+    Ember.deprecate('`ModelManager#beforeConfirmRemove` is droped, please use `ModelManager#beforeRemove` instead.')
+    true
+
   beforeRemove: Ember.K
   afterRemove: Ember.K
 
@@ -35,15 +39,15 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create
         @transitionToRoute(@get('afterSaveRoute'), @get('model'))
       , => Notifier.error("保存#{@get('humanModelName')}失败")
 
-    remove: ->
-      Bootstrap.ModalManager.show('removeConfirmation')
-
     cancel: ->
       @get('model').rollback()
       @transitionToRoute(@get('afterCancelRoute'))
 
+    remove: ->
+      Bootstrap.ModalManager.show @get('removeConfirmationName')
+
     confirmRemove: ->
-      Bootstrap.ModalManager.hide('removeConfirmation')
+      Bootstrap.ModalManager.hide @get('removeConfirmationName')
 
       # TODO Remove `@beforeConfirmRemove()`
       return false unless @beforeConfirmRemove() && @beforeRemove()
