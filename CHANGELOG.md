@@ -1,3 +1,7 @@
+*Ember Menglifang 0.2.6 (Mar x, 2014)*
+
+* [改进] 触发一个菜单时，默认调整到第一个菜单项对应的路由。
+
 *Ember Menglifang 0.2.5 (Mar 25, 2014)*
 
 * [改进] 重新组织Menglifang.App的主视图，使其更好的支持IE8；

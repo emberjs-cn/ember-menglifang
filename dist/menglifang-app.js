@@ -400,7 +400,9 @@ function program5(depth0,data) {
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'href': ("url")
   },hashTypes:{'href': "ID"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" data-toggle=\"tab\">\n        <img class=\"menu-trigger\" ");
+  data.buffer.push(" data-toggle=\"tab\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "triggerMenu", "", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n        <img class=\"menu-trigger\" ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'src': ("icon")
   },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
@@ -597,7 +599,15 @@ Menglifang.Widgets.SidebarBrand = Ember.Component.extend({
 Menglifang.Widgets.SidebarNavigator = Ember.Component.extend({
   layoutName: 'components/sidebar/navigator',
   classNames: ['navigator'],
-  menus: []
+  menus: [],
+  actions: {
+    triggerMenu: function(menu) {
+      return this.triggerAction({
+        action: 'triggerMenu',
+        actionContext: menu
+      });
+    }
+  }
 });
 
 Menglifang.Widgets.SidebarStarter = Ember.Component.extend({
@@ -620,6 +630,14 @@ Menglifang.Widgets.Sidebar = Ember.Component.extend({
   starterItems: [],
   didInsertElement: function() {
     return this.$().find('.menu-triggers li a').first().click();
+  },
+  actions: {
+    triggerMenu: function(menu) {
+      return this.triggerAction({
+        action: 'triggerMenu',
+        actionContext: menu
+      });
+    }
   }
 });
 
@@ -2413,6 +2431,9 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
       if (!Ember.isEmpty(breadcrumbs)) {
         return this.set('breadcrumbs', breadcrumbs);
       }
+    },
+    triggerMenu: function(menu) {
+      return this.transitionToRoute(menu.items.get('firstObject.route'));
     }
   }
 });

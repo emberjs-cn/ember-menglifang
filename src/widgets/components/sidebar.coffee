@@ -19,6 +19,10 @@ Menglifang.Widgets.SidebarNavigator = Ember.Component.extend
 
   menus: []
 
+  actions:
+    triggerMenu: (menu) ->
+      @triggerAction action: 'triggerMenu', actionContext: menu
+
 Menglifang.Widgets.SidebarStarter = Ember.Component.extend
   layoutName: 'components/sidebar/starter'
   classNames: ['starter', 'dropdown']
@@ -39,5 +43,9 @@ Menglifang.Widgets.Sidebar = Ember.Component.extend
 
   didInsertElement: ->
     @$().find('.menu-triggers li a').first().click()
+
+  actions:
+    triggerMenu: (menu) ->
+      @triggerAction action: 'triggerMenu', actionContext: menu
 
 Ember.Handlebars.helper 'side-bar', Menglifang.Widgets.Sidebar

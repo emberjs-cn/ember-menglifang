@@ -67,3 +67,6 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
         breadcrumbs.pushObject(breadcrumb)
 
       @set('breadcrumbs', breadcrumbs) unless Ember.isEmpty(breadcrumbs)
+
+    triggerMenu: (menu) ->
+      @transitionToRoute menu.items.get('firstObject.route')

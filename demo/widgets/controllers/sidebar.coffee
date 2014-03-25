@@ -19,3 +19,7 @@ App.SidebarController = Ember.Controller.extend
   starterItems: [{
     icon: 'fa fa-sign-out', url: '#', text: '注销'
   }]
+
+  actions:
+    triggerMenu: (menu) ->
+      alert("Trying to transition to #{menu.items.get('firstObject.route')}")

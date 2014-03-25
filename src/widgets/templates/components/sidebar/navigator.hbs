@@ -17,7 +17,7 @@
 <ul class="menu-triggers">
   {{#each view.menus}}
     <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
-      <a {{bind-attr href=url}} data-toggle="tab">
+      <a {{bind-attr href=url}} data-toggle="tab" {{action 'triggerMenu' this}}>
         <img class="menu-trigger" {{bind-attr src=icon}} />
         <div class="title">{{text}}</div>
       </a>
