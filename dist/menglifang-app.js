@@ -1299,6 +1299,9 @@ Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
 
 
 Ember.Route.reopen({
+  init: function() {
+    return localStorage.setItem('menglifang-app:url', window.location.href);
+  },
   afterModel: function() {
     var _this = this;
     return Ember.run.next(this, function() {
@@ -2137,6 +2140,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.Application.initializer({
   name: 'authentication',
   initialize: function(container, application) {
+    if (window.location.href !== localStorage.getItem('menglifang-app:url')) {
+      localStorage.clear();
+    }
     Ember.SimpleAuth.Session.reopen({
       account: (function() {
         var accountId;

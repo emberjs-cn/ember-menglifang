@@ -9,8 +9,6 @@ if 'undefined' == typeof(Menglifang)
   if 'undefined' != typeof(window)
     window.Mlf = window.Menglifang = Mlf = Menglifang
 
-## Used for bundling files together using neuter
-#Menglifang.App = Ember.Namespace.create()
 Menglifang.App =
   VERSION: '0.2.5'
 

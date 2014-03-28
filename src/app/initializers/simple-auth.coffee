@@ -1,6 +1,8 @@
 Ember.Application.initializer
   name: 'authentication'
   initialize: (container, application) ->
+    # Clear session data
+    localStorage.clear() if window.location.href != localStorage.getItem('menglifang-app:url')
 
     # customize the session so that it allows access to the account object
     Ember.SimpleAuth.Session.reopen
