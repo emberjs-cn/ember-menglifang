@@ -12,3 +12,5 @@ require 'build/src/widgets/components/basic-table'
 require 'build/src/widgets/components/grid'
 
 require 'build/src/widgets/components/bs-pagination'
+
+require 'build/src/widgets/components/bs-switch'

@@ -1,0 +1,37 @@
+<div class="col-md-6 readme">
+  说明
+</div>
+<div class="col-md-6 demo">
+  <h3>Switch</h3>
+
+  {{bs-switch name='basic_switch'}}
+
+  <h4>设置大小</h4>
+  {{bs-switch name='large_switch' data-size='large'}}
+  {{bs-switch name='basic_switch'}}
+  {{bs-switch name='small_switch' data-size='small'}}
+  {{bs-switch name='mini_switch' data-size='mini'}}
+
+  <h4>设置颜色</h4>
+  {{bs-switch name='basic_switch' data-on-color="primary" data-off-color="info"}}
+  {{bs-switch name='basic_switch' data-on-color="info" data-off-color="success"}}
+  {{bs-switch name='basic_switch' data-on-color="success" data-off-color="warning"}}
+  {{bs-switch name='basic_switch' data-on-color="warning" data-off-color="danger"}}
+  {{bs-switch name='basic_switch' data-on-color="danger" data-off-color="default"}}
+  {{bs-switch name='basic_switch' data-on-color="default" data-off-color="primary"}}
+
+  <h4>关闭动画</h4>
+  {{bs-switch name='basic_switch' data-animate='false'}}
+
+  <h4>设置文字</h4>
+  {{bs-switch name='basic_switch' data-on-text='是' data-off-text="否" checked=true}}
+
+  <h4>设置标签</h4>
+  {{bs-switch name='basic_switch' data-on-text='是' data-off-text="否" data-label-text='锁定' checked=true}}
+
+  <h4>设置图标</h4>
+  {{bs-switch name='basic_switch' checked=true data-size="large"
+  data-label-text="<span class='fa fa-youtube fa-lg'></span>"
+  data-on-text="<span class='fa fa-thumbs-up fa-lg'></span>"
+  data-off-text="<span class='fa fa-thumbs-down fa-lg'></span>"}}
+</div>

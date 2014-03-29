@@ -12,6 +12,7 @@ App.Router.map ->
   @route 'datetimePicker'
   @route 'grid'
   @route 'pagination'
+  @route 'switch'
 
   @resource 'tables', ->
     @route 'basic'

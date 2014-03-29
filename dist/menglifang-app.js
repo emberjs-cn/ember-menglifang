@@ -1189,6 +1189,19 @@ Ember.Handlebars.helper('bs-pagination', Menglifang.Widgets.BsPagination);
 (function() {
 
 
+Menglifang.Widgets.BsSwitch = Ember.Checkbox.extend({
+  didInsertElement: function() {
+    return this.$().bootstrapSwitch();
+  }
+});
+
+Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
+
+
+})();
+(function() {
+
+
 Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend({
   classNames: ['ember-list-item-view', 'mlf-list-item']
 });
@@ -1199,6 +1212,22 @@ Menglifang.Widgets.ListView = Ember.ListView.extend({
   didInsertElement: function() {
     this.set('height', Ember.$('.ember-list-view').parent().height());
     return this._super();
+  }
+});
+
+
+})();
+(function() {
+
+Ember.View.reopen({
+  init: function() {
+    var _this = this;
+    this._super();
+    return Ember.keys(this).forEach(function(key) {
+      if (key.substr(0, 5) === 'data-') {
+        return _this.get('attributeBindings').pushObject(key);
+      }
+    });
   }
 });
 
