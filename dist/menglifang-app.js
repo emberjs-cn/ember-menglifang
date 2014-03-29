@@ -1191,7 +1191,14 @@ Ember.Handlebars.helper('bs-pagination', Menglifang.Widgets.BsPagination);
 
 Menglifang.Widgets.BsSwitch = Ember.Checkbox.extend({
   didInsertElement: function() {
-    return this.$().bootstrapSwitch();
+    return Ember.run.scheduleOnce('afterRender', this, 'initSwitch');
+  },
+  initSwitch: function() {
+    var _this = this;
+    this.$().bootstrapSwitch();
+    return this.$().bind('switchChange', function(evt, data) {
+      return _this.get('controller').send(_this.get('action'), _this.get('value'));
+    });
   }
 });
 
@@ -2037,9 +2044,27 @@ function program5(depth0,data) {
 Ember.TEMPLATES["users/form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n      <button class=\"btn btn-danger pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "lock", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\n        <i class=\"fa fa-lock\"></i>\n        锁定\n      </button>\n    ");
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n      <button class=\"btn btn-success pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "unlock", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\n        <i class=\"fa fa-unlock\"></i>\n        解锁\n      </button>\n    ");
+  return buffer;
+  }
+
+function program5(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\n        ");
@@ -2054,7 +2079,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-function program3(depth0,data) {
+function program7(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n        <p class=\"form-control-static\">");
@@ -2064,7 +2089,7 @@ function program3(depth0,data) {
   return buffer;
   }
 
-function program5(depth0,data) {
+function program9(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n        <button class=\"btn btn-link\" ");
@@ -2073,7 +2098,7 @@ function program5(depth0,data) {
   return buffer;
   }
 
-function program7(depth0,data) {
+function program11(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n        <button class=\"btn btn-danger\" ");
@@ -2084,7 +2109,7 @@ function program7(depth0,data) {
   return buffer;
   }
 
-function program9(depth0,data) {
+function program13(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n  <p>");
@@ -2094,11 +2119,17 @@ function program9(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<form class=\"form-horizontal form-fluid\" role=\"form\">\n  <h2>");
+  data.buffer.push("<form class=\"form-horizontal form-fluid\" role=\"form\">\n  <h2>\n    ");
   stack1 = helpers._triageMustache.call(depth0, "formLegend", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h2>\n  <div class=\"form-group\">\n    <label class=\"col-sm-3 control-label\" for=\"username\">用户名</label>\n    <div class=\"col-sm-9\">\n      ");
-  stack1 = helpers['if'].call(depth0, "model.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\n    ");
+  stack1 = helpers['if'].call(depth0, "lockable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    ");
+  stack1 = helpers['if'].call(depth0, "unlockable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n  </h2>\n  <div class=\"form-group\">\n    <label class=\"col-sm-3 control-label\" for=\"username\">用户名</label>\n    <div class=\"col-sm-9\">\n      ");
+  stack1 = helpers['if'].call(depth0, "model.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <label class=\"col-sm-3 control-label\" for=\"realname\">真实姓名</label>\n    <div class=\"col-sm-9\">\n      ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
@@ -2135,7 +2166,7 @@ function program9(depth0,data) {
   data.buffer.push("\n    </div>\n  </div>\n\n  <div class=\"form-group buttons\">\n    <div class=\"col-sm-3\"></div>\n    <div class=\"col-sm-9\">\n      <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">\n        <i class=\"fa fa-save\"></i> 保存\n      </button>\n      ");
-  stack1 = helpers['if'].call(depth0, "model.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "model.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n  </div>\n</form>\n\n");
   stack1 = (helper = helpers['bs-modal'] || (depth0 && depth0['bs-modal']),options={hash:{
@@ -2143,7 +2174,7 @@ function program9(depth0,data) {
     'fade': (true),
     'footerButtons': ("removeConfirmationButtons"),
     'title': ("removeConfirmationTitle")
-  },hashTypes:{'name': "ID",'fade': "BOOLEAN",'footerButtons': "ID",'title': "ID"},hashContexts:{'name': depth0,'fade': depth0,'footerButtons': depth0,'title': depth0},inverse:self.noop,fn:self.program(9, program9, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bs-modal", options));
+  },hashTypes:{'name': "ID",'fade': "BOOLEAN",'footerButtons': "ID",'title': "ID"},hashContexts:{'name': depth0,'fade': depth0,'footerButtons': depth0,'title': depth0},inverse:self.noop,fn:self.program(13, program13, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bs-modal", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
@@ -2230,6 +2261,8 @@ Menglifang.App.User = DS.Model.extend({
   roles: DS.attr(),
   accessLocked: DS.attr('boolean'),
   name: Ember.computed.any('realname', 'username'),
+  lockable: Ember.computed.not('accessLocked'),
+  unlockable: Ember.computed.alias('accessLocked'),
   changePassword: function(oldPwd, newPwd, pwdConfirmation) {
     var _this = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -2252,6 +2285,18 @@ Menglifang.App.User = DS.Model.extend({
       }, function(jqXHR, textStatus, errorThrown) {
         return reject(jqXHR.responseJSON.errors.password);
       });
+    });
+  },
+  lock: function() {
+    var _this = this;
+    return $.post("/" + Menglifang.App.namespace + "/users/" + (this.get('id')) + "/lock").then(function(user) {
+      return _this.get('store').pushPayload('user', user);
+    });
+  },
+  unlock: function() {
+    var _this = this;
+    return $.post("/" + Menglifang.App.namespace + "/users/" + (this.get('id')) + "/unlock").then(function(user) {
+      return _this.get('store').pushPayload('user', user);
     });
   },
   hasRole: function(roles, matchMode) {
@@ -2518,12 +2563,35 @@ Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.Mod
   modelName: 'user',
   humanModelName: '用户',
   removeConfirmationName: 'removeUserConfirmation',
+  lockable: (function() {
+    return this.get('model.lockable') && this.get('model.id') !== this.get('session.account.id');
+  }).property('model.id', 'model.lockable', 'session.account.id'),
   beforeRemove: function() {
     if (this.get('model.id') === this.get('session.account_id')) {
       Notifier.error('对不起，您不允许删除自己！');
       return false;
     } else {
       return true;
+    }
+  },
+  actions: {
+    lock: function() {
+      var _this = this;
+      return this.get('model').lock().then(function() {
+        _this.get('model').reload();
+        return Notifier.success('用户锁定成功');
+      }, function() {
+        return Notifier.error('用户锁定失败');
+      });
+    },
+    unlock: function() {
+      var _this = this;
+      return this.get('model').unlock().then(function() {
+        _this.get('model').reload();
+        return Notifier.success('用户解锁成功');
+      }, function() {
+        return Notifier.error('用户解锁失败');
+      });
     }
   }
 });
