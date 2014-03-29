@@ -42,6 +42,12 @@ app.put '/v1/password', (req, res) ->
 # End of Account Management
 
 # User Management
+app.post '/users', (req, res) ->
+  user_params = req.body.user
+  db.run "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, 1)", user_params.email, user_params.username, user_params.realname, user_params.password, new jssha(user_params.username, 'TEXT').getHash('SHA-1', 'HEX'), user_params.roles, ->
+    userHandler.findById @lastID, (user) ->
+      res.status(201).json(user: user)
+
 app.get '/v1/users', (req, res) ->
   db.all "SELECT rowid AS id, email, username, realname, roles, access_locked FROM users", (err, rows) ->
     res.json(users: rows)

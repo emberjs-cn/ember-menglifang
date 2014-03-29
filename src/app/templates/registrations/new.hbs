@@ -1,0 +1,47 @@
+<div class="registrations-new">
+  <h2>用户注册</h2>
+  <form class="form-horizontal form-fluid" role="form">
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="username">用户名</label>
+      <div class="col-sm-9">
+        {{input value=username class="form-control" type="text" id="username" placeholder="必填且唯一"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="realname">真实姓名</label>
+      <div class="col-sm-9">
+        {{input value=realname class="form-control" type="text" id="realname" placeholder="可选"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="email">邮箱</label>
+      <div class="col-sm-9">
+        {{input value=email class="form-control" type="email" id="email" placeholder="必填且唯一"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="password">密码</label>
+      <div class="col-sm-9">
+        {{input value=password class="form-control" type="password" id="password" placeholder="不少于8位"}}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label" for="password-confirmation">密码确认</label>
+      <div class="col-sm-9">
+        {{input value=passwordConfirmation class="form-control" type="password" id="password-confirmation" placeholder="不少于8位"}}
+      </div>
+    </div>
+
+    <div class="form-group buttons">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-9">
+        <button class="btn btn-primary" {{action 'save'}}>
+          <i class="fa fa-save"></i> 注册
+        </button>
+        <button class="btn btn-link" {{action 'cancel'}}>
+          取消
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

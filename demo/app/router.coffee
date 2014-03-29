@@ -2,6 +2,10 @@ App.Router.map ->
   @route('login')
   @route('logout')
 
+  @resource 'registrations', ->
+    @route 'new'
+    @route 'success'
+
   @resource 'authenticated', path: '/', ->
     @resource 'account', ->
       @route 'profile'
