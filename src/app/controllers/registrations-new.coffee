@@ -12,7 +12,7 @@ Menglifang.App.RegistrationsNewController = Ember.ObjectController.extend
         realname: @get('realname')
         email: @get('email')
         password: @get('password')
-        passwordConfirmation: @get('passwordConfirmation')
+        password_confirmation: @get('passwordConfirmation')
       }).then =>
         @transitionToRoute 'registrations.success'
       , -> Notifier.error '用户注册失败'
