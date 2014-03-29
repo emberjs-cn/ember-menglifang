@@ -5,6 +5,8 @@ Menglifang.Widgets.LoginForm = Ember.Component.extend
   title: '用户登录'
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司'
 
+  registerable: false
+
   titleHtmlSafe: (->
     @get('title').htmlSafe()
   ).property('title')

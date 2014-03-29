@@ -10,7 +10,12 @@
       {{input id='password' type='password' value=view.password placeholder='请输入您的密码...' class="showpassword" }}
     <p class="clearfix"></p>
     <p class="clearfix">
-      <button type="submit" class="pull-right">登录</button>
+      {{#if view.registerable}}
+        {{#link-to 'registrations.new' class="btn btn-success pull-right"}}
+          注册
+        {{/link-to}}
+      {{/if}}
+      <button type="submit" class="btn btn-primary pull-right">登录</button>
     </p>
     <p>{{view.copyrightHtmlSafe}}</p>
   </form>

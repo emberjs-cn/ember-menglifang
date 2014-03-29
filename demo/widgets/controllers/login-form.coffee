@@ -1,4 +1,4 @@
-App.LoginFormController = Ember.ObjectController.extend
+App.LoginForm2Controller = App.LoginForm1Controller = Ember.ObjectController.extend
   identification: null
   password: null
 

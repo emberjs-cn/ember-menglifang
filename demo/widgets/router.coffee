@@ -3,7 +3,11 @@
 ################################################################################
 
 App.Router.map ->
-  @route 'loginForm'
+  @resource 'registrations', ->
+    @route 'new'
+
+  @route 'loginForm1'
+  @route 'loginForm2'
   @route 'sidebar'
   @route 'toolbar'
   @route 'form'
