@@ -210,9 +210,26 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["components/mlf-login-form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
+  
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n        ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
+    'class': ("btn btn-success pull-right")
+  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "registrations.new", options) : helperMissing.call(depth0, "link-to", "registrations.new", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      ");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  
+  data.buffer.push("\n          注册\n        ");
+  }
+
+function program4(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n    <li>\n      <a target=\"_blank\" ");
@@ -252,11 +269,14 @@ function program1(depth0,data) {
     'placeholder': ("请输入您的密码..."),
     'class': ("showpassword")
   },hashTypes:{'id': "STRING",'type': "STRING",'value': "ID",'placeholder': "STRING",'class': "STRING"},hashContexts:{'id': depth0,'type': depth0,'value': depth0,'placeholder': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n    <p class=\"clearfix\"></p>\n    <p class=\"clearfix\">\n      <button type=\"submit\" class=\"pull-right\">登录</button>\n    </p>\n    <p>");
+  data.buffer.push("\n    <p class=\"clearfix\"></p>\n    <p class=\"clearfix\">\n      ");
+  stack1 = helpers['if'].call(depth0, "view.registerable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      <button type=\"submit\" class=\"btn btn-primary pull-right\">登录</button>\n    </p>\n    <p>");
   stack1 = helpers._triageMustache.call(depth0, "view.copyrightHtmlSafe", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</p>\n  </form>\n</section>\n<div class=\"browsers\">\n  <ul>\n    ");
-  stack1 = helpers.each.call(depth0, "view.supportedBrowers", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.each.call(depth0, "view.supportedBrowers", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n  </ul>\n</div>\n");
   return buffer;
@@ -653,6 +673,7 @@ Menglifang.Widgets.LoginForm = Ember.Component.extend({
   classNames: ['mlf-login-form'],
   title: '用户登录',
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司',
+  registerable: false,
   titleHtmlSafe: (function() {
     return this.get('title').htmlSafe();
   }).property('title'),
@@ -1191,14 +1212,7 @@ Ember.Handlebars.helper('bs-pagination', Menglifang.Widgets.BsPagination);
 
 Menglifang.Widgets.BsSwitch = Ember.Checkbox.extend({
   didInsertElement: function() {
-    return Ember.run.scheduleOnce('afterRender', this, 'initSwitch');
-  },
-  initSwitch: function() {
-    var _this = this;
-    this.$().bootstrapSwitch();
-    return this.$().bind('switchChange', function(evt, data) {
-      return _this.get('controller').send(_this.get('action'), _this.get('value'));
-    });
+    return this.$().bootstrapSwitch();
   }
 });
 
@@ -1945,14 +1959,89 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 
   data.buffer.push(escapeExpression((helper = helpers['login-form'] || (depth0 && depth0['login-form']),options={hash:{
+    'registerable': (true),
     'title': ("title"),
     'copyright': ("copyright"),
     'identification': ("identification"),
     'password': ("password"),
     'supportedBrowers': ("supportedBrowers"),
     'action': ("authenticate")
-  },hashTypes:{'title': "ID",'copyright': "ID",'identification': "ID",'password': "ID",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'title': depth0,'copyright': depth0,'identification': depth0,'password': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
+  },hashTypes:{'registerable': "BOOLEAN",'title': "ID",'copyright': "ID",'identification': "ID",'password': "ID",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'registerable': depth0,'title': depth0,'copyright': depth0,'identification': depth0,'password': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
   data.buffer.push("\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["registrations/new"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<div class=\"registrations-new\">\n  <h2>用户注册</h2>\n  <form class=\"form-horizontal form-fluid\" role=\"form\">\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"username\">用户名</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("username"),
+    'class': ("form-control"),
+    'type': ("text"),
+    'id': ("username"),
+    'placeholder': ("必填且唯一")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"realname\">真实姓名</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("realname"),
+    'class': ("form-control"),
+    'type': ("text"),
+    'id': ("realname"),
+    'placeholder': ("可选")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"email\">邮箱</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("email"),
+    'class': ("form-control"),
+    'type': ("email"),
+    'id': ("email"),
+    'placeholder': ("必填且唯一")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"password\">密码</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("password"),
+    'class': ("form-control"),
+    'type': ("password"),
+    'id': ("password"),
+    'placeholder': ("不少于8位")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"password-confirmation\">密码确认</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("passwordConfirmation"),
+    'class': ("form-control"),
+    'type': ("password"),
+    'id': ("password-confirmation"),
+    'placeholder': ("不少于8位")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n\n    <div class=\"form-group buttons\">\n      <div class=\"col-sm-3\"></div>\n      <div class=\"col-sm-9\">\n        <button class=\"btn btn-primary\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\n          <i class=\"fa fa-save\"></i> 注册\n        </button>\n        <button class=\"btn btn-link\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "cancel", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\n          取消\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["registrations/success"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
+
+function program1(depth0,data) {
+  
+  
+  data.buffer.push("登录");
+  }
+
+  data.buffer.push("<div class=\"registrations-success\">\n  <h2>用户注册</h2>\n  <div>\n    <div class=\"alert alert-success\">\n      <p>\n        您好！您的注册申请已经成功提交，请与管理员联系。待身份审核通过后，便可使用您的账号登录系统。\n      </p>\n      <p>\n        <strong>返回");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "login", options) : helperMissing.call(depth0, "link-to", "login", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("。</strong>\n      </p>\n    </div>\n  </div>\n</div>\n\n");
   return buffer;
   
 });
@@ -2333,6 +2422,40 @@ Menglifang.App.User = DS.Model.extend({
 (function() {
 
 
+Menglifang.App.RegistrationsNewController = Ember.ObjectController.extend({
+  username: null,
+  realname: null,
+  email: null,
+  password: null,
+  passwordConfirmation: null,
+  actions: {
+    save: function() {
+      var _this = this;
+      return $.post('/users', {
+        user: {
+          username: this.get('username'),
+          realname: this.get('realname'),
+          email: this.get('email'),
+          password: this.get('password'),
+          passwordConfirmation: this.get('passwordConfirmation')
+        }
+      }).then(function() {
+        return _this.transitionToRoute('registrations.success');
+      }, function() {
+        return Notifier.error('用户注册失败');
+      });
+    },
+    cancel: function() {
+      return this.transitionToRoute('login');
+    }
+  }
+});
+
+
+})();
+(function() {
+
+
 Menglifang.App.AccountController = Ember.ObjectController.extend({
   needs: 'authenticated',
   availableRoles: Ember.computed.alias('controllers.authenticated.availableRoles'),
@@ -2666,6 +2789,13 @@ Menglifang.App.ApplicationAdapter = DS.ActiveModelAdapter.extend();
 
 
 Menglifang.App.ApplicationSerializer = DS.ActiveModelSerializer.extend();
+
+
+})();
+(function() {
+
+
+Menglifang.App.RegistrationsNewRoute = Ember.Route.extend();
 
 
 })();
