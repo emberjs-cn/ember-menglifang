@@ -1,5 +1,5 @@
 findById = (id, callback, withSecret) ->
-  global.db.get "SELECT rowid AS id, email, username, password, realname, roles, authentication_token FROM users WHERE rowid=?", id, (err, row) ->
+  global.db.get "SELECT rowid AS id, email, username, password, realname, roles, authentication_token, access_locked FROM users WHERE rowid=?", id, (err, row) ->
     unless withSecret
       delete row['password']
       delete row['authentication_token']
