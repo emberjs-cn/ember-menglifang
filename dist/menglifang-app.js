@@ -1959,14 +1959,14 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 
   data.buffer.push(escapeExpression((helper = helpers['login-form'] || (depth0 && depth0['login-form']),options={hash:{
-    'registerable': (true),
+    'registerable': ("registerable"),
     'title': ("title"),
     'copyright': ("copyright"),
     'identification': ("identification"),
     'password': ("password"),
     'supportedBrowers': ("supportedBrowers"),
     'action': ("authenticate")
-  },hashTypes:{'registerable': "BOOLEAN",'title': "ID",'copyright': "ID",'identification': "ID",'password': "ID",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'registerable': depth0,'title': depth0,'copyright': depth0,'identification': depth0,'password': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
+  },hashTypes:{'registerable': "ID",'title': "ID",'copyright': "ID",'identification': "ID",'password': "ID",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'registerable': depth0,'title': depth0,'copyright': depth0,'identification': depth0,'password': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
   data.buffer.push("\n");
   return buffer;
   
@@ -2378,13 +2378,13 @@ Menglifang.App.User = DS.Model.extend({
   },
   lock: function() {
     var _this = this;
-    return $.post("/" + Menglifang.App.namespace + "/users/" + (this.get('id')) + "/lock").then(function(user) {
+    return $.post("" + Menglifang.App.host + "/" + Menglifang.App.namespace + "/users/" + (this.get('id')) + "/lock").then(function(user) {
       return _this.get('store').pushPayload('user', user);
     });
   },
   unlock: function() {
     var _this = this;
-    return $.post("/" + Menglifang.App.namespace + "/users/" + (this.get('id')) + "/unlock").then(function(user) {
+    return $.post("" + Menglifang.App.host + "/" + Menglifang.App.namespace + "/users/" + (this.get('id')) + "/unlock").then(function(user) {
       return _this.get('store').pushPayload('user', user);
     });
   },
@@ -2437,7 +2437,7 @@ Menglifang.App.RegistrationsNewController = Ember.ObjectController.extend({
           realname: this.get('realname'),
           email: this.get('email'),
           password: this.get('password'),
-          passwordConfirmation: this.get('passwordConfirmation')
+          password_confirmation: this.get('passwordConfirmation')
         }
       }).then(function() {
         return _this.transitionToRoute('registrations.success');
@@ -2648,6 +2648,7 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
 
 Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin, {
   authenticator: 'app:authenticators:devise',
+  registerable: true,
   supportedBrowers: [
     {
       name: 'Chrome',
