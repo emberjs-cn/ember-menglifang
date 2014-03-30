@@ -2431,13 +2431,14 @@ Menglifang.App.RegistrationsNewController = Ember.ObjectController.extend({
   actions: {
     save: function() {
       var _this = this;
-      return $.post('/users', {
+      return $.post('/users.json', {
         user: {
           username: this.get('username'),
           realname: this.get('realname'),
           email: this.get('email'),
           password: this.get('password'),
-          password_confirmation: this.get('passwordConfirmation')
+          password_confirmation: this.get('passwordConfirmation'),
+          roles: 'user'
         }
       }).then(function() {
         return _this.transitionToRoute('registrations.success');

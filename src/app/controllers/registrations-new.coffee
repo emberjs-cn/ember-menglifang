@@ -7,12 +7,13 @@ Menglifang.App.RegistrationsNewController = Ember.ObjectController.extend
 
   actions:
     save: ->
-      $.post('/users', user: {
+      $.post('/users.json', user: {
         username: @get('username')
         realname: @get('realname')
         email: @get('email')
         password: @get('password')
         password_confirmation: @get('passwordConfirmation')
+        roles: 'user'
       }).then =>
         @transitionToRoute 'registrations.success'
       , -> Notifier.error '用户注册失败'
