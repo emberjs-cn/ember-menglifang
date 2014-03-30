@@ -2689,8 +2689,8 @@ Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.Mod
   humanModelName: '用户',
   removeConfirmationName: 'removeUserConfirmation',
   lockable: (function() {
-    return this.get('model.lockable') && this.get('model.id') !== this.get('session.account.id');
-  }).property('model.id', 'model.lockable', 'session.account.id'),
+    return !this.get('model.isNew') && this.get('model.lockable') && this.get('model.id') !== this.get('session.account.id');
+  }).property('model.{id,lockable,isNew}', 'session.account.id'),
   beforeRemove: function() {
     if (this.get('model.id') === this.get('session.account_id')) {
       Notifier.error('对不起，您不允许删除自己！');

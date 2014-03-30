@@ -10,8 +10,8 @@ Menglifang.App.UserController = Ember.ObjectController.extend Menglifang.App.Mod
   removeConfirmationName: 'removeUserConfirmation'
 
   lockable: (->
-    @get('model.lockable') && @get('model.id') != @get('session.account.id')
-  ).property('model.id', 'model.lockable', 'session.account.id')
+    !@get('model.isNew') && @get('model.lockable') && @get('model.id') != @get('session.account.id')
+  ).property('model.{id,lockable,isNew}', 'session.account.id')
 
   beforeRemove: ->
     if @get('model.id') == @get('session.account_id')
