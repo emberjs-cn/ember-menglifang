@@ -398,14 +398,14 @@ function program2(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n            <div class=\"icon\">\n              <img ");
+  data.buffer.push("\n            <div>\n              <div class=\"title pull-left\">");
+  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</div>\n              <img class=\"pull-right\" ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'src': ("icon")
   },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" />\n              <div class=\"title\">");
-  stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</div>\n            </div>\n          ");
+  data.buffer.push(" />\n            </div>\n          ");
   return buffer;
   }
 
@@ -2865,6 +2865,12 @@ Menglifang.App.authenticationRoute = Ember.Route.extend({
 
 Menglifang.App.LogoutRoute = Ember.Route.extend({
   beforeModel: function() {
+    var v, _, _ref;
+    _ref = this.store.typeMaps;
+    for (_ in _ref) {
+      v = _ref[_];
+      this.store.unloadAll(v.type);
+    }
     return this.send('invalidateSession');
   }
 });

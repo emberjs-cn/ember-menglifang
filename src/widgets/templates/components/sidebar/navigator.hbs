@@ -4,9 +4,9 @@
       {{#each items}}
         <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
           {{#link-to route}}
-            <div class="icon">
-              <img {{bind-attr src=icon}} />
-              <div class="title">{{text}}</div>
+            <div>
+              <div class="title pull-left">{{text}}</div>
+              <img class="pull-right" {{bind-attr src=icon}} />
             </div>
           {{/link-to}}
         </li>
