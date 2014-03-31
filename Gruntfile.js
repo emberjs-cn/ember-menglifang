@@ -126,8 +126,10 @@ module.exports = function (grunt) {
 
     copy: {
       gh_pages: {
-        files: [
-          {
+        files: [{
+            src: ['site/CNAME'],
+            dest: 'gh-pages/CNAME'
+          }, {
             src: ['site/index.html'],
             dest: 'gh-pages/index.html'
           }, {
