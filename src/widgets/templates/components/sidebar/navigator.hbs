@@ -6,7 +6,11 @@
           {{#link-to route}}
             <div>
               <div class="title pull-left">{{text}}</div>
-              <img class="pull-right" {{bind-attr src=icon}} />
+              {{#if icon}}
+                <img class="pull-right" {{bind-attr src=icon}} />
+              {{else}}
+                <i {{bind-attr class="iconClass :pull-right"}} class="pull-right"></i>
+              {{/if}}
             </div>
           {{/link-to}}
         </li>
@@ -18,7 +22,11 @@
   {{#each view.menus}}
     <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
       <a {{bind-attr href=url}} data-toggle="tab" {{action 'triggerMenu' this}}>
-        <img class="menu-trigger" {{bind-attr src=icon}} />
+        {{#if icon}}
+          <img class="menu-trigger" {{bind-attr src=icon}} />
+        {{else}}
+          <i {{bind-attr class=iconClass}} class="pull-right"></i>
+        {{/if}}
         <div class="title">{{text}}</div>
       </a>
     </li>
