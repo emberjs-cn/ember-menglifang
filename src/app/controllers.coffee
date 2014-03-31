@@ -1,3 +1,4 @@
+require 'build/src/app/controllers/application'
 require 'build/src/app/controllers/registrations-new'
 require 'build/src/app/controllers/account'
 require 'build/src/app/controllers/account-password'

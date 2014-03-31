@@ -4,7 +4,7 @@ Ember.Route.reopen
 
   afterModel: ->
     Ember.run.next @, =>
-      @controllerFor('authenticated').send('currentPathDidChange')
+      @controllerFor('application').send('currentPathDidChange')
 
   parentRoute: ->
     handlerInfos = @router.router.state.handlerInfos
