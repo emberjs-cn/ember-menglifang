@@ -16,6 +16,9 @@
     </div>
     <div class="email">
       {{email}}
+      {{#if accessLocked}}
+        <i class="fa fa-lock text-danger pull-right"></i>
+      {{/if}}
     </div>
   {{/link-to}}
 {{/collection}}

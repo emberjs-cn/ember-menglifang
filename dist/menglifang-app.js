@@ -2107,8 +2107,16 @@ function program5(depth0,data) {
   data.buffer.push(")\n    </div>\n    <div class=\"email\">\n      ");
   stack1 = helpers._triageMustache.call(depth0, "email", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      ");
+  stack1 = helpers['if'].call(depth0, "accessLocked", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n  ");
   return buffer;
+  }
+function program6(depth0,data) {
+  
+  
+  data.buffer.push("\n        <i class=\"fa fa-lock text-danger pull-right\"></i>\n      ");
   }
 
   data.buffer.push("<ul class=\"mlf-toolbar-links pull-right\">\n  ");
