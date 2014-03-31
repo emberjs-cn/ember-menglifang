@@ -33,7 +33,9 @@ App.ApplicationController = Menglifang.App.ApplicationController.extend
     }]
 
     starterItems: [
-      { icon: 'fa fa-sign-out', url: '#/logout', text: '注销' }
+      { iconClass: 'fa fa-puzzle-piece', route: 'basics.login_form_1', text: '登录窗口' }
+      { iconClass: 'fa fa-puzzle-piece', route: 'forms.form', text: '表单' }
+      { iconClass: 'fa fa-puzzle-piece', route: 'tables.basic', text: '基本表格' }
     ]
 
   breadcrumbs: []

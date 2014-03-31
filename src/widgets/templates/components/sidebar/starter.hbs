@@ -7,10 +7,10 @@
 <ul class="dropdown-menu">
   {{#each view.items}}
     <li>
-      <a {{bind-attr href="url"}}>
-        <i {{bind-attr class="icon"}}></i>
-         {{text}}
-      </a>
+      {{#link-to route}}
+        <i {{bind-attr class=iconClass}}></i>
+        {{text}}
+      {{/link-to}}
     </li>
   {{/each}}
 </ul>
