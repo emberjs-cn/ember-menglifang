@@ -11,3 +11,5 @@ doc/
 bower_components
 examples/
 *.sqlite3
+.grunt
+gh-pages/
