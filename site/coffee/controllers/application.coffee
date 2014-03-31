@@ -5,11 +5,11 @@ App.ApplicationController = Menglifang.App.ApplicationController.extend
     menus: [{
       icon: '/images/settings.png', url: '#基础控件', text: '基础控件'
       items: [
-        { icon: '/images/users.png', route: 'basic.login_form_1', text: '登录窗口' }
-        { icon: '/images/users.png', route: 'basic.login_form_2', text: '登录窗口（支持注册）' }
-        { icon: '/images/users.png', route: 'basic.sidebar', text: '侧边菜单栏' }
-        { icon: '/images/users.png', route: 'basic.list', text: '列表栏' }
-        { icon: '/images/users.png', route: 'basic.pagination', text: '分页栏' }
+        { icon: '/images/users.png', route: 'basics.login_form_1', text: '登录窗口' }
+        { icon: '/images/users.png', route: 'basics.login_form_2', text: '登录窗口（支持注册）' }
+        { icon: '/images/users.png', route: 'basics.sidebar', text: '侧边菜单栏' }
+        { icon: '/images/users.png', route: 'basics.list', text: '列表栏' }
+        { icon: '/images/users.png', route: 'basics.pagination', text: '分页栏' }
       ]
     }, {
       icon: '/images/settings.png', url: '#表单控件', text: '表单控件'

@@ -1,5 +1,5 @@
 App.Router.map ->
-  @resource 'basic', ->
+  @resource 'basics', ->
     @route 'login_form_1'
     @route 'login_form_2'
     @route 'sidebar'

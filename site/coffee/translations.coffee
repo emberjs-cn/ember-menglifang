@@ -1,12 +1,12 @@
 Em.I18n.translations =
   'routes.index': '首页'
 
-  'routes.basic': '基础控件'
-  'routes.basic.login_form_1': '登录窗口'
-  'routes.basic.login_form_2': '登录窗口（支持注册）'
-  'routes.basic.sidebar': '侧边菜单栏'
-  'routes.basic.list': '列表栏'
-  'routes.basic.pagination': '分页栏'
+  'routes.basics': '基础控件'
+  'routes.basics.login_form_1': '登录窗口'
+  'routes.basics.login_form_2': '登录窗口（支持注册）'
+  'routes.basics.sidebar': '侧边菜单栏'
+  'routes.basics.list': '列表栏'
+  'routes.basics.pagination': '分页栏'
 
   'routes.forms': '表单控件'
   'routes.forms.form': '表单'
