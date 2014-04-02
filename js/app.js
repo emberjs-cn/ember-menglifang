@@ -70228,7 +70228,7 @@ function program3(depth0,data) {
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</div>\n              ");
-  stack1 = helpers['if'].call(depth0, "icon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "iconUrl", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n            </div>\n          ");
   return buffer;
@@ -70238,7 +70238,7 @@ function program4(depth0,data) {
   var buffer = '';
   data.buffer.push("\n                <img class=\"pull-right\" ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'src': ("icon")
+    'src': ("iconUrl")
   },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" />\n              ");
   return buffer;
@@ -70249,7 +70249,7 @@ function program6(depth0,data) {
   var buffer = '';
   data.buffer.push("\n                <i ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'class': ("iconClass :pull-right")
+    'class': ("icon :pull-right")
   },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" class=\"pull-right\"></i>\n              ");
   return buffer;
@@ -70269,7 +70269,7 @@ function program8(depth0,data) {
   data.buffer.push(" data-toggle=\"tab\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "triggerMenu", "", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
   data.buffer.push(">\n        ");
-  stack1 = helpers['if'].call(depth0, "icon", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "iconUrl", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n        <div class=\"title\">");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -70282,7 +70282,7 @@ function program9(depth0,data) {
   var buffer = '';
   data.buffer.push("\n          <img class=\"menu-trigger\" ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'src': ("icon")
+    'src': ("iconUrl")
   },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" />\n        ");
   return buffer;
@@ -70293,7 +70293,7 @@ function program11(depth0,data) {
   var buffer = '';
   data.buffer.push("\n          <i ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'class': ("iconClass")
+    'class': ("icon")
   },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" class=\"pull-right\"></i>\n        ");
   return buffer;
@@ -70353,7 +70353,7 @@ function program2(depth0,data) {
   var buffer = '', stack1;
   data.buffer.push("\n        <i ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'class': ("iconClass")
+    'class': ("icon")
   },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push("></i>\n        ");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -72891,6 +72891,34 @@ function program2(depth0,data) {
   
 });
 
+Ember.TEMPLATES["basics/login_form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push(escapeExpression((helper = helpers['document-page'] || (depth0 && depth0['document-page']),options={hash:{
+    'url': ("/docs/widgets/basics/login-form.html")
+  },hashTypes:{'url': "STRING"},hashContexts:{'url': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "document-page", options))));
+  data.buffer.push("\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["basics/side_bar"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push(escapeExpression((helper = helpers['document-page'] || (depth0 && depth0['document-page']),options={hash:{
+    'url': ("/docs/widgets/basics/side-bar.html")
+  },hashTypes:{'url': "STRING"},hashContexts:{'url': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "document-page", options))));
+  data.buffer.push("\n");
+  return buffer;
+  
+});
+
 })();
 (function() {
 
@@ -72899,9 +72927,8 @@ function program2(depth0,data) {
   Em.I18n.translations = {
     'routes.index': '首页',
     'routes.basics': '基础控件',
-    'routes.basics.login_form_1': '登录窗口',
-    'routes.basics.login_form_2': '登录窗口（支持注册）',
-    'routes.basics.sidebar': '侧边菜单栏',
+    'routes.basics.login_form': '登录窗口',
+    'routes.basics.side_bar': '侧边菜单栏',
     'routes.basics.list': '列表栏',
     'routes.basics.pagination': '分页栏',
     'routes.forms': '表单控件',
@@ -72927,6 +72954,35 @@ function program2(depth0,data) {
 
 (function() {
 
+  App.RemotePageComponent = Ember.Component.extend({
+    url: null,
+    didInsertElement: function() {
+      if (this.get('url')) {
+        return this.$().load(this.get('url'));
+      }
+    }
+  });
+
+}).call(this);
+
+
+})();
+(function() {
+
+(function() {
+
+  App.DocumentPageComponent = App.RemotePageComponent.extend({
+    classNames: ['document-page']
+  });
+
+}).call(this);
+
+
+})();
+(function() {
+
+(function() {
+
   App.ApplicationController = Menglifang.App.ApplicationController.extend({
     brand: {
       name: 'Em.MLF'
@@ -72934,86 +72990,82 @@ function program2(depth0,data) {
     sidebar: {
       menus: [
         {
-          iconClass: 'fa fa-flag-o fa-inverse',
+          icon: 'fa fa-flag-o fa-inverse',
           url: '#基础控件',
           text: '基础控件',
           items: [
             {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
-              route: 'basics.login_form_1',
+              icon: 'fa fa-puzzle-piece fa-inverse',
+              route: 'basics.login_form',
               text: '登录窗口'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
-              route: 'basics.login_form_2',
-              text: '登录窗口（支持注册）'
-            }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
-              route: 'basics.sidebar',
+              icon: 'fa fa-puzzle-piece fa-inverse',
+              route: 'basics.side_bar',
               text: '侧边菜单栏'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'basics.list',
               text: '列表栏'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'basics.pagination',
               text: '分页栏'
             }
           ]
         }, {
-          iconClass: 'fa fa-th-list fa-inverse',
+          icon: 'fa fa-th-list fa-inverse',
           url: '#表单控件',
           text: '表单控件',
           items: [
             {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'forms.form',
               text: '表单'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'forms.switch',
               text: 'Switch'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'forms.select2',
               text: 'Select2'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'forms.datetime_picker',
               text: '时间选择器'
             }
           ]
         }, {
-          iconClass: 'fa fa-table fa-inverse',
+          icon: 'fa fa-table fa-inverse',
           url: '#表格控件',
           text: '表格控件',
           items: [
             {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'tables.basic',
               text: '基本表格'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'tables.indexed',
               text: '带序号'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'tables.align',
               text: '单元格对齐'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'tables.topbar',
               text: '顶部工具栏'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'tables.format_cell_content',
               text: '格式化单元格'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'tables.single_selection',
               text: '单行选择'
             }, {
-              iconClass: 'fa fa-puzzle-piece fa-inverse',
+              icon: 'fa fa-puzzle-piece fa-inverse',
               route: 'tables.multiple_selection',
               text: '多行选择'
             }
@@ -73022,15 +73074,15 @@ function program2(depth0,data) {
       ],
       starterItems: [
         {
-          iconClass: 'fa fa-puzzle-piece',
-          route: 'basics.login_form_1',
+          icon: 'fa fa-puzzle-piece',
+          route: 'basics.login_form',
           text: '登录窗口'
         }, {
-          iconClass: 'fa fa-puzzle-piece',
+          icon: 'fa fa-puzzle-piece',
           route: 'forms.form',
           text: '表单'
         }, {
-          iconClass: 'fa fa-puzzle-piece',
+          icon: 'fa fa-puzzle-piece',
           route: 'tables.basic',
           text: '基本表格'
         }
@@ -73049,9 +73101,8 @@ function program2(depth0,data) {
 
   App.Router.map(function() {
     this.resource('basics', function() {
-      this.route('login_form_1');
-      this.route('login_form_2');
-      this.route('sidebar');
+      this.route('login_form');
+      this.route('side_bar');
       this.route('list');
       return this.route('pagination');
     });
