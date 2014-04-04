@@ -33,7 +33,7 @@ supportedBrowers: [
 
 * `@param action String`，设置登录按钮对应的操作，缺省值为`authenticate`。
 
-### 操作（Actions）
+### 操作
 
 * `@action authenticate | {action}`
 
