@@ -6,7 +6,7 @@ App.ApplicationController = Menglifang.App.ApplicationController.extend
       icon: 'fa fa-flag-o fa-inverse', url: '#基础控件', text: '基础控件'
       items: [
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'login_form', text: '登录窗口' }
-        { icon: 'fa fa-puzzle-piece fa-inverse', route: 'basics.side_bar', text: '侧边菜单栏' }
+        { icon: 'fa fa-puzzle-piece fa-inverse', route: 'side_bar', text: '侧边菜单栏' }
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'basics.side_list', text: '侧边列表栏' }
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'basics.pagination', text: '分页栏' }
       ]

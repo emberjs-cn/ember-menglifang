@@ -28,4 +28,7 @@ require 'build/site/coffee/controllers/application'
 require 'build/site/coffee/controllers/login-form'
 require 'build/site/coffee/controllers/login-form-demo'
 
+require 'build/site/coffee/controllers/side-bar'
+require 'build/site/coffee/controllers/side-bar-demo'
+
 require 'build/site/coffee/router'
