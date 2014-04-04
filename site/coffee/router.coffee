@@ -1,14 +1,14 @@
 App.Router.map ->
   @resource 'basics', ->
-    @route 'login_form_1'
-    @route 'login_form_2'
-    @route 'sidebar'
-    @route 'list'
+    @resource 'login_form', ->
+      @route 'index', path: '/'
+      @route 'demo'
+
+    @route 'side_bar'
+    @route 'side_list'
     @route 'pagination'
 
   @resource 'forms', ->
-    @route 'form'
-    @route 'switch'
     @route 'select2'
     @route 'datetime_picker'
 

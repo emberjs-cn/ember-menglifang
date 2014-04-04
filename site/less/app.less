@@ -1,6 +1,27 @@
 @import "../../bower_components/bootstrap/less/bootstrap.less";
 @import "../../bower_components/font-awesome/less/font-awesome.less";
 
-@import '../../src/app/less/menglifang-app.less';
-
 .ember-application > .ember-view { height: 100%; }
+
+h2 {
+  border-bottom: 1px solid @sliver;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 30px;
+}
+
+h3 {
+  font-size: 18px;
+  padding: 10px 30px;
+}
+
+.mlf-toolbar-links {
+  a.active {
+    background-color: @navy;
+  }
+}
+
+@import './document-page';
+@import './demo';
+
+@import '../../src/app/less/menglifang-app';

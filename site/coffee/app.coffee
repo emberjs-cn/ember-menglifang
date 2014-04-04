@@ -21,6 +21,11 @@ require 'build/site/templates'
 
 require 'build/site/coffee/translations'
 
+require 'build/site/coffee/components/remote-page'
+require 'build/site/coffee/components/document-page'
+
 require 'build/site/coffee/controllers/application'
+require 'build/site/coffee/controllers/login-form'
+require 'build/site/coffee/controllers/login-form-demo'
 
 require 'build/site/coffee/router'
