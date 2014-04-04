@@ -1,12 +1,2 @@
-<ul class="mlf-toolbar-links pull-right">
-  {{#each toolbarLinks}}
-    <li>
-      {{#link-to route}}
-        <i {{bind-attr class=icon}}></i>
-        {{text}}
-      {{/link-to}}
-    </li>
-  {{/each}}
-</ul>
-
+{{partial 'shared/toolbar_links'}}
 {{outlet}}
