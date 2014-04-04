@@ -1,87 +1,91 @@
-.login {
-  width: 400px;
-  margin: 60px auto 30px;
-  padding: 15px;
-  position: relative;
-  border-top: @orange 5px solid;
-
-  /* Set the background */
-  .gradient(@blue, @blue, @navy);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=@blue, endColorstr=@navy); /*IE<9>*/
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=@blue, endColorstr=@navy)";/*IE8+*/
-
-  color: @gray;
-  .box-shadow(0 0 5px rgba(0, 0, 0, .5));
-  p {
-    a {
-      color: @white;
-    }
+.mlf-login-form {
+  .main {
+    padding: 60px 0 30px;
   }
-  h1 {
+  .login {
+    width: 400px;
+    margin: 0 auto;
+    padding: 15px;
+    border-top: @orange 5px solid;
+
+    /* Set the background */
+    .gradient(@blue, @blue, @navy);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=@blue, endColorstr=@navy); /*IE<9>*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=@blue, endColorstr=@navy)";/*IE8+*/
+
     color: @gray;
-    padding-bottom: 8px;
-    border-bottom: 1px solid @navy;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-    .box-shadow(0 1px 0 rgba(195, 248, 255, 0.80));
-  }
-  .float {
-    width: 50%;
-    float: left;
-    padding-top: 15px;
-    margin-right: 0px;
-  }
-  label {
-    color: @white;
-    display: block;
-    padding: 0 0 5px 2px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 12px;
-    i {
-      margin-right: 5px;
-      display: inline-block;
-      width: 10px;
+    .box-shadow(0 0 5px rgba(0, 0, 0, .5));
+    p {
+      a {
+        color: @white;
+      }
+    }
+    h1 {
+      color: @gray;
+      padding-bottom: 8px;
+      border-bottom: 1px solid @navy;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.8);
+      .box-shadow(0 1px 0 rgba(195, 248, 255, 0.80));
+    }
+    .float {
+      width: 50%;
+      float: left;
+      padding-top: 15px;
+      margin-right: 0px;
+    }
+    label {
+      color: @white;
+      display: block;
+      padding: 0 0 5px 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 400;
+      font-size: 12px;
+      i {
+        margin-right: 5px;
+        display: inline-block;
+        width: 10px;
+      }
+    }
+    input[type=text],input[type=password] {
+      font-size: 13px;
+      font-weight: 400;
+      display: block;
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 5px;
+      border: 2px solid @sliver;
+      color: @black;
+    }
+    button, a.btn {
+      color:  @white;
+      padding: 5px 20px;
+    }
+    input[type=checkbox] {
+      margin-top: 0px;
     }
   }
-  input[type=text],input[type=password] {
-    font-size: 13px;
-    font-weight: 400;
-    display: block;
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 5px;
-    border: 2px solid @sliver;
-    color: @black;
-  }
-  button, a.btn {
-    color:  @white;
-    padding: 5px 20px;
-  }
-  input[type=checkbox] {
-    margin-top: 0px;
-  }
-}
 
-.browsers {
-  margin: 0 auto;
-  ul {
-    list-style: none;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    li {
-      display: inline-block;
-      a {
-        width: 100px;
-        margin: 0;
-        div {
+  .browsers {
+    margin: 0 auto;
+    ul {
+      list-style: none;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        a {
           width: 100px;
+          margin: 0;
+          div {
+            width: 100px;
+          }
         }
-      }
-      img {
-        width: 64px;
-        height: 64px;
+        img {
+          width: 64px;
+          height: 64px;
+        }
       }
     }
   }

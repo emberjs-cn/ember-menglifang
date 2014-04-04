@@ -7,6 +7,9 @@ Menglifang.Widgets.LoginForm = Ember.Component.extend
 
   registerable: false
 
+  # 缺省登录操作处理函数
+  action: 'authenticate'
+
   titleHtmlSafe: (->
     @get('title').htmlSafe()
   ).property('title')
