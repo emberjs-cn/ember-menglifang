@@ -51,12 +51,12 @@
     width: inherit;
 
     .menu-items {
-      position: absolute;
-      top: 60px;
-      left: 0;
       margin: 0 !important;
       width: inherit;
+      overflow: hidden;
       ul {
+        height: 100%;
+        overflow-y: auto;
         margin: 0 !important;
         padding: 0;
         display: none;
@@ -96,9 +96,6 @@
     .menu-triggers {
       margin: 0;
       background-color: @deep-blue;
-      position: absolute;
-      bottom: 90px;
-      left: 0;
       padding: 15px 20px;
       width: inherit;
       list-style-type: none;
@@ -134,9 +131,6 @@
   }
 
   .starter {
-    position: absolute;
-    bottom: 0;
-    left: 0;
     .box-sizing(border-box);
     padding: 10px 20px 20px;
     width: inherit;
