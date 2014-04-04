@@ -15,6 +15,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-jsdoc');
   grunt.loadNpmTasks('grunt-neuter');
   grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-markdown');
 
   // Project configuration.
   grunt.initConfig({
@@ -23,6 +24,18 @@ module.exports = function (grunt) {
     meta: {
       banner: '/*! <%=pkg.name%> - v<%=pkg.version%> (build <%=pkg.build%>) - ' +
         '<%=grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT")%> */'
+    },
+
+    markdown: {
+      all: {
+        files: [{
+          expand: true,
+          cwd: "site/",
+          src: 'docs/**/*.md',
+          dest: 'gh-pages/',
+          ext: '.html'
+        }]
+      }
     },
 
     'gh-pages': {
@@ -127,6 +140,9 @@ module.exports = function (grunt) {
     copy: {
       gh_pages: {
         files: [{
+            src: ['dist/**/*'],
+            dest: 'gh-pages/'
+          }, {
             src: ['site/CNAME'],
             dest: 'gh-pages/CNAME'
           }, {
@@ -216,6 +232,10 @@ module.exports = function (grunt) {
     },
 
     watch: {
+      markdown: {
+        files: ["site/docs/**/*.md"],
+        tasks: ["markdown"]
+      },
       grunt: {
         files: ["Gruntfile.coffee"],
         tasks: ["default"]
@@ -242,11 +262,11 @@ module.exports = function (grunt) {
   // Default tasks.
   grunt.registerTask("build_src", ["coffee:src", "emberTemplates", "neuter"]);
 
-  grunt.registerTask("build_site", ["coffee:site", "emberTemplates", "neuter"]);
+  grunt.registerTask("build_site", ["coffee:site", "markdown", "emberTemplates", "neuter"]);
 
   grunt.registerTask("build_api", ["coffee:api", "neuter"]);
 
-  grunt.registerTask("build", ["build_src", "build_site", "build_api", "less", "copy", "uglify"]);
+  grunt.registerTask("build", ["build_src", "build_site", "build_api", "less", "uglify", "copy"]);
 
   grunt.registerTask("default", ["build", "watch"]);
 
