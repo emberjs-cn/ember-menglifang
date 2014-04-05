@@ -183,6 +183,11 @@ module.exports = function (grunt) {
             cwd: 'bower_components/handlebars/',
             src: ['handlebars.js'],
             dest: 'gh-pages/js/'
+          }, {
+            expand: true,
+            cwd: 'bower_components/select2/',
+            src: ['*.css', '*.gif', '*.png'],
+            dest: 'gh-pages/css/'
           }
         ]
       },
