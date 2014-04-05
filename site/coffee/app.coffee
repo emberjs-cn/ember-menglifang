@@ -31,4 +31,9 @@ require 'build/site/coffee/controllers/login-form-demo'
 require 'build/site/coffee/controllers/side-bar'
 require 'build/site/coffee/controllers/side-bar-demo'
 
+require 'build/site/coffee/controllers/side-list'
+require 'build/site/coffee/controllers/side-list-demo'
+
 require 'build/site/coffee/router'
+
+require 'build/site/coffee/routes/basics'

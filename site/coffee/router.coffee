@@ -10,7 +10,10 @@ App.Router.map ->
       @route 'index', path: '/'
       @route 'demo'
 
-    @route 'side_list'
+    @resource 'side_list', ->
+      @route 'index', path: '/'
+      @route 'demo'
+
     @route 'pagination'
 
   @resource 'forms', ->

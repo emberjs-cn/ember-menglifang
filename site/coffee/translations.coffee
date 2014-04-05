@@ -9,7 +9,9 @@ Em.I18n.translations =
   'routes.side_bar': '侧边菜单栏'
   'routes.side_bar.demo': '在线演示'
 
-  'routes.basics.side_list': '侧边列表栏'
+  'routes.side_list': '侧边列表栏'
+  'routes.side_list.demo': '在线演示'
+
   'routes.basics.pagination': '分页栏'
 
   'routes.forms': '表单控件'
