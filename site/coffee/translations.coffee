@@ -16,7 +16,10 @@ Em.I18n.translations =
   'routes.pagination.demo': '在线演示'
 
   'routes.forms': '表单控件'
-  'routes.forms.select2': 'Select2'
+
+  'routes.select2': 'Select2'
+  'routes.select2.demo': '在线演示'
+
   'routes.forms.datetime_picker': '时间选择器'
 
   'routes.tables': '表格控件'

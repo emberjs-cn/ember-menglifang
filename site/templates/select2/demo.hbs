@@ -1,0 +1,56 @@
+<div class="demo">
+  <h2>在线演示</h2>
+
+  <h3>示例</h3>
+  <div class="show select2">
+    <form class="form-horizontal" role="form">
+      <h3>基础Select2</h3>
+      <div class="form-group">
+        <label for="cities" class="col-sm-3 control-label">城市</label>
+        <div class="col-sm-9">
+          {{select2 content=cities}}
+        </div>
+      </div>
+      <h4>分组选项</h4>
+      <div class="form-group">
+        <label for="regions" class="col-sm-3 control-label">城区</label>
+        <div class="col-sm-9">
+          {{select2 content=regions optionGroupPath='city' optionLabelPath='content.label' optionValuePath='content.value'}}
+        </div>
+      </div>
+      <h4>多选项</h4>
+      <div class="form-group">
+        <label for="cities" class="col-sm-3 control-label">城市</label>
+        <div class="col-sm-9">
+          {{select2 multiple=true content=cities selection=query.selectedCities}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regions" class="col-sm-3 control-label">城区</label>
+        <div class="col-sm-9">
+          {{select2 multiple=true content=regions optionGroupPath='city'
+          optionLabelPath='content.label' optionValuePath='content.value' selection=query.selectedRegions value=query.selectedRegionValues}}
+        </div>
+      </div>
+
+      <h3>标签Select2</h3>
+      <h4>多标签</h4>
+      <div class="form-group">
+        <label for="cities" class="col-sm-3 control-label">城市</label>
+        <div class="col-sm-9">
+          {{tagging-select2 tags=cities value=query.selectedCities}}
+        </div>
+      </div>
+      <h4>单一标签</h4>
+      <div class="form-group">
+        <label for="cities" class="col-sm-3 control-label">城市</label>
+        <div class="col-sm-9">
+          {{tagging-select2 tags=cities maximumSelectionSize=1 value=selectedCities}}
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <h3>示例 @ jsbin.com [TODO]</h3>
+  <script src="http://static.jsbin.com/js/embed.js"></script>
+</div>

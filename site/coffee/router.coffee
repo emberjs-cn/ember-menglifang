@@ -19,7 +19,10 @@ App.Router.map ->
       @route 'demo'
 
   @resource 'forms', ->
-    @route 'select2'
+    @resource 'select2', ->
+      @route 'index', path: '/'
+      @route 'demo'
+
     @route 'datetime_picker'
 
   @resource 'tables', ->

@@ -12,6 +12,8 @@ require 'bower_components/notifier/notifier'
 require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-core.max'
 require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-button.max'
 require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-modal.max'
+require 'bower_components/select2/select2'
+require 'bower_components/select2/select2_locale_zh-CN'
 
 require 'dist/menglifang-app'
 
@@ -37,6 +39,10 @@ require 'build/site/coffee/controllers/side-list-demo'
 require 'build/site/coffee/controllers/pagination'
 require 'build/site/coffee/controllers/pagination-demo'
 
+require 'build/site/coffee/controllers/select2'
+require 'build/site/coffee/controllers/select2-demo'
+
 require 'build/site/coffee/router'
 
 require 'build/site/coffee/routes/basics'
+require 'build/site/coffee/routes/forms'
