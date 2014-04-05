@@ -14,7 +14,9 @@ App.Router.map ->
       @route 'index', path: '/'
       @route 'demo'
 
-    @route 'pagination'
+    @resource 'pagination', ->
+      @route 'index', path: '/'
+      @route 'demo'
 
   @resource 'forms', ->
     @route 'select2'

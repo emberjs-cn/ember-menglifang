@@ -12,7 +12,8 @@ Em.I18n.translations =
   'routes.side_list': '侧边列表栏'
   'routes.side_list.demo': '在线演示'
 
-  'routes.basics.pagination': '分页栏'
+  'routes.pagination': '分页栏'
+  'routes.pagination.demo': '在线演示'
 
   'routes.forms': '表单控件'
   'routes.forms.select2': 'Select2'

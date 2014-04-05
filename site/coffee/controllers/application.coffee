@@ -8,7 +8,7 @@ App.ApplicationController = Menglifang.App.ApplicationController.extend
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'login_form', text: '登录窗口' }
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'side_bar', text: '侧边菜单栏' }
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'side_list', text: '侧边列表栏' }
-        { icon: 'fa fa-puzzle-piece fa-inverse', route: 'basics.pagination', text: '分页栏' }
+        { icon: 'fa fa-puzzle-piece fa-inverse', route: 'pagination', text: '分页栏' }
       ]
     }, {
       icon: 'fa fa-th-list fa-inverse', text: '表单控件'
