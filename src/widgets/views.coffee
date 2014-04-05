@@ -1,4 +1,4 @@
-require 'build/src/widgets/views/list'
+require 'build/src/widgets/views/side-list'
 
 Ember.View.reopen
   init: ->
