@@ -3,7 +3,7 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend
 
   format: 'yyyy-mm-dd hh:ii'
   autoclose: true
-  todayBtn: true
+  todayBtn: false
   startDate: '1949-10-01'
   minuteStep: 10
   minView: 0
