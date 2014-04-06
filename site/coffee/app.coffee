@@ -14,6 +14,8 @@ require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-button.max'
 require 'bower_components/ember-addons.bs_for_ember/dist/js/bs-modal.max'
 require 'bower_components/select2/select2'
 require 'bower_components/select2/select2_locale_zh-CN'
+require 'bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker'
+require 'bower_components/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN'
 
 require 'dist/menglifang-app'
 
@@ -41,6 +43,9 @@ require 'build/site/coffee/controllers/pagination-demo'
 
 require 'build/site/coffee/controllers/select2'
 require 'build/site/coffee/controllers/select2-demo'
+
+require 'build/site/coffee/controllers/datetime-picker'
+require 'build/site/coffee/controllers/datetime-picker-demo'
 
 require 'build/site/coffee/router'
 

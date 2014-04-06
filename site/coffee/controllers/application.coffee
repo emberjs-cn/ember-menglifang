@@ -14,7 +14,7 @@ App.ApplicationController = Menglifang.App.ApplicationController.extend
       icon: 'fa fa-th-list fa-inverse', text: '表单控件'
       items: [
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'select2', text: 'Select2' }
-        { icon: 'fa fa-puzzle-piece fa-inverse', route: 'forms.datetime_picker', text: '时间选择器' }
+        { icon: 'fa fa-puzzle-piece fa-inverse', route: 'datetime_picker', text: '日期时间选择器' }
       ]
     }, {
       icon: 'fa fa-table fa-inverse', text: '表格控件'

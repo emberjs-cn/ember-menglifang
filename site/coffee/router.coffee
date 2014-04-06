@@ -23,7 +23,9 @@ App.Router.map ->
       @route 'index', path: '/'
       @route 'demo'
 
-    @route 'datetime_picker'
+    @resource 'datetime_picker', ->
+      @route 'index', path: '/'
+      @route 'demo'
 
   @resource 'tables', ->
     @route 'basic'

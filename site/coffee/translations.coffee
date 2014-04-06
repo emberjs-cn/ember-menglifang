@@ -20,7 +20,8 @@ Em.I18n.translations =
   'routes.select2': 'Select2'
   'routes.select2.demo': '在线演示'
 
-  'routes.forms.datetime_picker': '时间选择器'
+  'routes.datetime_picker': '日期时间选择器'
+  'routes.datetime_picker.demo': '在线演示'
 
   'routes.tables': '表格控件'
   'routes.tables.basic': '基本表格'
