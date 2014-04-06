@@ -2,22 +2,18 @@
 
 Ember Menglifang是基于Ember开发的基础控件库。支持的浏览器：Google Chrome、Firefox、Safari、IE8+。本项目包含两个子项目：
 
-* menglifang-widgets - 旨在为大家提供丰富的，可以方便的集成到项目中直接使用的Ember控件。
-* menglifang-app - 以menglifang-widgets为基础，提供一个应用框架，以便大家可以快速的开发出优秀、稳定的Ember应用。
-
 ### 使用说明
-
-#### menglifang-widgets
 
 在页面`head`中添加`css`文件：
 
 ```html
 <head>
   <!-- ... -->
-  <!--
-  bootstrap
-  font-awesome
-  -->
+  <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.css" />
+  <link rel="stylesheet" href="http://cdn.staticfile.org/font-awesome/4.0.3/css/font-awesome.css" />
+  <link rel="stylesheet" href="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" />
+  <link rel="stylesheet" href="http://cdn.staticfile.org/select2/3.4.6/select2.css" />
+  <link rel="stylesheet" href="http://cdn.staticfile.org/select2/3.4.6/select2-bootstrap.css" />
   <link rel="stylesheet" href="http://ember-menglifang.emberjs.cn/dist/menglifang-widgets.css" />
   <!-- ... -->
 </head>
@@ -27,59 +23,22 @@ Ember Menglifang是基于Ember开发的基础控件库。支持的浏览器：Go
 
 ```html
   <!-- ... -->
-    <!--
-    jquery
-    jquery.browser
-    plurals
-    ember
-    i18n
-    bootstrap
-    list-view
-    bs-core
-    bs-button
-    bs-modal
-    -->
+    <script type="text/javascript" src="http://cdn.staticfile.org/jquery/1.11.0/jquery.js"></script> 
+    <script type="text/javascript" src="http://cdn.staticfile.org/jquery-browser/0.0.6/jquery.browser.js"></script> 
+    <script type="text/javascript" src="https://raw.githubusercontent.com/jamesarosen/CLDR.js/master/plurals.js"></script> 
+    <script type="text/javascript" src="http://cdn.staticfile.org/handlebars.js/1.3.0/handlebars.js"></script> 
+    <script type="text/javascript" src="http://cdn.staticfile.org/ember.js/1.4.0/ember.js"></script> 
+    <script type="text/javascript" src="https://raw.githubusercontent.com/jamesarosen/ember-i18n/master/lib/i18n.js"></script> 
+    <script type="text/javascript" src="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/js/bootstrap.js"></script> 
+    <script type="text/javascript" src="http://emberjs.com/list-view/javascripts/libs/list-view.js"></script> 
+    <script type="text/javascript" src="http://ember-addons.github.io/bootstrap-for-ember/dist/js/bs-core.min.js"></script> 
+    <script type="text/javascript" src="http://ember-addons.github.io/bootstrap-for-ember/dist/js/bs-button.min.js"></script> 
+    <script type="text/javascript" src="http://ember-addons.github.io/bootstrap-for-ember/dist/js/bs-modal.min.js"></script> 
+    <script type="text/javascript" src="http://cdn.staticfile.org/select2/3.4.6/select2.js"></script> 
+    <script type="text/javascript" src="http://cdn.staticfile.org/select2/3.4.6/select2_locale_zh-CN.js"></script> 
+    <script type="text/javascript" src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script> 
+    <script type="text/javascript" src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script> 
     <script type="text/javascript" src="http://ember-menglifang.emberjs.cn/dist/menglifang-widgets.js"></script> 
-  </body>
-</html>
-```
-
-#### menglifang-app
-
-在页面`head`中添加`css`文件：
-
-```html
-<head>
-  <!-- ... -->
-  <!--
-  bootstrap
-  font-awesome
-  -->
-  <link rel="stylesheet" href="http://ember-menglifang.emberjs.cn/dist/menglifang-app.css" />
-  <!-- ... -->
-</head>
-```
-
-在`body`末尾添加`js`文件：
-
-```html
-  <!-- ... -->
-    <!--
-    jquery
-    jquery.browser
-    plurals
-    ember
-    i18n
-    ember-data
-    ember-simple-auth
-    bootstrap
-    list-view
-    notifier
-    bs-core
-    bs-button
-    bs-modal
-    -->
-    <script type="text/javascript" src="http://ember-menglifang.emberjs.cn/dist/menglifang-app.js"></script> 
   </body>
 </html>
 ```
