@@ -1,0 +1,155 @@
+<!DOCTYPE  html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>doc</title>
+    <style>
+      /*github.com style (c) Vasily Polovnyov <vast@whiteants.net>*/
+      pre code {
+        display: block; padding: 0.5em;
+        color: #333;
+        background: #f8f8ff
+      }
+      pre .comment,
+      pre .template_comment,
+      pre .diff .header,
+      pre .javadoc {
+        color: #998;
+        font-style: italic
+      }
+      pre .keyword,
+      pre .css .rule .keyword,
+      pre .winutils,
+      pre .javascript .title,
+      pre .nginx .title,
+      pre .subst,
+      pre .request,
+      pre .status {
+        color: #333;
+        font-weight: bold
+      }
+      pre .number,
+      pre .hexcolor,
+      pre .ruby .constant {
+        color: #099;
+      }
+      pre .string,
+      pre .tag .value,
+      pre .phpdoc,
+      pre .tex .formula {
+        color: #d14
+      }
+      pre .title,
+      pre .id {
+        color: #900;
+        font-weight: bold
+      }
+      pre .javascript .title,
+      pre .lisp .title,
+      pre .clojure .title,
+      pre .subst {
+        font-weight: normal
+      }
+      pre .class .title,
+      pre .haskell .type,
+      pre .vhdl .literal,
+      pre .tex .command {
+        color: #458;
+        font-weight: bold
+      }
+      pre .tag,
+      pre .tag .title,
+      pre .rules .property,
+      pre .django .tag .keyword {
+        color: #000080;
+        font-weight: normal
+      }
+      pre .attribute,
+      pre .variable,
+      pre .lisp .body {
+        color: #008080
+      }
+      pre .regexp {
+        color: #009926
+      }
+      pre .class {
+        color: #458;
+        font-weight: bold
+      }
+      pre .symbol,
+      pre .ruby .symbol .string,
+      pre .lisp .keyword,
+      pre .tex .special,
+      pre .prompt {
+        color: #990073
+      }
+      pre .built_in,
+      pre .lisp .title,
+      pre .clojure .built_in {
+        color: #0086b3
+      }
+      pre .preprocessor,
+      pre .pi,
+      pre .doctype,
+      pre .shebang,
+      pre .cdata {
+        color: #999;
+        font-weight: bold
+      }
+      pre .deletion {
+        background: #fdd
+      }
+      pre .addition {
+        background: #dfd
+      }
+      pre .diff .change {
+        background: #0086b3
+      }
+      pre .chunk {
+        color: #aaa
+      }
+    </style>
+  </head>
+  <body>  
+    <h2 id="-">日期时间选择器</h2>
+<h3 id="-">描述</h3>
+<p><code>{{datetime-picker}}</code>组件是基于<a href="http://www.malot.fr/bootstrap-datetimepicker/index.php">bootstrap-datetimepicker</a>实现的日期时间选择器。</p>
+<pre><code class="lang-handlebars">{{datetime-picker format=&#39;yyyy-mm-dd hh:ii&#39; autoclose=true todayBtn=true
+startDate=&#39;1949-10-01&#39; minuteStep=10 minView=0 maxView=4}}</code></pre>
+<h3 id="-">参数</h3>
+<ul>
+<li><p><code>@param format String</code>，设置日期时间格式，缺省值为<code>yyyy-mm-dd hh:ii</code>。</p>
+<p>日期格式由<code>p, P, h, hh, i, ii, s, ss, d, dd, m, mm, M, MM, yy, yyyy</code>联合组成。</p>
+<ul>
+<li>p : 小写上下午（&#39;am&#39;或 &#39;pm&#39;） - 取决于本地化文件</li>
+<li>P : 大写上下午（&#39;AM&#39;或 &#39;PM&#39;） - 取决于本地化文件</li>
+<li>s : 秒，不带前导零</li>
+<li>ss : 秒，两位数，不足时带前导零</li>
+<li>i : 分钟，不带前导零</li>
+<li>ii : 分钟，两位数，不足时带前导零</li>
+<li>h : 小时，不带前导零 - 24小时制</li>
+<li>hh : 小时，两位数，不足时带前导零 - 24小时制</li>
+<li>H : 小时，不带前导零 - 12小时制</li>
+<li>HH : 小时，两位数，不足时带前导零 - 12小时制</li>
+<li>d : 数字日期，不带前导零</li>
+<li>dd : 数字日期，两位数，不足时带前导零</li>
+<li>m : 数字月份，不带前导零</li>
+<li>mm : 数字月份，两位数，不足时带前导零</li>
+<li>M : 缩写文字月份，三个字符</li>
+<li>MM : 完整文字月份，如January或March</li>
+<li>yy : 两位数字年份</li>
+<li>yyyy : 四位数字两份</li>
+</ul>
+</li>
+<li><p><code>@param autoclose Boolean</code>，设置当选择一个日期之后是否立即关闭此日期时间选择器，缺省值为<code>true</code>。</p>
+</li>
+<li><code>@param todayBtn Boolean</code>，如果此值为<code>true</code>或<code>linked</code>，则在日期时间选择器组件的底部显示一个 <code>Today</code>按钮用以选择当前日期。如果是<code>true</code>的话，<code>Today</code>按钮仅仅将视图转到当天的日期，如果是<code>linked</code>，当天日期将会被选中。缺省值为<code>false</code>。</li>
+<li><code>@param startDate String</code>，设置可供选择的最早日期，早于该日期的时间均不可选。缺省值为<code>1949-10-01</code>。</li>
+<li><code>@param minuteStep Integer</code>，此数值被当做步进值用于构建小时视图。对于每个<code>minuteStep</code>都会生成一组预设时间（分钟）用于选择。缺省值为<code>10</code>。</li>
+<li><code>@param minView Integer</code>，日期时间选择器所能够提供的最精确的时间选择视图。缺省值为<code>0</code>。</li>
+<li><code>@param maxView Integer</code>，日期时间选择器最高能展示的选择范围视图。缺省值为<code>4</code>。</li>
+</ul>
+
+  </body>
+</html>

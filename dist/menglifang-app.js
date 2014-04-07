@@ -353,11 +353,11 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"logo\">\n  ");
-  stack1 = helpers._triageMustache.call(depth0, "view.logo", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("<div class=\"logo\">\n  <a href='/'>");
+  stack1 = helpers._triageMustache.call(depth0, "logo", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</div>\n");
-  stack1 = helpers['if'].call(depth0, "view.sidebarExpandable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("</a>\n</div>\n");
+  stack1 = helpers['if'].call(depth0, "sidebarExpandable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
@@ -436,11 +436,9 @@ function program8(depth0,data) {
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'title': ("text")
   },hashTypes:{'title': "ID"},hashContexts:{'title': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'href': ("url")
-  },hashTypes:{'href': "ID"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" data-toggle=\"tab\" ");
+  data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a href=\"#");
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\" data-toggle=\"tab\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "triggerMenu", "", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
   data.buffer.push(">\n        ");
   stack1 = helpers['if'].call(depth0, "iconUrl", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
@@ -665,13 +663,15 @@ Menglifang.Widgets.SidebarNavigator = Ember.Component.extend({
   layoutName: 'components/sidebar/navigator',
   classNames: ['navigator'],
   menus: [],
+  didInsertElement: function() {
+    var height, triggersHeight;
+    height = this.$().parent().height() - 60 - 90;
+    this.$().height(height);
+    triggersHeight = this.get('menus.length') * 50 + 30;
+    return this.$('.menu-items').height(height - triggersHeight);
+  },
   actions: {
-    triggerMenu: function(menu) {
-      return this.triggerAction({
-        action: 'triggerMenu',
-        actionContext: menu
-      });
-    }
+    triggerMenu: function(menu) {}
   }
 });
 
@@ -719,6 +719,7 @@ Menglifang.Widgets.LoginForm = Ember.Component.extend({
   title: '用户登录',
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司',
   registerable: false,
+  action: 'authenticate',
   titleHtmlSafe: (function() {
     return this.get('title').htmlSafe();
   }).property('title'),
@@ -766,7 +767,7 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend({
   resetable: true,
   format: 'yyyy-mm-dd hh:ii',
   autoclose: true,
-  todayBtn: true,
+  todayBtn: false,
   startDate: '1949-10-01',
   minuteStep: 10,
   minView: 0,
@@ -858,9 +859,6 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
   willDestroyElement: function() {
     return this.$().select2("destroy");
   },
-  valueDidChange: (function() {
-    return this.$().val(this.get('value')).trigger('change');
-  }).observes('value'),
   resetSelection: (function() {
     if (!Ember.isEmpty(this.get('tags'))) {
       return this.processChildElements();
@@ -878,7 +876,9 @@ Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
 Menglifang.Widgets.BasicTableColumn = Ember.Object.extend({
   title: null,
   width: 100,
-  cellContentPath: null
+  textAlign: 'left',
+  cellContentPath: null,
+  formatCellContent: Ember.K
 });
 
 Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
@@ -1268,17 +1268,21 @@ Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
 (function() {
 
 
-Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend({
-  classNames: ['ember-list-item-view', 'mlf-list-item']
+Menglifang.Widgets.ListView = Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
+  classNames: ['mlf-side-list-item']
 });
 
-Menglifang.Widgets.ListView = Ember.ListView.extend({
-  classNames: ['ember-list-view', 'mlf-list'],
-  itemViewClass: Menglifang.Widgets.ListItemView,
+Menglifang.Widgets.SideList = Ember.ListView.extend({
+  classNames: ['mlf-side-list'],
+  itemViewClass: Menglifang.Widgets.SideListItem,
   didInsertElement: function() {
-    this.set('height', Ember.$('.ember-list-view').parent().height());
+    this.set('height', Ember.$('.mlf-side-list').parent().height());
     return this._super();
   }
+});
+
+Ember.Handlebars.registerHelper('side-list', function(options) {
+  return Ember.Handlebars.helpers.collection.call(this, 'Menglifang.Widgets.SideList', options);
 });
 
 
@@ -1796,12 +1800,12 @@ function program2(depth0,data) {
   return buffer;
   }
 
-  stack1 = (helper = helpers.collection || (depth0 && depth0.collection),options={hash:{
+  stack1 = (helper = helpers['side-list'] || (depth0 && depth0['side-list']),options={hash:{
     'content': ("listItems"),
     'height': (100),
     'width': (200),
     'rowHeight': (45)
-  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "Menglifang.Widgets.ListView", options) : helperMissing.call(depth0, "collection", "Menglifang.Widgets.ListView", options));
+  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "side-list", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -2168,12 +2172,12 @@ function program6(depth0,data) {
   stack1 = helpers.each.call(depth0, "toolbarLinks", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</ul>\n\n");
-  stack1 = (helper = helpers.collection || (depth0 && depth0.collection),options={hash:{
+  stack1 = (helper = helpers['side-list'] || (depth0 && depth0['side-list']),options={hash:{
     'content': ("model"),
     'height': (100),
     'width': (300),
     'rowHeight': (60)
-  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "Menglifang.Widgets.ListView", options) : helperMissing.call(depth0, "collection", "Menglifang.Widgets.ListView", options));
+  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(4, program4, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "side-list", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -2482,13 +2486,12 @@ Menglifang.App.ApplicationController = Ember.Controller.extend({
   sidebar: {
     menus: [
       {
-        icon: '/images/settings.png',
-        url: '#系统管理',
+        icon: 'fa fa-gear',
         text: '系统管理',
         roles: ['admin'],
         items: [
           {
-            icon: '/images/users.png',
+            icon: 'fa fa-users',
             route: 'users',
             text: '用户管理',
             roles: ['admin']

@@ -118,12 +118,15 @@
 <pre><code class="lang-handlebars">{{login-form registerable=false identification=identification password=password title=&quot;用户登录&quot; copyright=&quot;&amp;copy; 2013-2014 EmberJS.CN&quot; supportedBrowers=supportedBrowers action=&#39;authenticate&#39;}}</code></pre>
 <h3 id="-">参数</h3>
 <ul>
-<li><code>registerable Boolean</code>，设置是否允许注册新用户，缺省值为<code>false</code>。如果启用了用户注册功能，登录窗口中会添加一个注册按钮。用户点击按钮后，会跳转至<code>registrations.new</code>。</li>
-<li><code>identification String</code>，用来获取用户输入的登录名。</li>
-<li><code>password String</code>，用来获取用户输入的密码。</li>
-<li><code>title String</code>，设置登录窗口标题项。</li>
-<li><code>copyright String</code>，设置版权信息。</li>
-<li><code>supportedBrowers Array</code>，设置支持的浏览器，缺省值为：</li>
+<li><code>@param registerable Boolean</code>，设置是否允许注册新用户，缺省值为<code>false</code>。如果启用了用户注册功能，登录窗口中会添加一个注册按钮。用户点击按钮后，会跳转至<code>registrations.new</code>，因此确定定义了路由<code>registrations.new</code>。<pre><code class="lang-javascript">this.resource(&#39;registrations&#39;, function() {
+  this.route(&#39;new&#39;);
+});</code></pre>
+</li>
+<li><code>@param identification String</code>，通过设置<code>identification</code>绑定来获取用户输入的登录名。<code>action</code>设定的登录按钮操作将通过绑定来获取用户输入的登录名。</li>
+<li><code>@param password String</code>，通过设置<code>password</code>绑定来获取用户输入的密码。<code>action</code>设定的登录按钮操作将通过该绑定来获取密码。</li>
+<li><code>@param title String</code>，设置登录窗口标题项。</li>
+<li><code>@param copyright String</code>，设置版权信息。</li>
+<li><code>@param supportedBrowers Array</code>，设置支持的浏览器，缺省值为：</li>
 </ul>
 <pre><code class="lang-javascript">supportedBrowers: [
   { name: &#39;Chrome&#39;, url: &#39;http://www.google.com/chrome&#39;, icon: &#39;/images/chrome.png&#39; },
@@ -132,18 +135,27 @@
   { name: &#39;IE 10+&#39;, url: &#39;http://windows.microsoft.com/en-sg/internet-explorer/ie-10-worldwide-languages&#39;, icon: &#39;/images/ie.png&#39; }
 ]</code></pre>
 <ul>
-<li><code>action String</code>，设置登录按钮对应的操作，缺省值为<code>authenticate</code>。</li>
+<li><code>@param action String</code>，设置登录按钮对应的操作，缺省值为<code>authenticate</code>。</li>
 </ul>
-<h3 id="-actions-">操作（Actions）</h3>
+<h3 id="-">操作</h3>
 <ul>
-<li><code>authenticate | {action} (identification, password)</code><ul>
-<li><code>identification String</code>，用户输入的登录名；</li>
-<li><code>password String</code>，用户输入的密码。</li>
-</ul>
-</li>
+<li><code>@action authenticate | {action}</code></li>
 </ul>
 <p>用户点击登录按钮触发的操作。缺省函数名为<code>authenticate</code>，如果指定了<code>action</code>，那么函数名为<code>action</code>对应的值。</p>
-<p>当用户点击登录按钮时，会将用户输入的登录名、密码作为参数传递给操作处理函数。</p>
+<pre><code class="lang-javascript">App.LoginController = Ember.Controller.extend({
+  // ...
+
+  actions: {
+    // ...
+
+    authenticate: function(identification, password) {
+      // 使用identification、password进行用户登录处理。
+    },
+
+    // ...
+  }
+  // ...
+});</code></pre>
 <pre><code>操作函数的查询路径为：
 
 1. 首先查询对应控制器的`actions`中是否定义；
@@ -151,7 +163,6 @@
 3. 如果对应路由中没有相关定义，那么查看父路由的`actions`中是否定义，直至到达根路由；
 4. 如果依然未找到操作函数，那么抛出一个找不到对应操作函数的异常。</code></pre>
 <p><em>关于操作的详细介绍请查看<a href="http://emberjs.cn/guides/templates/actions/">操作指南</a>。</em></p>
-<h3 id="-">示例</h3>
 
   </body>
 </html>

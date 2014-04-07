@@ -1,0 +1,179 @@
+<!DOCTYPE  html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>doc</title>
+    <style>
+      /*github.com style (c) Vasily Polovnyov <vast@whiteants.net>*/
+      pre code {
+        display: block; padding: 0.5em;
+        color: #333;
+        background: #f8f8ff
+      }
+      pre .comment,
+      pre .template_comment,
+      pre .diff .header,
+      pre .javadoc {
+        color: #998;
+        font-style: italic
+      }
+      pre .keyword,
+      pre .css .rule .keyword,
+      pre .winutils,
+      pre .javascript .title,
+      pre .nginx .title,
+      pre .subst,
+      pre .request,
+      pre .status {
+        color: #333;
+        font-weight: bold
+      }
+      pre .number,
+      pre .hexcolor,
+      pre .ruby .constant {
+        color: #099;
+      }
+      pre .string,
+      pre .tag .value,
+      pre .phpdoc,
+      pre .tex .formula {
+        color: #d14
+      }
+      pre .title,
+      pre .id {
+        color: #900;
+        font-weight: bold
+      }
+      pre .javascript .title,
+      pre .lisp .title,
+      pre .clojure .title,
+      pre .subst {
+        font-weight: normal
+      }
+      pre .class .title,
+      pre .haskell .type,
+      pre .vhdl .literal,
+      pre .tex .command {
+        color: #458;
+        font-weight: bold
+      }
+      pre .tag,
+      pre .tag .title,
+      pre .rules .property,
+      pre .django .tag .keyword {
+        color: #000080;
+        font-weight: normal
+      }
+      pre .attribute,
+      pre .variable,
+      pre .lisp .body {
+        color: #008080
+      }
+      pre .regexp {
+        color: #009926
+      }
+      pre .class {
+        color: #458;
+        font-weight: bold
+      }
+      pre .symbol,
+      pre .ruby .symbol .string,
+      pre .lisp .keyword,
+      pre .tex .special,
+      pre .prompt {
+        color: #990073
+      }
+      pre .built_in,
+      pre .lisp .title,
+      pre .clojure .built_in {
+        color: #0086b3
+      }
+      pre .preprocessor,
+      pre .pi,
+      pre .doctype,
+      pre .shebang,
+      pre .cdata {
+        color: #999;
+        font-weight: bold
+      }
+      pre .deletion {
+        background: #fdd
+      }
+      pre .addition {
+        background: #dfd
+      }
+      pre .diff .change {
+        background: #0086b3
+      }
+      pre .chunk {
+        color: #aaa
+      }
+    </style>
+  </head>
+  <body>  
+    <h2 id="-">表格控件</h2>
+<h3 id="-">描述</h3>
+<p><code>{{select2}}</code>组件是基于<a href="http://ivaynberg.github.io/select2/">Select2</a>实现的下拉选项组件。组件提供了单选和多选两种选择模式，另外还支持分组选择的方式来组织待选项。</p>
+<pre><code class="lang-handlebars">{{select2 multiple=true content=regions optionGroupPath=&#39;city&#39; optionLabelPath=&#39;content.label&#39; optionValuePath=&#39;content.value&#39; selection=selectedRegions value=selectedRegionValues}}</code></pre>
+<h3 id="-">参数</h3>
+<ul>
+<li><code>@param multiple Boolean</code>，设置是否启用多选，缺省值为false，即单选模式。</li>
+<li><p><code>@param content Array</code>，设置下拉选项。选项数据分为两种类型，其一是原生数据类型的数组，例如：</p>
+<pre><code class="lang-javascript">[&#39;北京市&#39;, &#39;上海市&#39;, &#39;广州市&#39;]</code></pre>
+<p>其二是对象类型的数组，例如：</p>
+<pre><code class="lang-javascript">[
+  { label: &#39;东城区&#39;, value: &#39;BJ-DC&#39;, city: &#39;北京市&#39; }
+  { label: &#39;西城区&#39;, value: &#39;BJ-XC&#39;, city: &#39;北京市&#39; }
+  { label: &#39;朝阳区&#39;, value: &#39;BJ-CY&#39;, city: &#39;北京市&#39; }
+  { label: &#39;丰台区&#39;, value: &#39;BJ-FT&#39;, city: &#39;北京市&#39; }
+  { label: &#39;石景山区&#39;, value: &#39;BJ-SJS&#39;, city: &#39;北京市&#39; }
+  { label: &#39;海淀区&#39;, value: &#39;BJ-HD&#39;, selected: &#39;true&#39;, city: &#39;北京市&#39; }
+  { label: &#39;门头沟区&#39;, value: &#39;BJ-MTG&#39;, city: &#39;北京市&#39; }
+  { label: &#39;房山区&#39;, value: &#39;BJ-FS&#39;, city: &#39;北京市&#39; }
+  { label: &#39;通州区&#39;, value: &#39;BJ-TZ&#39;, city: &#39;北京市&#39; }
+  { label: &#39;顺义区&#39;, value: &#39;BJ-SY&#39;, city: &#39;北京市&#39; }
+  { label: &#39;昌平区&#39;, value: &#39;BJ-CP&#39;, city: &#39;北京市&#39; }
+  { label: &#39;大兴区&#39;, value: &#39;BJ-DX&#39;, city: &#39;北京市&#39; }
+  { label: &#39;怀柔区&#39;, value: &#39;BJ-HR&#39;, city: &#39;北京市&#39; }
+  { label: &#39;平谷区&#39;, value: &#39;BJ-PG&#39;, city: &#39;北京市&#39; }
+  { label: &#39;密云县&#39;, value: &#39;BJ-MY&#39;, city: &#39;北京市&#39; }
+  { label: &#39;延庆县&#39;, value: &#39;BJ-YQ&#39;, disabled: &#39;true&#39;, city: &#39;北京市&#39; }
+  { label: &#39;黄浦区&#39;, value: &#39;SH-HP&#39;, city: &#39;上海市&#39; }
+  { label: &#39;徐汇区&#39;, value: &#39;SH-XH&#39;, city: &#39;上海市&#39; }
+  { label: &#39;长宁区&#39;, value: &#39;SH-CN&#39;, city: &#39;上海市&#39; }
+  { label: &#39;静安区&#39;, value: &#39;SH-JA&#39;, city: &#39;上海市&#39; }
+  { label: &#39;普陀区&#39;, value: &#39;SH-PT&#39;, city: &#39;上海市&#39; }
+  { label: &#39;闸北区&#39;, value: &#39;SH-ZB&#39;, city: &#39;上海市&#39; }
+  { label: &#39;虹口区&#39;, value: &#39;SH-HK&#39;, city: &#39;上海市&#39; }
+  { label: &#39;杨浦区&#39;, value: &#39;SH-YB&#39;, city: &#39;上海市&#39; }
+  { label: &#39;荔湾区&#39;, value: &#39;GZ-LW&#39;, city: &#39;广州市&#39; }
+  { label: &#39;越秀区&#39;, value: &#39;GZ-YX&#39;, city: &#39;广州市&#39; }
+  { label: &#39;海珠区&#39;, value: &#39;GZ-HZ&#39;, city: &#39;广州市&#39; }
+  { label: &#39;天河区&#39;, value: &#39;GZ-TH&#39;, city: &#39;广州市&#39; }
+]</code></pre>
+<p>当选项数据类型为对象数组时，需要通过选项相关参数来对选项进行设置。</p>
+</li>
+<li><p><code>@param optionGroupPath String</code>，设置对象类型选项的分组属性路径。</p>
+</li>
+<li><code>@param optionValuePath String</code>，设置对象类型选项的值属性路径。</li>
+<li><code>@param optionLabelPath String</code>，设置对象类型选项的标签属性路径。</li>
+<li><code>@param selection String</code>，设置缺省被选中的选项。</li>
+<li><code>@param value String</code>，设置缺省被选中的选项。</li>
+</ul>
+<h2 id="select2-">Select2标签输入框</h2>
+<h3 id="-">描述</h3>
+<p><code>{{tagging-select2}}</code>组件是基于<a href="http://ivaynberg.github.io/select2/">Select2</a>实现的标签输入组件。组件提供了单一标签和多标签两种输入模式。标签值可以从备选的集合中选取，也可以手动输入新的标签值。</p>
+<pre><code class="lang-handlebars">{{tagging-select2 tags=cities maximumSelectionSize=1 value=selectedCities}}</code></pre>
+<h3 id="-">参数</h3>
+<ul>
+<li><p><code>@param tags Array</code>，设置备选标签列表。例如：</p>
+<pre><code class="lang-javascript">[&#39;北京市&#39;, &#39;上海市&#39;, &#39;广州市&#39;]</code></pre>
+</li>
+<li><p><code>@param maximumSelectionSize Integer</code>，设置最多可接受的标签数量，缺省值为<code>0</code>，即不限制标签数量。</p>
+</li>
+<li><code>@param value String</code>，设置初始输入的标签。</li>
+</ul>
+
+  </body>
+</html>

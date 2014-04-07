@@ -1,0 +1,148 @@
+<!DOCTYPE  html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>doc</title>
+    <style>
+      /*github.com style (c) Vasily Polovnyov <vast@whiteants.net>*/
+      pre code {
+        display: block; padding: 0.5em;
+        color: #333;
+        background: #f8f8ff
+      }
+      pre .comment,
+      pre .template_comment,
+      pre .diff .header,
+      pre .javadoc {
+        color: #998;
+        font-style: italic
+      }
+      pre .keyword,
+      pre .css .rule .keyword,
+      pre .winutils,
+      pre .javascript .title,
+      pre .nginx .title,
+      pre .subst,
+      pre .request,
+      pre .status {
+        color: #333;
+        font-weight: bold
+      }
+      pre .number,
+      pre .hexcolor,
+      pre .ruby .constant {
+        color: #099;
+      }
+      pre .string,
+      pre .tag .value,
+      pre .phpdoc,
+      pre .tex .formula {
+        color: #d14
+      }
+      pre .title,
+      pre .id {
+        color: #900;
+        font-weight: bold
+      }
+      pre .javascript .title,
+      pre .lisp .title,
+      pre .clojure .title,
+      pre .subst {
+        font-weight: normal
+      }
+      pre .class .title,
+      pre .haskell .type,
+      pre .vhdl .literal,
+      pre .tex .command {
+        color: #458;
+        font-weight: bold
+      }
+      pre .tag,
+      pre .tag .title,
+      pre .rules .property,
+      pre .django .tag .keyword {
+        color: #000080;
+        font-weight: normal
+      }
+      pre .attribute,
+      pre .variable,
+      pre .lisp .body {
+        color: #008080
+      }
+      pre .regexp {
+        color: #009926
+      }
+      pre .class {
+        color: #458;
+        font-weight: bold
+      }
+      pre .symbol,
+      pre .ruby .symbol .string,
+      pre .lisp .keyword,
+      pre .tex .special,
+      pre .prompt {
+        color: #990073
+      }
+      pre .built_in,
+      pre .lisp .title,
+      pre .clojure .built_in {
+        color: #0086b3
+      }
+      pre .preprocessor,
+      pre .pi,
+      pre .doctype,
+      pre .shebang,
+      pre .cdata {
+        color: #999;
+        font-weight: bold
+      }
+      pre .deletion {
+        background: #fdd
+      }
+      pre .addition {
+        background: #dfd
+      }
+      pre .diff .change {
+        background: #0086b3
+      }
+      pre .chunk {
+        color: #aaa
+      }
+    </style>
+  </head>
+  <body>  
+    <h2 id="-">分页栏</h2>
+<h3 id="-">描述</h3>
+<p>分页栏是一个用来对集合类数据进行分页浏览的通用组件。组件与数据集合完全解耦，其通过设定一系列关于集合的统计和计数属性来初始化分页栏。为了方便在一个页面中同时使用多个分页栏，采用了基于操作的分页行为控制策略。当用户点击跳转到一个指定分页时，将触发预先设定的分页操作。</p>
+<pre><code class="lang-handlebars">{{bs-pagination sizing=&#39;large&#39; current=3 start=1 total=10 size=7}}</code></pre>
+<h3 id="-">参数</h3>
+<ul>
+<li><code>@param sizing String</code>，设置分页栏尺寸，本属性为可选属性，有效值为<code>large</code>，<code>small</code>。</li>
+<li><code>@param current Integer</code>，设置当前页码，缺省值为<code>1</code>。</li>
+<li><code>@param start String</code>，设置起始页码，缺省值为<code>1</code>。</li>
+<li><code>@param total String</code>，设置总页数，缺省值为<code>1</code>。</li>
+<li><code>@param size String</code>，设置分页栏窗口长度，缺省值为<code>9</code>。</li>
+</ul>
+<h3 id="-">操作</h3>
+<ul>
+<li><code>@action page</code><ul>
+<li><code>@param page Integer</code>，将要跳转至的页码。</li>
+</ul>
+</li>
+</ul>
+<p>用户点击分页栏上的按钮，会触发<code>page</code>操作，并将按钮对应要跳转至的页面作为参数传个<code>page</code>操作处理函数。</p>
+<pre><code class="lang-javascript">App.UsersController = Ember.ArrayController.extend({
+  // ...
+
+  actions: {
+    // ...
+    page: function(page) {
+      // 处理分页逻辑
+    },
+    // ...
+  }
+});</code></pre>
+
+  </body>
+</html>
