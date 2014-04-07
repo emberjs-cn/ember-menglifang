@@ -1,6 +1,6 @@
 ## Ember Menglifang
 
-Ember Menglifang是基于Ember开发的基础控件库。支持的浏览器：Google Chrome、Firefox、Safari、IE8+。本项目包含两个子项目：
+Ember Menglifang是基于Ember开发的基础控件库。支持的浏览器：Google Chrome、Firefox、Safari、IE8+。
 
 ### 使用说明
 
