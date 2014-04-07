@@ -671,7 +671,12 @@ Menglifang.Widgets.SidebarNavigator = Ember.Component.extend({
     return this.$('.menu-items').height(height - triggersHeight);
   },
   actions: {
-    triggerMenu: function(menu) {}
+    triggerMenu: function(menu) {
+      return this.triggerAction({
+        action: 'triggerMenu',
+        actionContext: menu
+      });
+    }
   }
 });
 

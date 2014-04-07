@@ -28,7 +28,7 @@ Menglifang.Widgets.SidebarNavigator = Ember.Component.extend
 
   actions:
     triggerMenu: (menu) ->
-      #@triggerAction action: 'triggerMenu', actionContext: menu
+      @triggerAction action: 'triggerMenu', actionContext: menu
 
 Menglifang.Widgets.SidebarStarter = Ember.Component.extend
   layoutName: 'components/sidebar/starter'
