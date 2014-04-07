@@ -28,10 +28,6 @@ App.Router.map ->
       @route 'demo'
 
   @resource 'tables', ->
-    @route 'basic'
-    @route 'indexed'
-    @route 'align'
-    @route 'topbar'
-    @route 'format_cell_content'
-    @route 'single_selection'
-    @route 'multiple_selection'
+    @resource 'basic_table', ->
+      @route 'index', path: '/'
+      @route 'demo'

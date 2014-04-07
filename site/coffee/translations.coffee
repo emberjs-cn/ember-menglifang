@@ -24,10 +24,6 @@ Em.I18n.translations =
   'routes.datetime_picker.demo': '在线演示'
 
   'routes.tables': '表格控件'
-  'routes.tables.basic': '基本表格'
-  'routes.tables.indexed': '带序号'
-  'routes.tables.align': '单元格对齐'
-  'routes.tables.topbar': '顶部工具栏'
-  'routes.tables.format_cell_content': '格式化单元格'
-  'routes.tables.single_selection': '单行选择'
-  'routes.tables.multiple_selection': '多行选择'
+
+  'routes.basic_table': '基本表格'
+  'routes.basic_table.demo': '在线演示'

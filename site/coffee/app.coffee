@@ -16,6 +16,8 @@ require 'bower_components/select2/select2'
 require 'bower_components/select2/select2_locale_zh-CN'
 require 'bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker'
 require 'bower_components/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN'
+require 'bower_components/momentjs/moment'
+require 'bower_components/momentjs/lang/zh-cn'
 
 require 'dist/menglifang-app'
 
@@ -47,7 +49,11 @@ require 'build/site/coffee/controllers/select2-demo'
 require 'build/site/coffee/controllers/datetime-picker'
 require 'build/site/coffee/controllers/datetime-picker-demo'
 
+require 'build/site/coffee/controllers/basic-table'
+require 'build/site/coffee/controllers/basic-table-demo'
+
 require 'build/site/coffee/router'
 
 require 'build/site/coffee/routes/basics'
 require 'build/site/coffee/routes/forms'
+require 'build/site/coffee/routes/tables'
