@@ -9,7 +9,7 @@
   {{/each}}
 </ul>
 
-{{#collection Menglifang.Widgets.ListView content=model height=100 width=300 rowHeight=60}}
+{{#side-list content=model height=100 width=300 rowHeight=60}}
   {{#link-to 'user' id}}
     <div class="name">
       {{username}} ({{realname}})
@@ -21,6 +21,6 @@
       {{/if}}
     </div>
   {{/link-to}}
-{{/collection}}
+{{/side-list}}
 
 {{outlet}}

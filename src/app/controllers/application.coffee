@@ -3,9 +3,9 @@ Menglifang.App.ApplicationController = Ember.Controller.extend
 
   sidebar:
     menus: [{
-      icon: '/images/settings.png', url: '#系统管理', text: '系统管理', roles: ['admin']
+      icon: 'fa fa-gear', text: '系统管理', roles: ['admin']
       items: [
-        { icon: '/images/users.png', route: 'users', text: '用户管理', roles: ['admin'] }
+        { icon: 'fa fa-users', route: 'users', text: '用户管理', roles: ['admin'] }
       ]
     }]
 
