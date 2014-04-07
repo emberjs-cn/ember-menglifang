@@ -1,5 +1,10 @@
-*Ember Menglifang 0.2.6 (Mar x, 2014)*
+*Ember Menglifang 0.3.0 (Mar x, 2014)*
 
+* [改进] 重新设计项目站点，通过github pages发布项目文档；
+* [改进] 重命名`Menglifang.Widgets.ListView`，并注册为其注册一个助手`{{side-list}}`
+* [改进] 修改侧边栏菜单配置参数名、样式；
+* [功能] 支持用户注册；
+* [功能] 支持锁定或者解锁一个用户；
 * [改进] 触发一个菜单时，默认调整到第一个菜单项对应的路由。
 
 *Ember Menglifang 0.2.5 (Mar 25, 2014)*
