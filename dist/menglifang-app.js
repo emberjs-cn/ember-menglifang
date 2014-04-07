@@ -663,13 +663,15 @@ Menglifang.Widgets.SidebarNavigator = Ember.Component.extend({
   layoutName: 'components/sidebar/navigator',
   classNames: ['navigator'],
   menus: [],
+  didInsertElement: function() {
+    var height, triggersHeight;
+    height = this.$().parent().height() - 60 - 90;
+    this.$().height(height);
+    triggersHeight = this.get('menus.length') * 50 + 30;
+    return this.$('.menu-items').height(height - triggersHeight);
+  },
   actions: {
-    triggerMenu: function(menu) {
-      return this.triggerAction({
-        action: 'triggerMenu',
-        actionContext: menu
-      });
-    }
+    triggerMenu: function(menu) {}
   }
 });
 
@@ -717,6 +719,7 @@ Menglifang.Widgets.LoginForm = Ember.Component.extend({
   title: '用户登录',
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司',
   registerable: false,
+  action: 'authenticate',
   titleHtmlSafe: (function() {
     return this.get('title').htmlSafe();
   }).property('title'),
@@ -764,7 +767,7 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend({
   resetable: true,
   format: 'yyyy-mm-dd hh:ii',
   autoclose: true,
-  todayBtn: true,
+  todayBtn: false,
   startDate: '1949-10-01',
   minuteStep: 10,
   minView: 0,
@@ -856,9 +859,6 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
   willDestroyElement: function() {
     return this.$().select2("destroy");
   },
-  valueDidChange: (function() {
-    return this.$().val(this.get('value')).trigger('change');
-  }).observes('value'),
   resetSelection: (function() {
     if (!Ember.isEmpty(this.get('tags'))) {
       return this.processChildElements();
@@ -876,7 +876,9 @@ Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
 Menglifang.Widgets.BasicTableColumn = Ember.Object.extend({
   title: null,
   width: 100,
-  cellContentPath: null
+  textAlign: 'left',
+  cellContentPath: null,
+  formatCellContent: Ember.K
 });
 
 Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
@@ -1266,17 +1268,21 @@ Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
 (function() {
 
 
-Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend({
-  classNames: ['ember-list-item-view', 'mlf-list-item']
+Menglifang.Widgets.ListView = Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
+  classNames: ['mlf-side-list-item']
 });
 
-Menglifang.Widgets.ListView = Ember.ListView.extend({
-  classNames: ['ember-list-view', 'mlf-list'],
-  itemViewClass: Menglifang.Widgets.ListItemView,
+Menglifang.Widgets.SideList = Ember.ListView.extend({
+  classNames: ['mlf-side-list'],
+  itemViewClass: Menglifang.Widgets.SideListItem,
   didInsertElement: function() {
-    this.set('height', Ember.$('.ember-list-view').parent().height());
+    this.set('height', Ember.$('.mlf-side-list').parent().height());
     return this._super();
   }
+});
+
+Ember.Handlebars.registerHelper('side-list', function(options) {
+  return Ember.Handlebars.helpers.collection.call(this, 'Menglifang.Widgets.SideList', options);
 });
 
 
@@ -1398,7 +1404,7 @@ Ember.Route.reopen({
   afterModel: function() {
     var _this = this;
     return Ember.run.next(this, function() {
-      return _this.controllerFor('authenticated').send('currentPathDidChange');
+      return _this.controllerFor('application').send('currentPathDidChange');
     });
   },
   parentRoute: function() {
@@ -2473,6 +2479,121 @@ Menglifang.App.User = DS.Model.extend({
 (function() {
 
 
+Menglifang.App.ApplicationController = Ember.Controller.extend({
+  brand: {
+    name: 'MLF'
+  },
+  sidebar: {
+    menus: [
+      {
+        icon: 'fa fa-gear',
+        text: '系统管理',
+        roles: ['admin'],
+        items: [
+          {
+            icon: 'fa fa-users',
+            route: 'users',
+            text: '用户管理',
+            roles: ['admin']
+          }
+        ]
+      }
+    ],
+    starterItems: [
+      {
+        icon: 'fa fa-user',
+        url: '#/account/profile',
+        text: '个人信息'
+      }, {
+        icon: 'fa fa-key',
+        url: '#/account/password',
+        text: '修改密码'
+      }, {
+        icon: 'fa fa-sign-out',
+        url: '#/logout',
+        text: '注销'
+      }
+    ]
+  },
+  availableRoles: [
+    {
+      label: '管理员',
+      value: 'admin'
+    }, {
+      label: '普通用户',
+      value: 'user'
+    }
+  ],
+  availableSidebar: (function() {
+    var menus, user,
+      _this = this;
+    menus = [];
+    user = this.get('session.account.content');
+    this.get('sidebar.menus').forEach(function(menu) {
+      var items, newMenu;
+      if (user.hasRole(menu.roles, 'any')) {
+        newMenu = Ember.merge({}, menu);
+        menus.push(newMenu);
+        items = [];
+        menu.items.forEach(function(item) {
+          if (user.hasRole(item.roles, 'any')) {
+            return items.push(item);
+          }
+        });
+        return newMenu.items = items;
+      }
+    });
+    return {
+      menus: menus,
+      starterItems: this.get('sidebar.starterItems')
+    };
+  }).property().volatile(),
+  breadcrumbs: [],
+  actions: {
+    currentPathDidChange: function() {
+      var breadcrumbs, routes;
+      this.get('breadcrumbs').clear();
+      routes = this.container.lookup('router:main').get('router.currentHandlerInfos');
+      if (Ember.isEmpty(routes)) {
+        return;
+      }
+      breadcrumbs = [];
+      routes.forEach(function(route, i, arr) {
+        var breadcrumb, context, handler, name;
+        name = route.name;
+        if (name.indexOf('.index') !== -1 || name === 'application' || name === 'authenticated') {
+          return;
+        }
+        handler = route.handler;
+        breadcrumb = Ember.Object.create({
+          route: handler.routeName,
+          name: Ember.I18n.t("routes." + handler.routeName),
+          model: null
+        });
+        if (!Ember.isEmpty(Ember.keys(route.params))) {
+          context = handler.context;
+          breadcrumb.setProperties({
+            model: context,
+            name: context.get('name') || context.get('id')
+          });
+        }
+        return breadcrumbs.pushObject(breadcrumb);
+      });
+      if (!Ember.isEmpty(breadcrumbs)) {
+        return this.set('breadcrumbs', breadcrumbs);
+      }
+    },
+    triggerMenu: function(menu) {
+      return this.transitionToRoute(menu.items.get('firstObject.route'));
+    }
+  }
+});
+
+
+})();
+(function() {
+
+
 Menglifang.App.RegistrationsNewController = Ember.ObjectController.extend({
   username: null,
   realname: null,
@@ -2582,116 +2703,7 @@ Menglifang.App.AccountProfileController = Ember.ObjectController.extend({
 (function() {
 
 
-Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
-  brand: {
-    name: 'MLF'
-  },
-  sidebar: {
-    menus: [
-      {
-        icon: '/images/settings.png',
-        url: '#系统管理',
-        text: '系统管理',
-        roles: ['admin'],
-        items: [
-          {
-            icon: '/images/users.png',
-            route: 'users',
-            text: '用户管理',
-            roles: ['admin']
-          }
-        ]
-      }
-    ],
-    starterItems: [
-      {
-        icon: 'fa fa-user',
-        url: '#/account/profile',
-        text: '个人信息'
-      }, {
-        icon: 'fa fa-key',
-        url: '#/account/password',
-        text: '修改密码'
-      }, {
-        icon: 'fa fa-sign-out',
-        url: '#/logout',
-        text: '注销'
-      }
-    ]
-  },
-  availableRoles: [
-    {
-      label: '管理员',
-      value: 'admin'
-    }, {
-      label: '普通用户',
-      value: 'user'
-    }
-  ],
-  availableSidebar: (function() {
-    var menus, user,
-      _this = this;
-    menus = [];
-    user = this.get('session.account.content');
-    this.get('sidebar.menus').forEach(function(menu) {
-      var items, newMenu;
-      if (user.hasRole(menu.roles, 'any')) {
-        newMenu = Ember.merge({}, menu);
-        menus.push(newMenu);
-        items = [];
-        menu.items.forEach(function(item) {
-          if (user.hasRole(item.roles, 'any')) {
-            return items.push(item);
-          }
-        });
-        return newMenu.items = items;
-      }
-    });
-    return {
-      menus: menus,
-      starterItems: this.get('sidebar.starterItems')
-    };
-  }).property().volatile(),
-  breadcrumbs: [],
-  actions: {
-    currentPathDidChange: function() {
-      var breadcrumbs, routes;
-      this.get('breadcrumbs').clear();
-      routes = this.container.lookup('router:main').get('router.currentHandlerInfos');
-      if (Ember.isEmpty(routes)) {
-        return;
-      }
-      breadcrumbs = [];
-      routes.forEach(function(route, i, arr) {
-        var breadcrumb, context, handler, name;
-        name = route.name;
-        if (name.indexOf('.index') !== -1 || name === 'application' || name === 'authenticated') {
-          return;
-        }
-        handler = route.handler;
-        breadcrumb = Ember.Object.create({
-          route: handler.routeName,
-          name: Ember.I18n.t("routes." + handler.routeName),
-          model: null
-        });
-        if (!Ember.isEmpty(Ember.keys(route.params))) {
-          context = handler.context;
-          breadcrumb.setProperties({
-            model: context,
-            name: context.get('name') || context.get('id')
-          });
-        }
-        return breadcrumbs.pushObject(breadcrumb);
-      });
-      if (!Ember.isEmpty(breadcrumbs)) {
-        return this.set('breadcrumbs', breadcrumbs);
-      }
-    },
-    triggerMenu: function(menu) {
-      return this.transitionToRoute(menu.items.get('firstObject.route'));
-    }
-  }
-});
+Menglifang.App.AuthenticatedController = Ember.ObjectController.extend();
 
 
 })();
