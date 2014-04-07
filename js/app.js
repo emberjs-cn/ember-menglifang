@@ -78159,7 +78159,12 @@ Menglifang.Widgets.SidebarNavigator = Ember.Component.extend({
     return this.$('.menu-items').height(height - triggersHeight);
   },
   actions: {
-    triggerMenu: function(menu) {}
+    triggerMenu: function(menu) {
+      return this.triggerAction({
+        action: 'triggerMenu',
+        actionContext: menu
+      });
+    }
   }
 });
 
@@ -78756,11 +78761,11 @@ Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
 (function() {
 
 
-Menglifang.Widgets.ListView = Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
+Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
   classNames: ['mlf-side-list-item']
 });
 
-Menglifang.Widgets.SideList = Ember.ListView.extend({
+Menglifang.Widgets.ListView = Menglifang.Widgets.SideList = Ember.ListView.extend({
   classNames: ['mlf-side-list'],
   itemViewClass: Menglifang.Widgets.SideListItem,
   didInsertElement: function() {
