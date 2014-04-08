@@ -31,3 +31,8 @@ App.Router.map ->
     @resource 'basic_table', ->
       @route 'index', path: '/'
       @route 'demo'
+
+App.Router.reopen
+  notifyGoogleAnalytics: (->
+    ga 'send', 'pageview', 'page': @get('url'), 'title': @get('url')
+  ).on('didTransition')
