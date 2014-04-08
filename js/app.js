@@ -81903,6 +81903,15 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
     });
   });
 
+  App.Router.reopen({
+    notifyGoogleAnalytics: (function() {
+      return ga('send', 'pageview', {
+        'page': this.get('url'),
+        'title': this.get('url')
+      });
+    }).on('didTransition')
+  });
+
 }).call(this);
 
 
