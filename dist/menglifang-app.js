@@ -879,11 +879,11 @@ Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
 
 
 Menglifang.Widgets.BasicTableColumn = Ember.Object.extend({
-  title: null,
+  title: void 0,
   width: 100,
   textAlign: 'left',
-  cellContentPath: null,
-  formatCellContent: Ember.K
+  cellContentPath: void 0,
+  formatCellContent: void 0
 });
 
 Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
