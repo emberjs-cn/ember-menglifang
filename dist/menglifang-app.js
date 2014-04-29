@@ -1350,33 +1350,41 @@ if ((_ref = Ember.libraries) != null) {
 (function() {
 
 
-Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend({
-  refreshAccessTokens: false,
+Ember.SimpleAuth.Session.reopen({
+  currentUser: (function() {
+    return this.get('container').lookup('store:main').push('user', this.get('content'));
+  }).property('content.id')
+});
+
+
+})();
+(function() {
+
+
+Ember.SimpleAuth.Authenticators.Devise.reopen({
   authenticate: function(credentials) {
+    var session, store,
+      _this = this;
+    session = this.container.lookup('session:main');
+    store = this.container.lookup('store:main');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      return Ember.$.ajax({
-        url: '/users/sign_in',
-        type: 'POST',
-        data: {
-          grant_type: 'password',
-          user: {
-            login: credentials.identification,
-            password: credentials.password
-          }
-        },
-        dataType: 'json'
-      }).then(function(response) {
+      var data;
+      data = {
+        user: {
+          login: credentials.identification,
+          password: credentials.password
+        }
+      };
+      return _this.makeRequest(data).then(function(response) {
         return Ember.run(function() {
-          return resolve({
-            user_email: response.user.email,
-            user_token: response.user.authentication_token,
-            account_id: response.user.id,
-            access_token: response.user.authentication_token
-          });
+          return resolve(Ember.merge(response.user, {
+            auth_token: response.user.authentication_token,
+            auth_email: response.user.email
+          }));
         });
       }, function(xhr, status, error) {
         return Ember.run(function() {
-          return reject(xhr.responseText);
+          return reject(xhr.responseJSON || xhr.responseText);
         });
       });
     });
@@ -1388,11 +1396,17 @@ Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.exte
 (function() {
 
 
-Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
+Ember.SimpleAuth.Authorizers.Devise.reopen({
   authorize: function(jqXHR, requestOptions) {
-    if (!Ember.isEmpty(this.get('session.user_email')) && !Ember.isEmpty(this.get('session.user_token'))) {
-      jqXHR.setRequestHeader('X-User-Email', this.get('session.user_email'));
-      return jqXHR.setRequestHeader('X-User-Token', this.get('session.user_token'));
+    var authEmail, authToken;
+    authToken = this.get('session.authentication_token');
+    authEmail = this.get('session.email');
+    if (this.get('session.isAuthenticated') && !Ember.isEmpty(authToken) && !Ember.isEmpty(authEmail)) {
+      if (!Ember.SimpleAuth.Utils.isSecureUrl(requestOptions.url)) {
+        Ember.Logger.warn('Credentials are transmitted via an insecure connection - use HTTPS to keep them secure.');
+      }
+      jqXHR.setRequestHeader('X-User-Email', authEmail);
+      return jqXHR.setRequestHeader('X-User-Token', authToken);
     }
   }
 });
@@ -2351,23 +2365,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.Application.initializer({
   name: 'authentication',
   initialize: function(container, application) {
-    if (window.location.href !== localStorage.getItem('menglifang-app:url')) {
-      localStorage.clear();
-    }
-    Ember.SimpleAuth.Session.reopen({
-      account: (function() {
-        var accountId;
-        accountId = this.get('account_id');
-        if (!Ember.isEmpty(accountId)) {
-          return container.lookup('store:main').find('user', accountId);
-        }
-      }).property('accountId')
-    });
-    container.register('app:authenticators:devise', Menglifang.App.DeviseAuthenticator);
     return Ember.SimpleAuth.setup(container, application, {
-      authorizer: Menglifang.App.DeviseAuthorizer,
-      routeAfterAuthentication: 'authenticated',
-      routeAfterInvalidation: 'login'
+      authorizerFactory: 'authorizer:devise',
+      routeAfterAuthentication: 'authenticated'
     });
   }
 });
@@ -2533,7 +2533,7 @@ Menglifang.App.ApplicationController = Ember.Controller.extend({
     var menus, user,
       _this = this;
     menus = [];
-    user = this.get('session.account.content');
+    user = this.get('session.currentUser');
     this.get('sidebar.menus').forEach(function(menu) {
       var items, newMenu;
       if (user.hasRole(menu.roles, 'any')) {
@@ -2716,7 +2716,7 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend();
 
 
 Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin, {
-  authenticator: 'app:authenticators:devise',
+  authenticatorFactory: "authenticator:devise",
   registerable: true,
   supportedBrowers: [
     {
@@ -2874,7 +2874,7 @@ Menglifang.App.RegistrationsNewRoute = Ember.Route.extend();
 
 Menglifang.App.AccountPasswordRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
-    return this.get('session.account');
+    return this.get('session.currentUser');
   }
 });
 
@@ -2885,7 +2885,7 @@ Menglifang.App.AccountPasswordRoute = Ember.Route.extend(Menglifang.App.Authenti
 
 Menglifang.App.AccountProfileRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
-    return this.get('session.account');
+    return this.get('session.currentUser');
   }
 });
 
@@ -2903,15 +2903,9 @@ Menglifang.App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.Applicatio
 
 Menglifang.App.AuthenticatedRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
   beforeModel: function() {
-    var _this = this;
     if (!this.get('session.isAuthenticated')) {
-      this.transitionTo('login');
+      return this.transitionTo('login');
     }
-    return this.get('session.account').then(function(account) {
-      return account;
-    }, function() {
-      return _this.transitionTo('login');
-    });
   }
 });
 

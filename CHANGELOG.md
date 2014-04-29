@@ -1,5 +1,6 @@
 *Ember Menglifang 0.3.0 (Mar x, 2014)*
 
+* [改进] 升级ember-simple-auth到0.3.1；
 * [改进] 重新设计项目站点，通过github pages发布项目文档；
 * [改进] 重命名`Menglifang.Widgets.ListView`，并注册为其注册一个助手`{{side-list}}`
 * [改进] 修改侧边栏菜单配置参数名、样式；
