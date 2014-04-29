@@ -1,0 +1,20 @@
+<div class="demo">
+  <h2>在线演示</h2>
+
+  <div class="show table">
+    <h3>基础配置</h3>
+    {{basic-table columns=columns content=content indexed=true}}
+
+    <h3>单选表格</h3>
+    {{basic-table columns=columns content=content indexed=true
+    topActions=topActions rowSelectable=true selection=singleSelection}}
+
+    <h3>多选表格</h3>
+    {{basic-table columns=columns content=content indexed=true
+    topActions=topActions rowSelectable=true multiple=true
+    selection=multipleSelection}}
+  </div>
+
+  <h3>示例 @ jsbin.com [TODO]</h3>
+  <script src="http://static.jsbin.com/js/embed.js"></script>
+</div>

@@ -204,9 +204,26 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["components/mlf-login-form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
+  
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n        ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
+    'class': ("btn btn-success pull-right")
+  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "registrations.new", options) : helperMissing.call(depth0, "link-to", "registrations.new", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      ");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  
+  data.buffer.push("\n          注册\n        ");
+  }
+
+function program4(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n    <li>\n      <a target=\"_blank\" ");
@@ -246,11 +263,14 @@ function program1(depth0,data) {
     'placeholder': ("请输入您的密码..."),
     'class': ("showpassword")
   },hashTypes:{'id': "STRING",'type': "STRING",'value': "ID",'placeholder': "STRING",'class': "STRING"},hashContexts:{'id': depth0,'type': depth0,'value': depth0,'placeholder': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n    <p class=\"clearfix\"></p>\n    <p class=\"clearfix\">\n      <button type=\"submit\" class=\"pull-right\">登录</button>\n    </p>\n    <p>");
+  data.buffer.push("\n    <p class=\"clearfix\"></p>\n    <p class=\"clearfix\">\n      ");
+  stack1 = helpers['if'].call(depth0, "view.registerable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      <button type=\"submit\" class=\"btn btn-primary pull-right\">登录</button>\n    </p>\n    <p>");
   stack1 = helpers._triageMustache.call(depth0, "view.copyrightHtmlSafe", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</p>\n  </form>\n</section>\n<div class=\"browsers\">\n  <ul>\n    ");
-  stack1 = helpers.each.call(depth0, "view.supportedBrowers", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.each.call(depth0, "view.supportedBrowers", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n  </ul>\n</div>\n");
   return buffer;
@@ -327,11 +347,11 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"logo\">\n  ");
-  stack1 = helpers._triageMustache.call(depth0, "view.logo", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("<div class=\"logo\">\n  <a href='/'>");
+  stack1 = helpers._triageMustache.call(depth0, "logo", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</div>\n");
-  stack1 = helpers['if'].call(depth0, "view.sidebarExpandable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("</a>\n</div>\n");
+  stack1 = helpers['if'].call(depth0, "sidebarExpandable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
@@ -372,36 +392,76 @@ function program2(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n            <div class=\"icon\">\n              <img ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'src': ("icon")
-  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" />\n              <div class=\"title\">");
+  data.buffer.push("\n            <div>\n              <div class=\"title pull-left\">");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</div>\n            </div>\n          ");
+  data.buffer.push("</div>\n              ");
+  stack1 = helpers['if'].call(depth0, "iconUrl", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n            </div>\n          ");
+  return buffer;
+  }
+function program4(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n                <img class=\"pull-right\" ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'src': ("iconUrl")
+  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" />\n              ");
   return buffer;
   }
 
-function program5(depth0,data) {
+function program6(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n                <i ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("icon :pull-right")
+  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" class=\"pull-right\"></i>\n              ");
+  return buffer;
+  }
+
+function program8(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n    <li ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'title': ("text")
   },hashTypes:{'title': "ID"},hashContexts:{'title': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'href': ("url")
-  },hashTypes:{'href': "ID"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" data-toggle=\"tab\">\n        <img class=\"menu-trigger\" ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'src': ("icon")
-  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" />\n        <div class=\"title\">");
+  data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a href=\"#");
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\" data-toggle=\"tab\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "triggerMenu", "", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n        ");
+  stack1 = helpers['if'].call(depth0, "iconUrl", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n        <div class=\"title\">");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</div>\n      </a>\n    </li>\n  ");
+  return buffer;
+  }
+function program9(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n          <img class=\"menu-trigger\" ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'src': ("iconUrl")
+  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" />\n        ");
+  return buffer;
+  }
+
+function program11(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n          <i ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("icon")
+  },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" class=\"pull-right\"></i>\n        ");
   return buffer;
   }
 
@@ -409,7 +469,7 @@ function program5(depth0,data) {
   stack1 = helpers.each.call(depth0, "view.menus", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</div>\n<ul class=\"menu-triggers\">\n  ");
-  stack1 = helpers.each.call(depth0, "view.menus", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.each.call(depth0, "view.menus", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</ul>\n");
   return buffer;
@@ -443,23 +503,28 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["components/sidebar/starter"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n    <li>\n      ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    </li>\n  ");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
   var buffer = '', stack1;
-  data.buffer.push("\n    <li>\n      <a ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'href': ("url")
-  },hashTypes:{'href': "STRING"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(">\n        <i ");
+  data.buffer.push("\n        <i ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'class': ("icon")
-  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push("></i>\n         ");
+  },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push("></i>\n        ");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n      </a>\n    </li>\n  ");
+  data.buffer.push("\n      ");
   return buffer;
   }
 
@@ -503,7 +568,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.2.5';
+Menglifang.Widgets.VERSION = '0.3.0';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -591,7 +656,22 @@ Menglifang.Widgets.SidebarBrand = Ember.Component.extend({
 Menglifang.Widgets.SidebarNavigator = Ember.Component.extend({
   layoutName: 'components/sidebar/navigator',
   classNames: ['navigator'],
-  menus: []
+  menus: [],
+  didInsertElement: function() {
+    var height, triggersHeight;
+    height = this.$().parent().height() - 60 - 90;
+    this.$().height(height);
+    triggersHeight = this.get('menus.length') * 50 + 30;
+    return this.$('.menu-items').height(height - triggersHeight);
+  },
+  actions: {
+    triggerMenu: function(menu) {
+      return this.triggerAction({
+        action: 'triggerMenu',
+        actionContext: menu
+      });
+    }
+  }
 });
 
 Menglifang.Widgets.SidebarStarter = Ember.Component.extend({
@@ -614,6 +694,14 @@ Menglifang.Widgets.Sidebar = Ember.Component.extend({
   starterItems: [],
   didInsertElement: function() {
     return this.$().find('.menu-triggers li a').first().click();
+  },
+  actions: {
+    triggerMenu: function(menu) {
+      return this.triggerAction({
+        action: 'triggerMenu',
+        actionContext: menu
+      });
+    }
   }
 });
 
@@ -629,6 +717,8 @@ Menglifang.Widgets.LoginForm = Ember.Component.extend({
   classNames: ['mlf-login-form'],
   title: '用户登录',
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司',
+  registerable: false,
+  action: 'authenticate',
   titleHtmlSafe: (function() {
     return this.get('title').htmlSafe();
   }).property('title'),
@@ -676,7 +766,7 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend({
   resetable: true,
   format: 'yyyy-mm-dd hh:ii',
   autoclose: true,
-  todayBtn: true,
+  todayBtn: false,
   startDate: '1949-10-01',
   minuteStep: 10,
   minView: 0,
@@ -768,9 +858,6 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
   willDestroyElement: function() {
     return this.$().select2("destroy");
   },
-  valueDidChange: (function() {
-    return this.$().val(this.get('value')).trigger('change');
-  }).observes('value'),
   resetSelection: (function() {
     if (!Ember.isEmpty(this.get('tags'))) {
       return this.processChildElements();
@@ -786,9 +873,11 @@ Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
 
 
 Menglifang.Widgets.BasicTableColumn = Ember.Object.extend({
-  title: null,
+  title: void 0,
   width: 100,
-  cellContentPath: null
+  textAlign: 'left',
+  cellContentPath: void 0,
+  formatCellContent: void 0
 });
 
 Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
@@ -1165,16 +1254,49 @@ Ember.Handlebars.helper('bs-pagination', Menglifang.Widgets.BsPagination);
 (function() {
 
 
-Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend({
-  classNames: ['ember-list-item-view', 'mlf-list-item']
+Menglifang.Widgets.BsSwitch = Ember.Checkbox.extend({
+  didInsertElement: function() {
+    return this.$().bootstrapSwitch();
+  }
 });
 
-Menglifang.Widgets.ListView = Ember.ListView.extend({
-  classNames: ['ember-list-view', 'mlf-list'],
-  itemViewClass: Menglifang.Widgets.ListItemView,
+Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
+  classNames: ['mlf-side-list-item']
+});
+
+Menglifang.Widgets.ListView = Menglifang.Widgets.SideList = Ember.ListView.extend({
+  classNames: ['mlf-side-list'],
+  itemViewClass: Menglifang.Widgets.SideListItem,
   didInsertElement: function() {
-    this.set('height', Ember.$('.ember-list-view').parent().height());
+    this.set('height', Ember.$('.mlf-side-list').parent().height());
     return this._super();
+  }
+});
+
+Ember.Handlebars.registerHelper('side-list', function(options) {
+  return Ember.Handlebars.helpers.collection.call(this, 'Menglifang.Widgets.SideList', options);
+});
+
+
+})();
+(function() {
+
+Ember.View.reopen({
+  init: function() {
+    var _this = this;
+    this._super();
+    return Ember.keys(this).forEach(function(key) {
+      if (key.substr(0, 5) === 'data-') {
+        return _this.get('attributeBindings').pushObject(key);
+      }
+    });
   }
 });
 

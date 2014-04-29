@@ -1,7 +1,10 @@
 Menglifang.Widgets.BasicTableColumn = Ember.Object.extend
-  title: null
+  title: undefined
   width: 100
-  cellContentPath: null
+  textAlign: 'left'
+
+  cellContentPath: undefined
+  formatCellContent: undefined
 
 Menglifang.Widgets.BasicTableCell = Ember.Component.extend Menglifang.Widgets.StyleBindingsMixin,
   tagName: 'td'

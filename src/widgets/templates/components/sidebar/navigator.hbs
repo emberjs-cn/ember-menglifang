@@ -4,9 +4,13 @@
       {{#each items}}
         <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
           {{#link-to route}}
-            <div class="icon">
-              <img {{bind-attr src=icon}} />
-              <div class="title">{{text}}</div>
+            <div>
+              <div class="title pull-left">{{text}}</div>
+              {{#if iconUrl}}
+                <img class="pull-right" {{bind-attr src=iconUrl}} />
+              {{else}}
+                <i {{bind-attr class="icon :pull-right"}} class="pull-right"></i>
+              {{/if}}
             </div>
           {{/link-to}}
         </li>
@@ -17,8 +21,12 @@
 <ul class="menu-triggers">
   {{#each view.menus}}
     <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
-      <a {{bind-attr href=url}} data-toggle="tab">
-        <img class="menu-trigger" {{bind-attr src=icon}} />
+      <a href="#{{unbound text}}" data-toggle="tab" {{action 'triggerMenu' this}}>
+        {{#if iconUrl}}
+          <img class="menu-trigger" {{bind-attr src=iconUrl}} />
+        {{else}}
+          <i {{bind-attr class=icon}} class="pull-right"></i>
+        {{/if}}
         <div class="title">{{text}}</div>
       </a>
     </li>

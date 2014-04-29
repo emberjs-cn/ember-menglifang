@@ -1,2 +1,2 @@
 Menglifang.App.AccountPasswordRoute = Ember.Route.extend Menglifang.App.AuthenticatedRouteMixin,
-  model: -> @get('session.account')
+  model: -> @get('session.currentUser')

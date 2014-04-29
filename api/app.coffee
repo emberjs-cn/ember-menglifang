@@ -18,7 +18,7 @@ app.configure ->
 # Sign In/Out
 app.post '/users/sign_in', (req, res) ->
   params = req.body.user
-  db.get "SELECT rowid AS id, email, username, realname, roles, authentication_token FROM users WHERE (username=? OR email=?) AND password=?", params.login, params.login, params.password, (err, row) ->
+  db.get "SELECT rowid AS id, email, username, realname, roles, authentication_token, access_locked FROM users WHERE (username=? OR email=?) AND password=?", params.login, params.login, params.password, (err, row) ->
     if row
       req.session.user = row
       res.status(200).json(user: row)
@@ -42,8 +42,14 @@ app.put '/v1/password', (req, res) ->
 # End of Account Management
 
 # User Management
+app.post '/users', (req, res) ->
+  user_params = req.body.user
+  db.run "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, 1)", user_params.email, user_params.username, user_params.realname, user_params.password, new jssha(user_params.username, 'TEXT').getHash('SHA-1', 'HEX'), user_params.roles, ->
+    userHandler.findById @lastID, (user) ->
+      res.status(201).json(user: user)
+
 app.get '/v1/users', (req, res) ->
-  db.all "SELECT rowid AS id, email, username, realname, roles FROM users", (err, rows) ->
+  db.all "SELECT rowid AS id, email, username, realname, roles, access_locked FROM users", (err, rows) ->
     res.json(users: rows)
 
 app.get '/v1/users/:id', (req, res) ->
@@ -52,7 +58,7 @@ app.get '/v1/users/:id', (req, res) ->
 
 app.post '/v1/users', (req, res) ->
   user_params = req.body.user
-  db.run "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)", user_params.email, user_params.username, user_params.realname, user_params.password, new jssha(user_params.username, 'TEXT').getHash('SHA-1', 'HEX'), user_params.roles, ->
+  db.run "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, 1)", user_params.email, user_params.username, user_params.realname, user_params.password, new jssha(user_params.username, 'TEXT').getHash('SHA-1', 'HEX'), user_params.roles, ->
     userHandler.findById @lastID, (user) ->
       res.status(201).json(user: user)
 
@@ -73,6 +79,16 @@ app.put '/v1/users/:id', (req, res) ->
 app.delete '/v1/users/:id', (req, res) ->
   db.get "DELETE FROM users WHERE rowid=?", req.params.id, (err, row) ->
     res.status(204).json(null)
+
+app.post '/v1/users/:id/lock', (req, res) ->
+  db.get "UPDATE users SET access_locked=1 WHERE rowid=?", req.params.id, (err, row) ->
+    userHandler.findById req.params.id, (user) ->
+      res.status(200).json(user: user)
+
+app.post '/v1/users/:id/unlock', (req, res) ->
+  db.get "UPDATE users SET access_locked=0 WHERE rowid=?", req.params.id, (err, row) ->
+    userHandler.findById req.params.id, (user) ->
+      res.status(200).json(user: user)
 # End of User Management
 
 app.listen(8000)

@@ -9,10 +9,8 @@ if 'undefined' == typeof(Menglifang)
   if 'undefined' != typeof(window)
     window.Mlf = window.Menglifang = Mlf = Menglifang
 
-## Used for bundling files together using neuter
-#Menglifang.App = Ember.Namespace.create()
 Menglifang.App =
-  VERSION: '0.2.5'
+  VERSION: '0.3.0'
 
   create: (options) ->
     Ember.merge Ember.I18n.translations, Menglifang.App.translations
@@ -35,8 +33,10 @@ Menglifang.App =
 
 Ember.libraries?.register 'Menglifang App', Menglifang.App.VERSION
 
-require 'build/src/app/lib/devise-authenticator'
-require 'build/src/app/lib/devise-authorizer'
+require 'build/src/app/lib/ember-simple-auth/session'
+require 'build/src/app/lib/ember-simple-auth/devise-authenticator'
+require 'build/src/app/lib/ember-simple-auth/devise-authorizer'
+
 require 'build/src/app/lib/route'
 require 'build/src/app/lib/utils'
 

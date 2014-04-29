@@ -1,5 +1,19 @@
 <form class="form-horizontal form-fluid" role="form">
-  <h2>{{formLegend}}</h2>
+  <h2>
+    {{formLegend}}
+    {{#if lockable}}
+      <button class="btn btn-danger pull-right" {{action 'lock'}}>
+        <i class="fa fa-lock"></i>
+        锁定
+      </button>
+    {{/if}}
+    {{#if unlockable}}
+      <button class="btn btn-success pull-right" {{action 'unlock'}}>
+        <i class="fa fa-unlock"></i>
+        解锁
+      </button>
+    {{/if}}
+  </h2>
   <div class="form-group">
     <label class="col-sm-3 control-label" for="username">用户名</label>
     <div class="col-sm-9">

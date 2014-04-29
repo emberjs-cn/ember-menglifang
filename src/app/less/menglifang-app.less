@@ -28,7 +28,7 @@
   }
 }
 
-.mlf-list-item {
+.mlf-side-list-item {
   .name {
     font-size: 18px;
     font-weight: bold;
@@ -39,5 +39,30 @@
     font-style: italic;
     height: 25px;
     line-height: 25px;
+  }
+}
+
+.registrations-new, .registrations-success {
+  width: 800px;
+  margin: 0 auto;
+  margin-top: 60px;
+
+  h2 {
+    background: @blue;
+    color: @white;
+    margin: 0px;
+    padding: 20px 30px;
+  }
+  form {
+    padding-top: 20px;
+    border: 1px solid @sliver;
+  }
+  > div {
+    padding-top: 20px;
+    border: 1px solid @sliver;
+
+    .alert {
+      margin: 30px;
+    }
   }
 }

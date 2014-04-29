@@ -210,9 +210,26 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["components/mlf-login-form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
+  
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n        ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
+    'class': ("btn btn-success pull-right")
+  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "registrations.new", options) : helperMissing.call(depth0, "link-to", "registrations.new", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      ");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  
+  data.buffer.push("\n          注册\n        ");
+  }
+
+function program4(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n    <li>\n      <a target=\"_blank\" ");
@@ -252,11 +269,14 @@ function program1(depth0,data) {
     'placeholder': ("请输入您的密码..."),
     'class': ("showpassword")
   },hashTypes:{'id': "STRING",'type': "STRING",'value': "ID",'placeholder': "STRING",'class': "STRING"},hashContexts:{'id': depth0,'type': depth0,'value': depth0,'placeholder': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("\n    <p class=\"clearfix\"></p>\n    <p class=\"clearfix\">\n      <button type=\"submit\" class=\"pull-right\">登录</button>\n    </p>\n    <p>");
+  data.buffer.push("\n    <p class=\"clearfix\"></p>\n    <p class=\"clearfix\">\n      ");
+  stack1 = helpers['if'].call(depth0, "view.registerable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      <button type=\"submit\" class=\"btn btn-primary pull-right\">登录</button>\n    </p>\n    <p>");
   stack1 = helpers._triageMustache.call(depth0, "view.copyrightHtmlSafe", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</p>\n  </form>\n</section>\n<div class=\"browsers\">\n  <ul>\n    ");
-  stack1 = helpers.each.call(depth0, "view.supportedBrowers", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.each.call(depth0, "view.supportedBrowers", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n  </ul>\n</div>\n");
   return buffer;
@@ -333,11 +353,11 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"logo\">\n  ");
-  stack1 = helpers._triageMustache.call(depth0, "view.logo", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("<div class=\"logo\">\n  <a href='/'>");
+  stack1 = helpers._triageMustache.call(depth0, "logo", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</div>\n");
-  stack1 = helpers['if'].call(depth0, "view.sidebarExpandable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("</a>\n</div>\n");
+  stack1 = helpers['if'].call(depth0, "sidebarExpandable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
@@ -378,36 +398,76 @@ function program2(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n            <div class=\"icon\">\n              <img ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'src': ("icon")
-  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" />\n              <div class=\"title\">");
+  data.buffer.push("\n            <div>\n              <div class=\"title pull-left\">");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</div>\n            </div>\n          ");
+  data.buffer.push("</div>\n              ");
+  stack1 = helpers['if'].call(depth0, "iconUrl", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n            </div>\n          ");
+  return buffer;
+  }
+function program4(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n                <img class=\"pull-right\" ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'src': ("iconUrl")
+  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" />\n              ");
   return buffer;
   }
 
-function program5(depth0,data) {
+function program6(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n                <i ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("icon :pull-right")
+  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" class=\"pull-right\"></i>\n              ");
+  return buffer;
+  }
+
+function program8(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n    <li ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'title': ("text")
   },hashTypes:{'title': "ID"},hashContexts:{'title': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'href': ("url")
-  },hashTypes:{'href': "ID"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" data-toggle=\"tab\">\n        <img class=\"menu-trigger\" ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'src': ("icon")
-  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" />\n        <div class=\"title\">");
+  data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a href=\"#");
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
+  data.buffer.push("\" data-toggle=\"tab\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "triggerMenu", "", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n        ");
+  stack1 = helpers['if'].call(depth0, "iconUrl", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n        <div class=\"title\">");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("</div>\n      </a>\n    </li>\n  ");
+  return buffer;
+  }
+function program9(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n          <img class=\"menu-trigger\" ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'src': ("iconUrl")
+  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" />\n        ");
+  return buffer;
+  }
+
+function program11(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n          <i ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("icon")
+  },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" class=\"pull-right\"></i>\n        ");
   return buffer;
   }
 
@@ -415,7 +475,7 @@ function program5(depth0,data) {
   stack1 = helpers.each.call(depth0, "view.menus", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</div>\n<ul class=\"menu-triggers\">\n  ");
-  stack1 = helpers.each.call(depth0, "view.menus", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.each.call(depth0, "view.menus", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</ul>\n");
   return buffer;
@@ -449,23 +509,28 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["components/sidebar/starter"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n    <li>\n      ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "route", options) : helperMissing.call(depth0, "link-to", "route", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    </li>\n  ");
+  return buffer;
+  }
+function program2(depth0,data) {
+  
   var buffer = '', stack1;
-  data.buffer.push("\n    <li>\n      <a ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'href': ("url")
-  },hashTypes:{'href': "STRING"},hashContexts:{'href': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(">\n        <i ");
+  data.buffer.push("\n        <i ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'class': ("icon")
-  },hashTypes:{'class': "STRING"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push("></i>\n         ");
+  },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push("></i>\n        ");
   stack1 = helpers._triageMustache.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n      </a>\n    </li>\n  ");
+  data.buffer.push("\n      ");
   return buffer;
   }
 
@@ -509,7 +574,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.2.5';
+Menglifang.Widgets.VERSION = '0.3.0';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -597,7 +662,22 @@ Menglifang.Widgets.SidebarBrand = Ember.Component.extend({
 Menglifang.Widgets.SidebarNavigator = Ember.Component.extend({
   layoutName: 'components/sidebar/navigator',
   classNames: ['navigator'],
-  menus: []
+  menus: [],
+  didInsertElement: function() {
+    var height, triggersHeight;
+    height = this.$().parent().height() - 60 - 90;
+    this.$().height(height);
+    triggersHeight = this.get('menus.length') * 50 + 30;
+    return this.$('.menu-items').height(height - triggersHeight);
+  },
+  actions: {
+    triggerMenu: function(menu) {
+      return this.triggerAction({
+        action: 'triggerMenu',
+        actionContext: menu
+      });
+    }
+  }
 });
 
 Menglifang.Widgets.SidebarStarter = Ember.Component.extend({
@@ -620,6 +700,14 @@ Menglifang.Widgets.Sidebar = Ember.Component.extend({
   starterItems: [],
   didInsertElement: function() {
     return this.$().find('.menu-triggers li a').first().click();
+  },
+  actions: {
+    triggerMenu: function(menu) {
+      return this.triggerAction({
+        action: 'triggerMenu',
+        actionContext: menu
+      });
+    }
   }
 });
 
@@ -635,6 +723,8 @@ Menglifang.Widgets.LoginForm = Ember.Component.extend({
   classNames: ['mlf-login-form'],
   title: '用户登录',
   copyright: '&copy; 2011-2014 北京梦立方网络科技有限公司',
+  registerable: false,
+  action: 'authenticate',
   titleHtmlSafe: (function() {
     return this.get('title').htmlSafe();
   }).property('title'),
@@ -682,7 +772,7 @@ Menglifang.Widgets.DatetimePicker = Ember.TextField.extend({
   resetable: true,
   format: 'yyyy-mm-dd hh:ii',
   autoclose: true,
-  todayBtn: true,
+  todayBtn: false,
   startDate: '1949-10-01',
   minuteStep: 10,
   minView: 0,
@@ -774,9 +864,6 @@ Menglifang.Widgets.TaggingSelect2 = Ember.TextField.extend({
   willDestroyElement: function() {
     return this.$().select2("destroy");
   },
-  valueDidChange: (function() {
-    return this.$().val(this.get('value')).trigger('change');
-  }).observes('value'),
   resetSelection: (function() {
     if (!Ember.isEmpty(this.get('tags'))) {
       return this.processChildElements();
@@ -792,9 +879,11 @@ Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
 
 
 Menglifang.Widgets.BasicTableColumn = Ember.Object.extend({
-  title: null,
+  title: void 0,
   width: 100,
-  cellContentPath: null
+  textAlign: 'left',
+  cellContentPath: void 0,
+  formatCellContent: void 0
 });
 
 Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
@@ -1171,16 +1260,49 @@ Ember.Handlebars.helper('bs-pagination', Menglifang.Widgets.BsPagination);
 (function() {
 
 
-Menglifang.Widgets.ListItemView = Ember.ReusableListItemView.extend({
-  classNames: ['ember-list-item-view', 'mlf-list-item']
+Menglifang.Widgets.BsSwitch = Ember.Checkbox.extend({
+  didInsertElement: function() {
+    return this.$().bootstrapSwitch();
+  }
 });
 
-Menglifang.Widgets.ListView = Ember.ListView.extend({
-  classNames: ['ember-list-view', 'mlf-list'],
-  itemViewClass: Menglifang.Widgets.ListItemView,
+Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
+
+
+})();
+(function() {
+
+
+Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
+  classNames: ['mlf-side-list-item']
+});
+
+Menglifang.Widgets.ListView = Menglifang.Widgets.SideList = Ember.ListView.extend({
+  classNames: ['mlf-side-list'],
+  itemViewClass: Menglifang.Widgets.SideListItem,
   didInsertElement: function() {
-    this.set('height', Ember.$('.ember-list-view').parent().height());
+    this.set('height', Ember.$('.mlf-side-list').parent().height());
     return this._super();
+  }
+});
+
+Ember.Handlebars.registerHelper('side-list', function(options) {
+  return Ember.Handlebars.helpers.collection.call(this, 'Menglifang.Widgets.SideList', options);
+});
+
+
+})();
+(function() {
+
+Ember.View.reopen({
+  init: function() {
+    var _this = this;
+    this._super();
+    return Ember.keys(this).forEach(function(key) {
+      if (key.substr(0, 5) === 'data-') {
+        return _this.get('attributeBindings').pushObject(key);
+      }
+    });
   }
 });
 
@@ -1200,7 +1322,7 @@ if ('undefined' === typeof Menglifang) {
 }
 
 Menglifang.App = {
-  VERSION: '0.2.5',
+  VERSION: '0.3.0',
   create: function(options) {
     var app;
     Ember.merge(Ember.I18n.translations, Menglifang.App.translations);
@@ -1228,33 +1350,41 @@ if ((_ref = Ember.libraries) != null) {
 (function() {
 
 
-Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend({
-  refreshAccessTokens: false,
+Ember.SimpleAuth.Session.reopen({
+  currentUser: (function() {
+    return this.get('container').lookup('store:main').push('user', this.get('content'));
+  }).property('content.id')
+});
+
+
+})();
+(function() {
+
+
+Ember.SimpleAuth.Authenticators.Devise.reopen({
   authenticate: function(credentials) {
+    var session, store,
+      _this = this;
+    session = this.container.lookup('session:main');
+    store = this.container.lookup('store:main');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      return Ember.$.ajax({
-        url: '/users/sign_in',
-        type: 'POST',
-        data: {
-          grant_type: 'password',
-          user: {
-            login: credentials.identification,
-            password: credentials.password
-          }
-        },
-        dataType: 'json'
-      }).then(function(response) {
+      var data;
+      data = {
+        user: {
+          login: credentials.identification,
+          password: credentials.password
+        }
+      };
+      return _this.makeRequest(data).then(function(response) {
         return Ember.run(function() {
-          return resolve({
-            user_email: response.user.email,
-            user_token: response.user.authentication_token,
-            account_id: response.user.id,
-            access_token: response.user.authentication_token
-          });
+          return resolve(Ember.merge(response.user, {
+            auth_token: response.user.authentication_token,
+            auth_email: response.user.email
+          }));
         });
       }, function(xhr, status, error) {
         return Ember.run(function() {
-          return reject(xhr.responseText);
+          return reject(xhr.responseJSON || xhr.responseText);
         });
       });
     });
@@ -1266,11 +1396,17 @@ Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.exte
 (function() {
 
 
-Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
+Ember.SimpleAuth.Authorizers.Devise.reopen({
   authorize: function(jqXHR, requestOptions) {
-    if (!Ember.isEmpty(this.get('session.user_email')) && !Ember.isEmpty(this.get('session.user_token'))) {
-      jqXHR.setRequestHeader('X-User-Email', this.get('session.user_email'));
-      return jqXHR.setRequestHeader('X-User-Token', this.get('session.user_token'));
+    var authEmail, authToken;
+    authToken = this.get('session.authentication_token');
+    authEmail = this.get('session.email');
+    if (this.get('session.isAuthenticated') && !Ember.isEmpty(authToken) && !Ember.isEmpty(authEmail)) {
+      if (!Ember.SimpleAuth.Utils.isSecureUrl(requestOptions.url)) {
+        Ember.Logger.warn('Credentials are transmitted via an insecure connection - use HTTPS to keep them secure.');
+      }
+      jqXHR.setRequestHeader('X-User-Email', authEmail);
+      return jqXHR.setRequestHeader('X-User-Token', authToken);
     }
   }
 });
@@ -1281,10 +1417,13 @@ Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
 
 
 Ember.Route.reopen({
+  init: function() {
+    return localStorage.setItem('menglifang-app:url', window.location.href);
+  },
   afterModel: function() {
     var _this = this;
     return Ember.run.next(this, function() {
-      return _this.controllerFor('authenticated').send('currentPathDidChange');
+      return _this.controllerFor('application').send('currentPathDidChange');
     });
   },
   parentRoute: function() {
@@ -1680,12 +1819,12 @@ function program2(depth0,data) {
   return buffer;
   }
 
-  stack1 = (helper = helpers.collection || (depth0 && depth0.collection),options={hash:{
+  stack1 = (helper = helpers['side-list'] || (depth0 && depth0['side-list']),options={hash:{
     'content': ("listItems"),
     'height': (100),
     'width': (200),
     'rowHeight': (45)
-  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "Menglifang.Widgets.ListView", options) : helperMissing.call(depth0, "collection", "Menglifang.Widgets.ListView", options));
+  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "side-list", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1888,14 +2027,89 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 
   data.buffer.push(escapeExpression((helper = helpers['login-form'] || (depth0 && depth0['login-form']),options={hash:{
+    'registerable': ("registerable"),
     'title': ("title"),
     'copyright': ("copyright"),
     'identification': ("identification"),
     'password': ("password"),
     'supportedBrowers': ("supportedBrowers"),
     'action': ("authenticate")
-  },hashTypes:{'title': "ID",'copyright': "ID",'identification': "ID",'password': "ID",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'title': depth0,'copyright': depth0,'identification': depth0,'password': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
+  },hashTypes:{'registerable': "ID",'title': "ID",'copyright': "ID",'identification': "ID",'password': "ID",'supportedBrowers': "ID",'action': "STRING"},hashContexts:{'registerable': depth0,'title': depth0,'copyright': depth0,'identification': depth0,'password': depth0,'supportedBrowers': depth0,'action': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "login-form", options))));
   data.buffer.push("\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["registrations/new"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<div class=\"registrations-new\">\n  <h2>用户注册</h2>\n  <form class=\"form-horizontal form-fluid\" role=\"form\">\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"username\">用户名</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("username"),
+    'class': ("form-control"),
+    'type': ("text"),
+    'id': ("username"),
+    'placeholder': ("必填且唯一")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"realname\">真实姓名</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("realname"),
+    'class': ("form-control"),
+    'type': ("text"),
+    'id': ("realname"),
+    'placeholder': ("可选")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"email\">邮箱</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("email"),
+    'class': ("form-control"),
+    'type': ("email"),
+    'id': ("email"),
+    'placeholder': ("必填且唯一")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"password\">密码</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("password"),
+    'class': ("form-control"),
+    'type': ("password"),
+    'id': ("password"),
+    'placeholder': ("不少于8位")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label class=\"col-sm-3 control-label\" for=\"password-confirmation\">密码确认</label>\n      <div class=\"col-sm-9\">\n        ");
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'value': ("passwordConfirmation"),
+    'class': ("form-control"),
+    'type': ("password"),
+    'id': ("password-confirmation"),
+    'placeholder': ("不少于8位")
+  },hashTypes:{'value': "ID",'class': "STRING",'type': "STRING",'id': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'class': depth0,'type': depth0,'id': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n      </div>\n    </div>\n\n    <div class=\"form-group buttons\">\n      <div class=\"col-sm-3\"></div>\n      <div class=\"col-sm-9\">\n        <button class=\"btn btn-primary\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\n          <i class=\"fa fa-save\"></i> 注册\n        </button>\n        <button class=\"btn btn-link\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "cancel", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\n          取消\n        </button>\n      </div>\n    </div>\n  </form>\n</div>\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["registrations/success"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
+
+function program1(depth0,data) {
+  
+  
+  data.buffer.push("登录");
+  }
+
+  data.buffer.push("<div class=\"registrations-success\">\n  <h2>用户注册</h2>\n  <div>\n    <div class=\"alert alert-success\">\n      <p>\n        您好！您的注册申请已经成功提交，请与管理员联系。待身份审核通过后，便可使用您的账号登录系统。\n      </p>\n      <p>\n        <strong>返回");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "login", options) : helperMissing.call(depth0, "link-to", "login", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("。</strong>\n      </p>\n    </div>\n  </div>\n</div>\n\n");
   return buffer;
   
 });
@@ -1961,20 +2175,28 @@ function program5(depth0,data) {
   data.buffer.push(")\n    </div>\n    <div class=\"email\">\n      ");
   stack1 = helpers._triageMustache.call(depth0, "email", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n      ");
+  stack1 = helpers['if'].call(depth0, "accessLocked", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n  ");
   return buffer;
+  }
+function program6(depth0,data) {
+  
+  
+  data.buffer.push("\n        <i class=\"fa fa-lock text-danger pull-right\"></i>\n      ");
   }
 
   data.buffer.push("<ul class=\"mlf-toolbar-links pull-right\">\n  ");
   stack1 = helpers.each.call(depth0, "toolbarLinks", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</ul>\n\n");
-  stack1 = (helper = helpers.collection || (depth0 && depth0.collection),options={hash:{
+  stack1 = (helper = helpers['side-list'] || (depth0 && depth0['side-list']),options={hash:{
     'content': ("model"),
     'height': (100),
     'width': (300),
     'rowHeight': (60)
-  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data},helper ? helper.call(depth0, "Menglifang.Widgets.ListView", options) : helperMissing.call(depth0, "collection", "Menglifang.Widgets.ListView", options));
+  },hashTypes:{'content': "ID",'height': "INTEGER",'width': "INTEGER",'rowHeight': "INTEGER"},hashContexts:{'content': depth0,'height': depth0,'width': depth0,'rowHeight': depth0},inverse:self.noop,fn:self.program(4, program4, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "side-list", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
@@ -1987,9 +2209,27 @@ function program5(depth0,data) {
 Ember.TEMPLATES["users/form"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n      <button class=\"btn btn-danger pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "lock", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\n        <i class=\"fa fa-lock\"></i>\n        锁定\n      </button>\n    ");
+  return buffer;
+  }
+
+function program3(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n      <button class=\"btn btn-success pull-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "unlock", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">\n        <i class=\"fa fa-unlock\"></i>\n        解锁\n      </button>\n    ");
+  return buffer;
+  }
+
+function program5(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\n        ");
@@ -2004,7 +2244,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-function program3(depth0,data) {
+function program7(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n        <p class=\"form-control-static\">");
@@ -2014,7 +2254,7 @@ function program3(depth0,data) {
   return buffer;
   }
 
-function program5(depth0,data) {
+function program9(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n        <button class=\"btn btn-link\" ");
@@ -2023,7 +2263,7 @@ function program5(depth0,data) {
   return buffer;
   }
 
-function program7(depth0,data) {
+function program11(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n        <button class=\"btn btn-danger\" ");
@@ -2034,7 +2274,7 @@ function program7(depth0,data) {
   return buffer;
   }
 
-function program9(depth0,data) {
+function program13(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n  <p>");
@@ -2044,11 +2284,17 @@ function program9(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<form class=\"form-horizontal form-fluid\" role=\"form\">\n  <h2>");
+  data.buffer.push("<form class=\"form-horizontal form-fluid\" role=\"form\">\n  <h2>\n    ");
   stack1 = helpers._triageMustache.call(depth0, "formLegend", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</h2>\n  <div class=\"form-group\">\n    <label class=\"col-sm-3 control-label\" for=\"username\">用户名</label>\n    <div class=\"col-sm-9\">\n      ");
-  stack1 = helpers['if'].call(depth0, "model.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\n    ");
+  stack1 = helpers['if'].call(depth0, "lockable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n    ");
+  stack1 = helpers['if'].call(depth0, "unlockable", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n  </h2>\n  <div class=\"form-group\">\n    <label class=\"col-sm-3 control-label\" for=\"username\">用户名</label>\n    <div class=\"col-sm-9\">\n      ");
+  stack1 = helpers['if'].call(depth0, "model.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <label class=\"col-sm-3 control-label\" for=\"realname\">真实姓名</label>\n    <div class=\"col-sm-9\">\n      ");
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
@@ -2085,7 +2331,7 @@ function program9(depth0,data) {
   data.buffer.push("\n    </div>\n  </div>\n\n  <div class=\"form-group buttons\">\n    <div class=\"col-sm-3\"></div>\n    <div class=\"col-sm-9\">\n      <button class=\"btn btn-primary\" ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "save", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(">\n        <i class=\"fa fa-save\"></i> 保存\n      </button>\n      ");
-  stack1 = helpers['if'].call(depth0, "model.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(7, program7, data),fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "model.isNew", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(9, program9, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n    </div>\n  </div>\n</form>\n\n");
   stack1 = (helper = helpers['bs-modal'] || (depth0 && depth0['bs-modal']),options={hash:{
@@ -2093,7 +2339,7 @@ function program9(depth0,data) {
     'fade': (true),
     'footerButtons': ("removeConfirmationButtons"),
     'title': ("removeConfirmationTitle")
-  },hashTypes:{'name': "ID",'fade': "BOOLEAN",'footerButtons': "ID",'title': "ID"},hashContexts:{'name': depth0,'fade': depth0,'footerButtons': depth0,'title': depth0},inverse:self.noop,fn:self.program(9, program9, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bs-modal", options));
+  },hashTypes:{'name': "ID",'fade': "BOOLEAN",'footerButtons': "ID",'title': "ID"},hashContexts:{'name': depth0,'fade': depth0,'footerButtons': depth0,'title': depth0},inverse:self.noop,fn:self.program(13, program13, data),contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "bs-modal", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n");
   return buffer;
@@ -2119,20 +2365,12 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.Application.initializer({
   name: 'authentication',
   initialize: function(container, application) {
-    Ember.SimpleAuth.Session.reopen({
-      account: (function() {
-        var accountId;
-        accountId = this.get('account_id');
-        if (!Ember.isEmpty(accountId)) {
-          return container.lookup('store:main').find('user', accountId);
-        }
-      }).property('accountId')
-    });
-    container.register('app:authenticators:devise', Menglifang.App.DeviseAuthenticator);
+    if (window.location.href !== localStorage.getItem('menglifang-app:url')) {
+      localStorage.clear();
+    }
     return Ember.SimpleAuth.setup(container, application, {
-      authorizer: Menglifang.App.DeviseAuthorizer,
-      routeAfterAuthentication: 'authenticated',
-      routeAfterInvalidation: 'login'
+      authorizerFactory: 'authorizer:devise',
+      routeAfterAuthentication: 'authenticated'
     });
   }
 });
@@ -2177,6 +2415,8 @@ Menglifang.App.User = DS.Model.extend({
   roles: DS.attr(),
   accessLocked: DS.attr('boolean'),
   name: Ember.computed.any('realname', 'username'),
+  lockable: Ember.computed.not('accessLocked'),
+  unlockable: Ember.computed.alias('accessLocked'),
   changePassword: function(oldPwd, newPwd, pwdConfirmation) {
     var _this = this;
     return new Ember.RSVP.Promise(function(resolve, reject) {
@@ -2199,6 +2439,18 @@ Menglifang.App.User = DS.Model.extend({
       }, function(jqXHR, textStatus, errorThrown) {
         return reject(jqXHR.responseJSON.errors.password);
       });
+    });
+  },
+  lock: function() {
+    var _this = this;
+    return $.post("" + Menglifang.App.host + "/" + Menglifang.App.namespace + "/users/" + (this.get('id')) + "/lock").then(function(user) {
+      return _this.get('store').pushPayload('user', user);
+    });
+  },
+  unlock: function() {
+    var _this = this;
+    return $.post("" + Menglifang.App.host + "/" + Menglifang.App.namespace + "/users/" + (this.get('id')) + "/unlock").then(function(user) {
+      return _this.get('store').pushPayload('user', user);
     });
   },
   hasRole: function(roles, matchMode) {
@@ -2227,6 +2479,156 @@ Menglifang.App.User = DS.Model.extend({
       });
     }
     return match;
+  }
+});
+
+
+})();
+(function() {
+
+
+Menglifang.App.ApplicationController = Ember.Controller.extend({
+  brand: {
+    name: 'MLF'
+  },
+  sidebar: {
+    menus: [
+      {
+        icon: 'fa fa-gear',
+        text: '系统管理',
+        roles: ['admin'],
+        items: [
+          {
+            icon: 'fa fa-users',
+            route: 'users',
+            text: '用户管理',
+            roles: ['admin']
+          }
+        ]
+      }
+    ],
+    starterItems: [
+      {
+        icon: 'fa fa-user',
+        url: '#/account/profile',
+        text: '个人信息'
+      }, {
+        icon: 'fa fa-key',
+        url: '#/account/password',
+        text: '修改密码'
+      }, {
+        icon: 'fa fa-sign-out',
+        url: '#/logout',
+        text: '注销'
+      }
+    ]
+  },
+  availableRoles: [
+    {
+      label: '管理员',
+      value: 'admin'
+    }, {
+      label: '普通用户',
+      value: 'user'
+    }
+  ],
+  availableSidebar: (function() {
+    var menus, user,
+      _this = this;
+    menus = [];
+    user = this.get('session.currentUser');
+    this.get('sidebar.menus').forEach(function(menu) {
+      var items, newMenu;
+      if (user.hasRole(menu.roles, 'any')) {
+        newMenu = Ember.merge({}, menu);
+        menus.push(newMenu);
+        items = [];
+        menu.items.forEach(function(item) {
+          if (user.hasRole(item.roles, 'any')) {
+            return items.push(item);
+          }
+        });
+        return newMenu.items = items;
+      }
+    });
+    return {
+      menus: menus,
+      starterItems: this.get('sidebar.starterItems')
+    };
+  }).property().volatile(),
+  breadcrumbs: [],
+  actions: {
+    currentPathDidChange: function() {
+      var breadcrumbs, routes;
+      this.get('breadcrumbs').clear();
+      routes = this.container.lookup('router:main').get('router.currentHandlerInfos');
+      if (Ember.isEmpty(routes)) {
+        return;
+      }
+      breadcrumbs = [];
+      routes.forEach(function(route, i, arr) {
+        var breadcrumb, context, handler, name;
+        name = route.name;
+        if (name.indexOf('.index') !== -1 || name === 'application' || name === 'authenticated') {
+          return;
+        }
+        handler = route.handler;
+        breadcrumb = Ember.Object.create({
+          route: handler.routeName,
+          name: Ember.I18n.t("routes." + handler.routeName),
+          model: null
+        });
+        if (!Ember.isEmpty(Ember.keys(route.params))) {
+          context = handler.context;
+          breadcrumb.setProperties({
+            model: context,
+            name: context.get('name') || context.get('id')
+          });
+        }
+        return breadcrumbs.pushObject(breadcrumb);
+      });
+      if (!Ember.isEmpty(breadcrumbs)) {
+        return this.set('breadcrumbs', breadcrumbs);
+      }
+    },
+    triggerMenu: function(menu) {
+      return this.transitionToRoute(menu.items.get('firstObject.route'));
+    }
+  }
+});
+
+
+})();
+(function() {
+
+
+Menglifang.App.RegistrationsNewController = Ember.ObjectController.extend({
+  username: null,
+  realname: null,
+  email: null,
+  password: null,
+  passwordConfirmation: null,
+  actions: {
+    save: function() {
+      var _this = this;
+      return $.post('/users.json', {
+        user: {
+          username: this.get('username'),
+          realname: this.get('realname'),
+          email: this.get('email'),
+          password: this.get('password'),
+          password_confirmation: this.get('passwordConfirmation'),
+          roles: 'user'
+        }
+      }).then(function() {
+        return _this.transitionToRoute('registrations.success');
+      }, function() {
+        return Notifier.error('用户注册失败');
+      });
+    },
+    cancel: function() {
+      return this.transitionToRoute('login');
+    }
   }
 });
 
@@ -2309,113 +2711,7 @@ Menglifang.App.AccountProfileController = Ember.ObjectController.extend({
 (function() {
 
 
-Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
-  brand: {
-    name: 'MLF'
-  },
-  sidebar: {
-    menus: [
-      {
-        icon: '/images/settings.png',
-        url: '#系统管理',
-        text: '系统管理',
-        roles: ['admin'],
-        items: [
-          {
-            icon: '/images/users.png',
-            route: 'users',
-            text: '用户管理',
-            roles: ['admin']
-          }
-        ]
-      }
-    ],
-    starterItems: [
-      {
-        icon: 'fa fa-user',
-        url: '#/account/profile',
-        text: '个人信息'
-      }, {
-        icon: 'fa fa-key',
-        url: '#/account/password',
-        text: '修改密码'
-      }, {
-        icon: 'fa fa-sign-out',
-        url: '#/logout',
-        text: '注销'
-      }
-    ]
-  },
-  availableRoles: [
-    {
-      label: '管理员',
-      value: 'admin'
-    }, {
-      label: '普通用户',
-      value: 'user'
-    }
-  ],
-  availableSidebar: (function() {
-    var menus, user,
-      _this = this;
-    menus = [];
-    user = this.get('session.account.content');
-    this.get('sidebar.menus').forEach(function(menu) {
-      var items, newMenu;
-      if (user.hasRole(menu.roles, 'any')) {
-        newMenu = Ember.merge({}, menu);
-        menus.push(newMenu);
-        items = [];
-        menu.items.forEach(function(item) {
-          if (user.hasRole(item.roles, 'any')) {
-            return items.push(item);
-          }
-        });
-        return newMenu.items = items;
-      }
-    });
-    return {
-      menus: menus,
-      starterItems: this.get('sidebar.starterItems')
-    };
-  }).property().volatile(),
-  breadcrumbs: [],
-  actions: {
-    currentPathDidChange: function() {
-      var breadcrumbs, routes;
-      this.get('breadcrumbs').clear();
-      routes = this.container.lookup('router:main').get('router.currentHandlerInfos');
-      if (Ember.isEmpty(routes)) {
-        return;
-      }
-      breadcrumbs = [];
-      routes.forEach(function(route, i, arr) {
-        var breadcrumb, context, handler, name;
-        name = route.name;
-        if (name.indexOf('.index') !== -1 || name === 'application' || name === 'authenticated') {
-          return;
-        }
-        handler = route.handler;
-        breadcrumb = Ember.Object.create({
-          route: handler.routeName,
-          name: Ember.I18n.t("routes." + handler.routeName),
-          model: null
-        });
-        if (!Ember.isEmpty(Ember.keys(route.params))) {
-          context = handler.context;
-          breadcrumb.setProperties({
-            model: context,
-            name: context.get('name') || context.get('id')
-          });
-        }
-        return breadcrumbs.pushObject(breadcrumb);
-      });
-      if (!Ember.isEmpty(breadcrumbs)) {
-        return this.set('breadcrumbs', breadcrumbs);
-      }
-    }
-  }
-});
+Menglifang.App.AuthenticatedController = Ember.ObjectController.extend();
 
 
 })();
@@ -2423,7 +2719,8 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
 
 
 Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin, {
-  authenticator: 'app:authenticators:devise',
+  authenticatorFactory: "authenticator:devise",
+  registerable: true,
   supportedBrowers: [
     {
       name: 'Chrome',
@@ -2462,12 +2759,35 @@ Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.Mod
   modelName: 'user',
   humanModelName: '用户',
   removeConfirmationName: 'removeUserConfirmation',
+  lockable: (function() {
+    return !this.get('model.isNew') && this.get('model.lockable') && this.get('model.id') !== this.get('session.account.id');
+  }).property('model.{id,lockable,isNew}', 'session.account.id'),
   beforeRemove: function() {
     if (this.get('model.id') === this.get('session.account_id')) {
       Notifier.error('对不起，您不允许删除自己！');
       return false;
     } else {
       return true;
+    }
+  },
+  actions: {
+    lock: function() {
+      var _this = this;
+      return this.get('model').lock().then(function() {
+        _this.get('model').reload();
+        return Notifier.success('用户锁定成功');
+      }, function() {
+        return Notifier.error('用户锁定失败');
+      });
+    },
+    unlock: function() {
+      var _this = this;
+      return this.get('model').unlock().then(function() {
+        _this.get('model').reload();
+        return Notifier.success('用户解锁成功');
+      }, function() {
+        return Notifier.error('用户解锁失败');
+      });
     }
   }
 });
@@ -2548,9 +2868,16 @@ Menglifang.App.ApplicationSerializer = DS.ActiveModelSerializer.extend();
 (function() {
 
 
+Menglifang.App.RegistrationsNewRoute = Ember.Route.extend();
+
+
+})();
+(function() {
+
+
 Menglifang.App.AccountPasswordRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
-    return this.get('session.account');
+    return this.get('session.currentUser');
   }
 });
 
@@ -2561,7 +2888,7 @@ Menglifang.App.AccountPasswordRoute = Ember.Route.extend(Menglifang.App.Authenti
 
 Menglifang.App.AccountProfileRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
-    return this.get('session.account');
+    return this.get('session.currentUser');
   }
 });
 
@@ -2579,15 +2906,9 @@ Menglifang.App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.Applicatio
 
 Menglifang.App.AuthenticatedRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
   beforeModel: function() {
-    var _this = this;
     if (!this.get('session.isAuthenticated')) {
-      this.transitionTo('login');
+      return this.transitionTo('login');
     }
-    return this.get('session.account').then(function(account) {
-      return account;
-    }, function() {
-      return _this.transitionTo('login');
-    });
   }
 });
 
@@ -2609,6 +2930,12 @@ Menglifang.App.authenticationRoute = Ember.Route.extend({
 
 Menglifang.App.LogoutRoute = Ember.Route.extend({
   beforeModel: function() {
+    var v, _, _ref;
+    _ref = this.store.typeMaps;
+    for (_ in _ref) {
+      v = _ref[_];
+      this.store.unloadAll(v.type);
+    }
     return this.send('invalidateSession');
   }
 });

@@ -14,6 +14,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-ember-templates');
   grunt.loadNpmTasks('grunt-jsdoc');
   grunt.loadNpmTasks('grunt-neuter');
+  grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-markdown');
 
   // Project configuration.
   grunt.initConfig({
@@ -22,6 +24,25 @@ module.exports = function (grunt) {
     meta: {
       banner: '/*! <%=pkg.name%> - v<%=pkg.version%> (build <%=pkg.build%>) - ' +
         '<%=grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT")%> */'
+    },
+
+    markdown: {
+      all: {
+        files: [{
+          expand: true,
+          cwd: "site/",
+          src: 'docs/**/*.md',
+          dest: 'gh-pages/',
+          ext: '.html'
+        }]
+      }
+    },
+
+    'gh-pages': {
+      options: {
+        base: 'gh-pages'
+      },
+      src: ['**']
     },
 
     coffee: {
@@ -35,11 +56,11 @@ module.exports = function (grunt) {
         dest: "build/src/",
         ext: ".js"
       },
-      demo: {
+      site: {
         expand: true,
-        cwd: "demo/",
+        cwd: "site/",
         src: [ "**/*.coffee" ],
-        dest: "build/demo/",
+        dest: "build/site/",
         ext: ".js"
       },
       api: {
@@ -54,13 +75,12 @@ module.exports = function (grunt) {
     emberTemplates: {
       options: {
         templateName: function(sourceFile) {
-          return sourceFile.replace(/src\/widgets\/templates\//, '').replace(/src\/app\/templates\//, '').replace(/demo\/widgets\/templates\//, '').replace(/demo\/app\/templates\//, '');
+          return sourceFile.replace(/src\/widgets\/templates\//, '').replace(/src\/app\/templates\//, '').replace(/site\/templates\//, '')
         }
       },
       'build/src/widgets/templates.js': ["src/widgets/templates/**/*.hbs"],
       'build/src/app/templates.js': ["src/app/templates/**/*.hbs"],
-      'build/demo/widgets/templates.js': ["demo/widgets/templates/**/*.hbs"],
-      'build/demo/app/templates.js': ["demo/app/templates/**/*.hbs"]
+      'build/site/templates.js': ["site/templates/**/*.hbs"]
     },
 
     neuter: {
@@ -68,18 +88,15 @@ module.exports = function (grunt) {
         includeSourceURL: false,
         separator: "\n"
       },
-      "dist/menglifang-widgets.js":  "build/src/widgets/main.js",
-      "dist/menglifang-app.js":  "build/src/app/main.js",
-      "examples/public/widgets/app.js":      "build/demo/widgets/app.js",
-      "examples/public/app/app.js":      "build/demo/app/app.js",
-      "examples/app.js":      "build/api/app.js",
-      "examples/db-setup.js":      "build/api/db-setup.js"
+      "dist/menglifang-widgets.js": "build/src/widgets/main.js",
+      "dist/menglifang-app.js":     "build/src/app/main.js",
+      "gh-pages/js/app.js":         "build/site/coffee/app.js"
     },
 
     clean: [
       "./dist",
       "./build",
-      "./examples"
+      "./gh-pages"
     ],
 
     jsdoc: {
@@ -104,7 +121,7 @@ module.exports = function (grunt) {
           require: true
         }
       },
-      all: ["Gruntfile.js", "build/src/**/*.js", "build/demo/**/*.js", "build/api/**/*.js"]
+      all: ["Gruntfile.js", "build/src/**/*.js", "build/site/**/*.js", "build/api/**/*.js"]
     },
 
     less: {
@@ -115,44 +132,32 @@ module.exports = function (grunt) {
         files: {
           "./dist/menglifang-widgets.css": ["./src/widgets/less/menglifang-widgets.less"],
           "./dist/menglifang-app.css": ["./src/app/less/menglifang-app.less"],
-          "./examples/public/widgets/css/app.css": ["./demo/widgets/less/app.less"],
-          "./examples/public/app/css/app.css": ["./demo/app/less/app.less"]
+          "./gh-pages/css/app.css": ["./site/less/app.less"]
         }
       }
     },
 
     copy: {
-      examples: {
-        files: [
-          {
-            src: ['demo/widgets/index.html'],
-            dest: 'examples/public/widgets/index.html'
+      gh_pages: {
+        files: [{
+            src: ['dist/**/*'],
+            dest: 'gh-pages/'
           }, {
-            src: ['demo/index.html'],
-            dest: 'examples/public/index.html'
+            src: ['site/CNAME'],
+            dest: 'gh-pages/CNAME'
           }, {
-            expand: true,
-            cwd: 'demo/widgets/images/',
-            src: ['**'],
-            dest: 'examples/public/widgets/images/'
-          }, {
-            src: ['demo/app/index.html'],
-            dest: 'examples/public/app/index.html'
+            src: ['site/index.html'],
+            dest: 'gh-pages/index.html'
           }, {
             expand: true,
-            cwd: 'demo/app/images/',
+            cwd: 'site/images/',
             src: ['**'],
-            dest: 'examples/public/app/images/'
-          }, {
-            expand: true,
-            cwd: 'build/api/func/',
-            src: ['**'],
-            dest: 'examples/func/'
+            dest: 'gh-pages/images/'
           }, {
             expand: true,
             cwd: 'src/app/images/',
             src: ['**'],
-            dest: 'examples/public/widgets/images/'
+            dest: 'gh-pages/images/'
           }, {
             expand: true,
             cwd: 'src/app/images/',
@@ -160,47 +165,29 @@ module.exports = function (grunt) {
             dest: 'dist/images/'
           }, {
             expand: true,
-            cwd: 'src/app/images/',
-            src: ['**'],
-            dest: 'examples/public/app/images/'
-          }, {
-            expand: true,
-            cwd: 'src/app/images/',
-            src: ['**'],
-            dest: 'examples/public/images/'
-          }, {
-            expand: true,
-            flatten: true,
-            cwd: 'bower_components/',
-            src: ['**/*.js'],
-            dest: 'examples/public/lib'
-          }, {
-            expand: true,
-            flatten: true,
-            cwd: 'bower_components/',
-            src: ['**/*.css'],
-            dest: 'examples/public/css'
-          }, {
-            expand: true,
-            flatten: true,
-            cwd: 'bower_components/',
-            src: ['font-awesome/css/*.css'],
-            dest: 'examples/public/css'
-          }, {
-            expand: true,
             cwd: 'bower_components/font-awesome/fonts/',
             src: ['**'],
-            dest: 'examples/public/fonts/'
-          }, {
-            expand: true,
-            cwd: 'bower_components/select2/',
-            src: ['*.png', '*.gif'],
-            dest: 'examples/public/css/'
+            dest: 'gh-pages/fonts/'
           }, {
             expand: true,
             cwd: 'bower_components/bootstrap/fonts/',
             src: ['**'],
-            dest: 'examples/public/widgets/fonts/'
+            dest: 'gh-pages/fonts/'
+          }, {
+            expand: true,
+            cwd: 'bower_components/select2/',
+            src: ['*.png', '*.gif'],
+            dest: 'gh-pages/css/'
+          }, {
+            expand: true,
+            cwd: 'bower_components/handlebars/',
+            src: ['handlebars.js'],
+            dest: 'gh-pages/js/'
+          }, {
+            expand: true,
+            cwd: 'bower_components/select2/',
+            src: ['*.css', '*.gif', '*.png'],
+            dest: 'gh-pages/css/'
           }
         ]
       },
@@ -250,24 +237,28 @@ module.exports = function (grunt) {
     },
 
     watch: {
+      markdown: {
+        files: ["site/docs/**/*.md"],
+        tasks: ["markdown"]
+      },
       grunt: {
         files: ["Gruntfile.coffee"],
         tasks: ["default"]
       },
       code: {
-        files: ["src/**/*.coffee", "demo/**/*.coffee", "api/**/*.coffee", "bower_components/**/*.js"],
+        files: ["src/**/*.coffee", "site/**/*.coffee", "api/**/*.coffee", "bower_components/**/*.js"],
         tasks: ["coffee", "neuter"]
       },
       handlebars: {
-        files: ["src/**/*.hbs", "demo/**/*.hbs"],
+        files: ["src/**/*.hbs", "site/**/*.hbs"],
         tasks: ["emberTemplates", "neuter"]
       },
       less: {
-        files: ["demo/**/*.less", "demo/**/*.css", "src/**/*.less"],
+        files: ["site/**/*.less", "site/**/*.css", "src/**/*.less"],
         tasks: ["less", "copy"]
       },
       copy: {
-        files: ["demo/index.html", "demo/widgets/index.html", "demo/app/index.html"],
+        files: ["site/index.html"],
         tasks: ["copy"]
       }
     }
@@ -276,11 +267,11 @@ module.exports = function (grunt) {
   // Default tasks.
   grunt.registerTask("build_src", ["coffee:src", "emberTemplates", "neuter"]);
 
-  grunt.registerTask("build_demo", ["coffee:demo", "emberTemplates", "neuter"]);
+  grunt.registerTask("build_site", ["coffee:site", "markdown", "emberTemplates", "neuter"]);
 
   grunt.registerTask("build_api", ["coffee:api", "neuter"]);
 
-  grunt.registerTask("build", ["build_src", "build_demo", "build_api", "less", "copy", "uglify"]);
+  grunt.registerTask("build", ["build_src", "build_site", "build_api", "less", "uglify", "copy"]);
 
   grunt.registerTask("default", ["build", "watch"]);
 

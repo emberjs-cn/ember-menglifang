@@ -1,3 +1,4 @@
+require 'build/src/app/routes/registrations-new'
 require 'build/src/app/routes/account-password'
 require 'build/src/app/routes/account-profile'
 require 'build/src/app/routes/application'

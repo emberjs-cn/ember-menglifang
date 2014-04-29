@@ -7,6 +7,8 @@ Menglifang.App.User = DS.Model.extend
   accessLocked: DS.attr('boolean')
 
   name: Ember.computed.any('realname', 'username')
+  lockable: Ember.computed.not('accessLocked')
+  unlockable: Ember.computed.alias('accessLocked')
 
   changePassword: (oldPwd, newPwd, pwdConfirmation) ->
     new Ember.RSVP.Promise (resolve, reject) =>
@@ -25,6 +27,14 @@ Menglifang.App.User = DS.Model.extend
         resolve()
       , (jqXHR, textStatus, errorThrown) ->
         reject(jqXHR.responseJSON.errors.password)
+
+  lock: ->
+    $.post("#{Menglifang.App.host}/#{Menglifang.App.namespace}/users/#{@get('id')}/lock").then (user) =>
+      @get('store').pushPayload('user', user)
+
+  unlock: ->
+    $.post("#{Menglifang.App.host}/#{Menglifang.App.namespace}/users/#{@get('id')}/unlock").then (user) =>
+      @get('store').pushPayload('user', user)
 
   hasRole: (roles, matchMode) ->
     return false unless roles

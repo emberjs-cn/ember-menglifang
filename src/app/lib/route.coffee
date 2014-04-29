@@ -1,7 +1,10 @@
 Ember.Route.reopen
+  init: ->
+    localStorage.setItem('menglifang-app:url', window.location.href)
+
   afterModel: ->
     Ember.run.next @, =>
-      @controllerFor('authenticated').send('currentPathDidChange')
+      @controllerFor('application').send('currentPathDidChange')
 
   parentRoute: ->
     handlerInfos = @router.router.state.handlerInfos
