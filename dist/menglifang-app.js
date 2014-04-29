@@ -574,7 +574,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.2.5';
+Menglifang.Widgets.VERSION = '0.3.0';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -1322,7 +1322,7 @@ if ('undefined' === typeof Menglifang) {
 }
 
 Menglifang.App = {
-  VERSION: '0.2.5',
+  VERSION: '0.3.0',
   create: function(options) {
     var app;
     Ember.merge(Ember.I18n.translations, Menglifang.App.translations);
@@ -2365,6 +2365,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.Application.initializer({
   name: 'authentication',
   initialize: function(container, application) {
+    if (window.location.href !== localStorage.getItem('menglifang-app:url')) {
+      localStorage.clear();
+    }
     return Ember.SimpleAuth.setup(container, application, {
       authorizerFactory: 'authorizer:devise',
       routeAfterAuthentication: 'authenticated'

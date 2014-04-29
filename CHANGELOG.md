@@ -1,4 +1,4 @@
-*Ember Menglifang 0.3.0 (Mar x, 2014)*
+*Ember Menglifang 0.3.0 (Apr 30, 2014)*
 
 * [改进] 升级ember-simple-auth到0.3.1；
 * [改进] 重新设计项目站点，通过github pages发布项目文档；
