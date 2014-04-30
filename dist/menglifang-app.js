@@ -374,8 +374,9 @@ function program1(depth0,data) {
   var buffer = '', stack1;
   data.buffer.push("\n    <ul ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'id': ("text")
-  },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
+    'id': ("text"),
+    'class': ("active")
+  },hashTypes:{'id': "ID",'class': "STRING"},hashContexts:{'id': depth0,'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(">\n      ");
   stack1 = helpers.each.call(depth0, "items", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -434,8 +435,9 @@ function program8(depth0,data) {
   var buffer = '', stack1;
   data.buffer.push("\n    <li ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("active"),
     'title': ("text")
-  },hashTypes:{'title': "ID"},hashContexts:{'title': depth0},contexts:[],types:[],data:data})));
+  },hashTypes:{'class': "STRING",'title': "ID"},hashContexts:{'class': depth0,'title': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a href=\"#");
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\" data-toggle=\"tab\" ");
@@ -574,7 +576,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.2.5';
+Menglifang.Widgets.VERSION = '0.3.1';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -698,9 +700,6 @@ Menglifang.Widgets.Sidebar = Ember.Component.extend({
   },
   menus: [],
   starterItems: [],
-  didInsertElement: function() {
-    return this.$().find('.menu-triggers li a').first().click();
-  },
   actions: {
     triggerMenu: function(menu) {
       return this.triggerAction({
@@ -879,11 +878,11 @@ Ember.Handlebars.helper('tagging-select2', Menglifang.Widgets.TaggingSelect2);
 
 
 Menglifang.Widgets.BasicTableColumn = Ember.Object.extend({
-  title: null,
+  title: void 0,
   width: 100,
   textAlign: 'left',
-  cellContentPath: null,
-  formatCellContent: Ember.K
+  cellContentPath: void 0,
+  formatCellContent: void 0
 });
 
 Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.StyleBindingsMixin, {
@@ -1322,7 +1321,7 @@ if ('undefined' === typeof Menglifang) {
 }
 
 Menglifang.App = {
-  VERSION: '0.2.5',
+  VERSION: '0.3.1',
   create: function(options) {
     var app;
     Ember.merge(Ember.I18n.translations, Menglifang.App.translations);
@@ -1350,33 +1349,41 @@ if ((_ref = Ember.libraries) != null) {
 (function() {
 
 
-Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.extend({
-  refreshAccessTokens: false,
+Ember.SimpleAuth.Session.reopen({
+  currentUser: (function() {
+    return this.get('container').lookup('store:main').push('user', this.get('content'));
+  }).property('content.id')
+});
+
+
+})();
+(function() {
+
+
+Ember.SimpleAuth.Authenticators.Devise.reopen({
   authenticate: function(credentials) {
+    var session, store,
+      _this = this;
+    session = this.container.lookup('session:main');
+    store = this.container.lookup('store:main');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      return Ember.$.ajax({
-        url: '/users/sign_in',
-        type: 'POST',
-        data: {
-          grant_type: 'password',
-          user: {
-            login: credentials.identification,
-            password: credentials.password
-          }
-        },
-        dataType: 'json'
-      }).then(function(response) {
+      var data;
+      data = {
+        user: {
+          login: credentials.identification,
+          password: credentials.password
+        }
+      };
+      return _this.makeRequest(data).then(function(response) {
         return Ember.run(function() {
-          return resolve({
-            user_email: response.user.email,
-            user_token: response.user.authentication_token,
-            account_id: response.user.id,
-            access_token: response.user.authentication_token
-          });
+          return resolve(Ember.merge(response.user, {
+            auth_token: response.user.authentication_token,
+            auth_email: response.user.email
+          }));
         });
       }, function(xhr, status, error) {
         return Ember.run(function() {
-          return reject(xhr.responseText);
+          return reject(xhr.responseJSON || xhr.responseText);
         });
       });
     });
@@ -1388,11 +1395,17 @@ Menglifang.App.DeviseAuthenticator = Ember.SimpleAuth.Authenticators.OAuth2.exte
 (function() {
 
 
-Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
+Ember.SimpleAuth.Authorizers.Devise.reopen({
   authorize: function(jqXHR, requestOptions) {
-    if (!Ember.isEmpty(this.get('session.user_email')) && !Ember.isEmpty(this.get('session.user_token'))) {
-      jqXHR.setRequestHeader('X-User-Email', this.get('session.user_email'));
-      return jqXHR.setRequestHeader('X-User-Token', this.get('session.user_token'));
+    var authEmail, authToken;
+    authToken = this.get('session.authentication_token');
+    authEmail = this.get('session.email');
+    if (this.get('session.isAuthenticated') && !Ember.isEmpty(authToken) && !Ember.isEmpty(authEmail)) {
+      if (!Ember.SimpleAuth.Utils.isSecureUrl(requestOptions.url)) {
+        Ember.Logger.warn('Credentials are transmitted via an insecure connection - use HTTPS to keep them secure.');
+      }
+      jqXHR.setRequestHeader('X-User-Email', authEmail);
+      return jqXHR.setRequestHeader('X-User-Token', authToken);
     }
   }
 });
@@ -1402,10 +1415,18 @@ Menglifang.App.DeviseAuthorizer = Ember.SimpleAuth.Authorizers.Base.extend({
 (function() {
 
 
+Ember.Router.reopen({
+  storeURL: (function() {
+    return localStorage.setItem('menglifang-app:current-url', this.get('url'));
+  }).on('didTransition')
+});
+
+
+})();
+(function() {
+
+
 Ember.Route.reopen({
-  init: function() {
-    return localStorage.setItem('menglifang-app:url', window.location.href);
-  },
   afterModel: function() {
     var _this = this;
     return Ember.run.next(this, function() {
@@ -2351,23 +2372,14 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.Application.initializer({
   name: 'authentication',
   initialize: function(container, application) {
-    if (window.location.href !== localStorage.getItem('menglifang-app:url')) {
+    var currentURL;
+    currentURL = localStorage.getItem('menglifang-app:current-url');
+    if (window.location.href.indexOf(currentURL) < 0) {
       localStorage.clear();
     }
-    Ember.SimpleAuth.Session.reopen({
-      account: (function() {
-        var accountId;
-        accountId = this.get('account_id');
-        if (!Ember.isEmpty(accountId)) {
-          return container.lookup('store:main').find('user', accountId);
-        }
-      }).property('accountId')
-    });
-    container.register('app:authenticators:devise', Menglifang.App.DeviseAuthenticator);
     return Ember.SimpleAuth.setup(container, application, {
-      authorizer: Menglifang.App.DeviseAuthorizer,
-      routeAfterAuthentication: 'authenticated',
-      routeAfterInvalidation: 'login'
+      authorizerFactory: 'authorizer:devise',
+      routeAfterAuthentication: 'authenticated'
     });
   }
 });
@@ -2533,7 +2545,7 @@ Menglifang.App.ApplicationController = Ember.Controller.extend({
     var menus, user,
       _this = this;
     menus = [];
-    user = this.get('session.account.content');
+    user = this.get('session.currentUser');
     this.get('sidebar.menus').forEach(function(menu) {
       var items, newMenu;
       if (user.hasRole(menu.roles, 'any')) {
@@ -2708,7 +2720,18 @@ Menglifang.App.AccountProfileController = Ember.ObjectController.extend({
 (function() {
 
 
-Menglifang.App.AuthenticatedController = Ember.ObjectController.extend();
+Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
+  needs: 'application',
+  brand: Ember.computed.alias('controllers.application.brand'),
+  breadcrumbs: Ember.computed.alias('controllers.application.breadcrumbs'),
+  availableSidebar: Ember.computed.alias('controllers.application.availableSidebar'),
+  availableRoles: Ember.computed.alias('controllers.application.availableRoles'),
+  actions: {
+    triggerMenu: function(menu) {
+      return this.transitionToRoute(menu.items.get('firstObject.route'));
+    }
+  }
+});
 
 
 })();
@@ -2716,7 +2739,7 @@ Menglifang.App.AuthenticatedController = Ember.ObjectController.extend();
 
 
 Menglifang.App.LoginController = Ember.Controller.extend(Ember.SimpleAuth.LoginControllerMixin, {
-  authenticator: 'app:authenticators:devise',
+  authenticatorFactory: "authenticator:devise",
   registerable: true,
   supportedBrowers: [
     {
@@ -2874,7 +2897,7 @@ Menglifang.App.RegistrationsNewRoute = Ember.Route.extend();
 
 Menglifang.App.AccountPasswordRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
-    return this.get('session.account');
+    return this.get('session.currentUser');
   }
 });
 
@@ -2885,7 +2908,7 @@ Menglifang.App.AccountPasswordRoute = Ember.Route.extend(Menglifang.App.Authenti
 
 Menglifang.App.AccountProfileRoute = Ember.Route.extend(Menglifang.App.AuthenticatedRouteMixin, {
   model: function() {
-    return this.get('session.account');
+    return this.get('session.currentUser');
   }
 });
 
@@ -2903,15 +2926,9 @@ Menglifang.App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.Applicatio
 
 Menglifang.App.AuthenticatedRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
   beforeModel: function() {
-    var _this = this;
     if (!this.get('session.isAuthenticated')) {
-      this.transitionTo('login');
+      return this.transitionTo('login');
     }
-    return this.get('session.account').then(function(account) {
-      return account;
-    }, function() {
-      return _this.transitionTo('login');
-    });
   }
 });
 
