@@ -1,3 +1,10 @@
+*Ember Menglifang 0.3.1 (May x, 2014)*
+
+* [增强] 为`AuthenticatedController`绑定必须属性（来自`ApplicationController`）；
+* [修正] 之前记录的当前URL信息不正确；
+* [改进] 高亮当前被激活的菜单；
+* [改进] 升级ember到1.5.1。
+
 *Ember Menglifang 0.3.0 (Apr 30, 2014)*
 
 * [改进] 升级ember-simple-auth到0.3.1；
