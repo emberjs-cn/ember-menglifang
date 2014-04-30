@@ -1,6 +1,6 @@
 <div class="menu-items">
   {{#each view.menus}}
-    <ul {{bind-attr id=text}}>
+    <ul {{bind-attr id=text class="active"}}>
       {{#each items}}
         <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
           {{#link-to route}}
@@ -20,7 +20,7 @@
 </div>
 <ul class="menu-triggers">
   {{#each view.menus}}
-    <li {{bind-attr title=text}} data-placement="right" data-toggle="tooltip">
+    <li {{bind-attr class="active" title=text}} data-placement="right" data-toggle="tooltip">
       <a href="#{{unbound text}}" data-toggle="tab" {{action 'triggerMenu' this}}>
         {{#if iconUrl}}
           <img class="menu-trigger" {{bind-attr src=iconUrl}} />

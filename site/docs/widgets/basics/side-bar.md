@@ -26,7 +26,7 @@ brand: {
 
 ```javascript
 menus: [{
-  icon: 'fa fa-flag-o fa-inverse', text: '基础控件',
+  icon: 'fa fa-flag-o fa-inverse', text: '基础控件', active: true,
   items: [
     { icon: 'fa fa-puzzle-piece fa-inverse', route: 'basics.login_form', text: '登录窗口' }
   ]
