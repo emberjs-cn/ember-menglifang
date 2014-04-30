@@ -48,9 +48,6 @@ Menglifang.Widgets.Sidebar = Ember.Component.extend
   menus: []
   starterItems: []
 
-  didInsertElement: ->
-    @$().find('.menu-triggers li a').first().click()
-
   actions:
     triggerMenu: (menu) ->
       @triggerAction action: 'triggerMenu', actionContext: menu

@@ -374,8 +374,9 @@ function program1(depth0,data) {
   var buffer = '', stack1;
   data.buffer.push("\n    <ul ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'id': ("text")
-  },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
+    'id': ("text"),
+    'class': ("active")
+  },hashTypes:{'id': "ID",'class': "STRING"},hashContexts:{'id': depth0,'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(">\n      ");
   stack1 = helpers.each.call(depth0, "items", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -434,8 +435,9 @@ function program8(depth0,data) {
   var buffer = '', stack1;
   data.buffer.push("\n    <li ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("active"),
     'title': ("text")
-  },hashTypes:{'title': "ID"},hashContexts:{'title': depth0},contexts:[],types:[],data:data})));
+  },hashTypes:{'class': "STRING",'title': "ID"},hashContexts:{'class': depth0,'title': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a href=\"#");
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\" data-toggle=\"tab\" ");
@@ -574,7 +576,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.3.0';
+Menglifang.Widgets.VERSION = '0.3.1';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -698,9 +700,6 @@ Menglifang.Widgets.Sidebar = Ember.Component.extend({
   },
   menus: [],
   starterItems: [],
-  didInsertElement: function() {
-    return this.$().find('.menu-triggers li a').first().click();
-  },
   actions: {
     triggerMenu: function(menu) {
       return this.triggerAction({
@@ -1322,7 +1321,7 @@ if ('undefined' === typeof Menglifang) {
 }
 
 Menglifang.App = {
-  VERSION: '0.3.0',
+  VERSION: '0.3.1',
   create: function(options) {
     var app;
     Ember.merge(Ember.I18n.translations, Menglifang.App.translations);
@@ -1416,10 +1415,18 @@ Ember.SimpleAuth.Authorizers.Devise.reopen({
 (function() {
 
 
+Ember.Router.reopen({
+  storeURL: (function() {
+    return localStorage.setItem('menglifang-app:current-url', this.get('url'));
+  }).on('didTransition')
+});
+
+
+})();
+(function() {
+
+
 Ember.Route.reopen({
-  init: function() {
-    return localStorage.setItem('menglifang-app:url', window.location.href);
-  },
   afterModel: function() {
     var _this = this;
     return Ember.run.next(this, function() {
@@ -2365,7 +2372,9 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.Application.initializer({
   name: 'authentication',
   initialize: function(container, application) {
-    if (window.location.href !== localStorage.getItem('menglifang-app:url')) {
+    var currentURL;
+    currentURL = localStorage.getItem('menglifang-app:current-url');
+    if (window.location.href.indexOf(currentURL) < 0) {
       localStorage.clear();
     }
     return Ember.SimpleAuth.setup(container, application, {
@@ -2711,7 +2720,18 @@ Menglifang.App.AccountProfileController = Ember.ObjectController.extend({
 (function() {
 
 
-Menglifang.App.AuthenticatedController = Ember.ObjectController.extend();
+Menglifang.App.AuthenticatedController = Ember.ObjectController.extend({
+  needs: 'application',
+  brand: Ember.computed.alias('controllers.application.brand'),
+  breadcrumbs: Ember.computed.alias('controllers.application.breadcrumbs'),
+  availableSidebar: Ember.computed.alias('controllers.application.availableSidebar'),
+  availableRoles: Ember.computed.alias('controllers.application.availableRoles'),
+  actions: {
+    triggerMenu: function(menu) {
+      return this.transitionToRoute(menu.items.get('firstObject.route'));
+    }
+  }
+});
 
 
 })();

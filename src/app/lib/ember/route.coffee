@@ -1,7 +1,4 @@
 Ember.Route.reopen
-  init: ->
-    localStorage.setItem('menglifang-app:url', window.location.href)
-
   afterModel: ->
     Ember.run.next @, =>
       @controllerFor('application').send('currentPathDidChange')

@@ -10,7 +10,7 @@ if 'undefined' == typeof(Menglifang)
     window.Mlf = window.Menglifang = Mlf = Menglifang
 
 Menglifang.App =
-  VERSION: '0.3.0'
+  VERSION: '0.3.1'
 
   create: (options) ->
     Ember.merge Ember.I18n.translations, Menglifang.App.translations
@@ -37,7 +37,9 @@ require 'build/src/app/lib/ember-simple-auth/session'
 require 'build/src/app/lib/ember-simple-auth/devise-authenticator'
 require 'build/src/app/lib/ember-simple-auth/devise-authorizer'
 
-require 'build/src/app/lib/route'
+require 'build/src/app/lib/ember/router'
+require 'build/src/app/lib/ember/route'
+
 require 'build/src/app/lib/utils'
 
 require 'build/src/app/translations'
