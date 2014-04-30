@@ -1,2 +1,11 @@
-# TODO 如果没有特别的用处，这个可以删除了。
-Menglifang.App.AuthenticatedController = Ember.ObjectController.extend()
+Menglifang.App.AuthenticatedController = Ember.ObjectController.extend
+  needs: 'application'
+
+  brand: Ember.computed.alias('controllers.application.brand')
+  breadcrumbs: Ember.computed.alias('controllers.application.breadcrumbs')
+  availableSidebar: Ember.computed.alias('controllers.application.availableSidebar')
+  availableRoles: Ember.computed.alias('controllers.application.availableRoles')
+
+  actions:
+    triggerMenu: (menu) ->
+      @transitionToRoute menu.items.get('firstObject.route')
