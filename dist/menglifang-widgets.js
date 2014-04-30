@@ -368,8 +368,9 @@ function program1(depth0,data) {
   var buffer = '', stack1;
   data.buffer.push("\n    <ul ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'id': ("text")
-  },hashTypes:{'id': "ID"},hashContexts:{'id': depth0},contexts:[],types:[],data:data})));
+    'id': ("text"),
+    'class': ("active")
+  },hashTypes:{'id': "ID",'class': "STRING"},hashContexts:{'id': depth0,'class': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(">\n      ");
   stack1 = helpers.each.call(depth0, "items", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
@@ -428,8 +429,9 @@ function program8(depth0,data) {
   var buffer = '', stack1;
   data.buffer.push("\n    <li ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'class': ("active"),
     'title': ("text")
-  },hashTypes:{'title': "ID"},hashContexts:{'title': depth0},contexts:[],types:[],data:data})));
+  },hashTypes:{'class': "STRING",'title': "ID"},hashContexts:{'class': depth0,'title': depth0},contexts:[],types:[],data:data})));
   data.buffer.push(" data-placement=\"right\" data-toggle=\"tooltip\">\n      <a href=\"#");
   data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "text", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\" data-toggle=\"tab\" ");
@@ -692,9 +694,6 @@ Menglifang.Widgets.Sidebar = Ember.Component.extend({
   },
   menus: [],
   starterItems: [],
-  didInsertElement: function() {
-    return this.$().find('.menu-triggers li a').first().click();
-  },
   actions: {
     triggerMenu: function(menu) {
       return this.triggerAction({

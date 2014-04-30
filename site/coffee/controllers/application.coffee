@@ -3,7 +3,7 @@ App.ApplicationController = Menglifang.App.ApplicationController.extend
 
   sidebar:
     menus: [{
-      icon: 'fa fa-flag-o fa-inverse', text: '基础控件'
+      icon: 'fa fa-flag-o fa-inverse', text: '基础控件', active: true
       items: [
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'login_form', text: '登录窗口' }
         { icon: 'fa fa-puzzle-piece fa-inverse', route: 'side_bar', text: '侧边菜单栏' }

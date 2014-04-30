@@ -37,7 +37,9 @@ require 'build/src/app/lib/ember-simple-auth/session'
 require 'build/src/app/lib/ember-simple-auth/devise-authenticator'
 require 'build/src/app/lib/ember-simple-auth/devise-authorizer'
 
-require 'build/src/app/lib/route'
+require 'build/src/app/lib/ember/router'
+require 'build/src/app/lib/ember/route'
+
 require 'build/src/app/lib/utils'
 
 require 'build/src/app/translations'
