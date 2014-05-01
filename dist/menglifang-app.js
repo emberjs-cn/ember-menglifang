@@ -1417,7 +1417,11 @@ Ember.SimpleAuth.Authorizers.Devise.reopen({
 
 Ember.Router.reopen({
   storeURL: (function() {
-    return localStorage.setItem('menglifang-app:current-url', this.get('url'));
+    var currentURL;
+    currentURL = this.get('url');
+    if (currentURL !== '/login') {
+      return localStorage.setItem('menglifang-app:current-url', currentURL);
+    }
   }).on('didTransition')
 });
 
@@ -2925,9 +2929,12 @@ Menglifang.App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.Applicatio
 
 
 Menglifang.App.AuthenticatedRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
-  beforeModel: function() {
-    if (!this.get('session.isAuthenticated')) {
-      return this.transitionTo('login');
+  beforeModel: function(transition) {
+    var url;
+    this._super(transition);
+    if (this.get('session.isAuthenticated')) {
+      url = localStorage.getItem('menglifang-app:current-url');
+      return this.transitionTo(url || Menglifang.App.routeAfterAuthentication);
     }
   }
 });

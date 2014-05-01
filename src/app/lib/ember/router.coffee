@@ -1,4 +1,5 @@
 Ember.Router.reopen
   storeURL: (->
-    localStorage.setItem 'menglifang-app:current-url', @get('url')
+    currentURL = @get('url')
+    localStorage.setItem 'menglifang-app:current-url', currentURL if currentURL != '/login'
   ).on('didTransition')
