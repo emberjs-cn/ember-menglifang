@@ -2376,16 +2376,20 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.Application.initializer({
   name: 'authentication',
   initialize: function(container, application) {
-    var currentURL;
+    var currentURL, lastPageLoadedAt, now;
     currentURL = localStorage.getItem('menglifang-app:current-url');
-    if (window.location.href.indexOf(currentURL) < 0) {
+    lastPageLoadedAt = new Date(localStorage.getItem('menglifang-app:last-page-loaded-at'));
+    now = new Date();
+    if (window.location.href.indexOf(currentURL) < 0 || now - lastPageLoadedAt > 20 * 60 * 1000) {
       localStorage.clear();
     }
+    localStorage.setItem('menglifang-app:last-page-loaded-at', now);
     return Ember.SimpleAuth.setup(container, application, {
       authorizerFactory: 'authorizer:devise',
       routeAfterAuthentication: 'authenticated'
     });
-  }
+  },
+  isInValidSession: function() {}
 });
 
 
