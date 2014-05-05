@@ -14,5 +14,3 @@ Ember.Application.initializer
     Ember.SimpleAuth.setup container, application,
       authorizerFactory: 'authorizer:devise'
       routeAfterAuthentication: 'authenticated'
-
-  isInValidSession: ->
