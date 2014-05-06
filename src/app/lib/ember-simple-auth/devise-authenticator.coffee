@@ -10,8 +10,9 @@ Ember.SimpleAuth.Authenticators.Devise.reopen
         password: credentials.password
       }
 
+      self = @
       @makeRequest(data).then (response) =>
-        Ember.run -> resolve(@_extractResponse(response))
+        Ember.run -> resolve(self._extractResponse(response))
       , (xhr, status, error) ->
         Ember.run -> reject(xhr.responseJSON || xhr.responseText)
 

@@ -1367,16 +1367,17 @@ Ember.SimpleAuth.Authenticators.Devise.reopen({
     session = this.container.lookup('session:main');
     store = this.container.lookup('store:main');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      var data;
+      var data, self;
       data = {
         user: {
           login: credentials.identification,
           password: credentials.password
         }
       };
+      self = _this;
       return _this.makeRequest(data).then(function(response) {
         return Ember.run(function() {
-          return resolve(this._extractResponse(response));
+          return resolve(self._extractResponse(response));
         });
       }, function(xhr, status, error) {
         return Ember.run(function() {
