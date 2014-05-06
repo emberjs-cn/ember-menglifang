@@ -1376,16 +1376,19 @@ Ember.SimpleAuth.Authenticators.Devise.reopen({
       };
       return _this.makeRequest(data).then(function(response) {
         return Ember.run(function() {
-          return resolve(Ember.merge(response.user, {
-            auth_token: response.user.authentication_token,
-            auth_email: response.user.email
-          }));
+          return resolve(this._extractResponse(response));
         });
       }, function(xhr, status, error) {
         return Ember.run(function() {
           return reject(xhr.responseJSON || xhr.responseText);
         });
       });
+    });
+  },
+  _extractResponse: function(response) {
+    return Ember.merge(response.user, {
+      auth_token: response.user.authentication_token,
+      auth_email: response.user.email
     });
   }
 });
