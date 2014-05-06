@@ -2113,19 +2113,10 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["registrations/success"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
-
-function program1(depth0,data) {
   
-  
-  data.buffer.push("登录");
-  }
 
-  data.buffer.push("<div class=\"registrations-success\">\n  <h2>用户注册</h2>\n  <div>\n    <div class=\"alert alert-success\">\n      <p>\n        您好！您的注册申请已经成功提交，请与管理员联系。待身份审核通过后，便可使用您的账号登录系统。\n      </p>\n      <p>\n        <strong>返回");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "/", options) : helperMissing.call(depth0, "link-to", "/", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("。</strong>\n      </p>\n    </div>\n  </div>\n</div>\n\n");
-  return buffer;
+
+  data.buffer.push("<div class=\"registrations-success\">\n  <h2>用户注册</h2>\n  <div>\n    <div class=\"alert alert-success\">\n      <p>\n        您好！您的注册申请已经成功提交，请与管理员联系。待身份审核通过后，便可使用您的账号登录系统。\n      </p>\n      <p>\n        <strong>返回<a href=\"/\">登录</a>。</strong>\n      </p>\n    </div>\n  </div>\n</div>\n\n");
   
 });
 
