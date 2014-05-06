@@ -910,7 +910,7 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.St
     }
     return Ember.defineProperty(this, 'value', Ember.computed(function() {
       if (formatValue) {
-        return formatValue(this.get(valuePath));
+        return formatValue.call(this, this.get(valuePath));
       } else {
         return this.get(valuePath);
       }
