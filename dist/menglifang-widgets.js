@@ -570,7 +570,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.3.1';
+Menglifang.Widgets.VERSION = '0.3.2';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -904,7 +904,7 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.St
     }
     return Ember.defineProperty(this, 'value', Ember.computed(function() {
       if (formatValue) {
-        return formatValue(this.get(valuePath));
+        return formatValue.call(this, this.get(valuePath));
       } else {
         return this.get(valuePath);
       }
@@ -1266,7 +1266,7 @@ Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
 (function() {
 
 
-Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
+Menglifang.Widgets.SideListItem = Ember.ListItemView.extend({
   classNames: ['mlf-side-list-item']
 });
 

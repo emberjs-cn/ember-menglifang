@@ -10,7 +10,11 @@ Ember.SimpleAuth.Authenticators.Devise.reopen
         password: credentials.password
       }
 
-      @makeRequest(data).then (response) ->
-        Ember.run -> resolve(Ember.merge(response.user, auth_token: response.user.authentication_token, auth_email: response.user.email))
+      self = @
+      @makeRequest(data).then (response) =>
+        Ember.run -> resolve(self._extractResponse(response))
       , (xhr, status, error) ->
         Ember.run -> reject(xhr.responseJSON || xhr.responseText)
+
+  _extractResponse: (response) ->
+    Ember.merge(response.user, auth_token: response.user.authentication_token, auth_email: response.user.email)

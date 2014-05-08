@@ -576,7 +576,7 @@ if ('undefined' === typeof Menglifang) {
 
 Menglifang.Widgets = Ember.Namespace.create();
 
-Menglifang.Widgets.VERSION = '0.3.1';
+Menglifang.Widgets.VERSION = '0.3.2';
 
 if ((_ref = Ember.libraries) != null) {
   _ref.register('Menglifang Widgets', Menglifang.Widgets.VERSION);
@@ -910,7 +910,7 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.St
     }
     return Ember.defineProperty(this, 'value', Ember.computed(function() {
       if (formatValue) {
-        return formatValue(this.get(valuePath));
+        return formatValue.call(this, this.get(valuePath));
       } else {
         return this.get(valuePath);
       }
@@ -1272,7 +1272,7 @@ Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
 (function() {
 
 
-Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
+Menglifang.Widgets.SideListItem = Ember.ListItemView.extend({
   classNames: ['mlf-side-list-item']
 });
 
@@ -1321,7 +1321,7 @@ if ('undefined' === typeof Menglifang) {
 }
 
 Menglifang.App = {
-  VERSION: '0.3.1',
+  VERSION: '0.3.2',
   create: function(options) {
     var app;
     Ember.merge(Ember.I18n.translations, Menglifang.App.translations);
@@ -1367,25 +1367,29 @@ Ember.SimpleAuth.Authenticators.Devise.reopen({
     session = this.container.lookup('session:main');
     store = this.container.lookup('store:main');
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      var data;
+      var data, self;
       data = {
         user: {
           login: credentials.identification,
           password: credentials.password
         }
       };
+      self = _this;
       return _this.makeRequest(data).then(function(response) {
         return Ember.run(function() {
-          return resolve(Ember.merge(response.user, {
-            auth_token: response.user.authentication_token,
-            auth_email: response.user.email
-          }));
+          return resolve(self._extractResponse(response));
         });
       }, function(xhr, status, error) {
         return Ember.run(function() {
           return reject(xhr.responseJSON || xhr.responseText);
         });
       });
+    });
+  },
+  _extractResponse: function(response) {
+    return Ember.merge(response.user, {
+      auth_token: response.user.authentication_token,
+      auth_email: response.user.email
     });
   }
 });
@@ -1417,7 +1421,11 @@ Ember.SimpleAuth.Authorizers.Devise.reopen({
 
 Ember.Router.reopen({
   storeURL: (function() {
-    return localStorage.setItem('menglifang-app:current-url', this.get('url'));
+    var currentURL;
+    currentURL = this.get('url');
+    if (currentURL !== '/login') {
+      return localStorage.setItem('menglifang-app:current-url', currentURL);
+    }
   }).on('didTransition')
 });
 
@@ -2105,19 +2113,10 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["registrations/success"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helper, options, self=this, helperMissing=helpers.helperMissing;
-
-function program1(depth0,data) {
   
-  
-  data.buffer.push("登录");
-  }
 
-  data.buffer.push("<div class=\"registrations-success\">\n  <h2>用户注册</h2>\n  <div>\n    <div class=\"alert alert-success\">\n      <p>\n        您好！您的注册申请已经成功提交，请与管理员联系。待身份审核通过后，便可使用您的账号登录系统。\n      </p>\n      <p>\n        <strong>返回");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "login", options) : helperMissing.call(depth0, "link-to", "login", options));
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("。</strong>\n      </p>\n    </div>\n  </div>\n</div>\n\n");
-  return buffer;
+
+  data.buffer.push("<div class=\"registrations-success\">\n  <h2>用户注册</h2>\n  <div>\n    <div class=\"alert alert-success\">\n      <p>\n        您好！您的注册申请已经成功提交，请与管理员联系。待身份审核通过后，便可使用您的账号登录系统。\n      </p>\n      <p>\n        <strong>返回<a href=\"/\">登录</a>。</strong>\n      </p>\n    </div>\n  </div>\n</div>\n\n");
   
 });
 
@@ -2372,11 +2371,14 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.Application.initializer({
   name: 'authentication',
   initialize: function(container, application) {
-    var currentURL;
+    var currentURL, lastPageLoadedAt, now;
     currentURL = localStorage.getItem('menglifang-app:current-url');
-    if (window.location.href.indexOf(currentURL) < 0) {
+    lastPageLoadedAt = new Date(localStorage.getItem('menglifang-app:last-page-loaded-at'));
+    now = new Date();
+    if (window.location.href.indexOf(currentURL) < 0 || now - lastPageLoadedAt > 20 * 60 * 1000) {
       localStorage.clear();
     }
+    localStorage.setItem('menglifang-app:last-page-loaded-at', now);
     return Ember.SimpleAuth.setup(container, application, {
       authorizerFactory: 'authorizer:devise',
       routeAfterAuthentication: 'authenticated'
@@ -2780,10 +2782,10 @@ Menglifang.App.UserController = Ember.ObjectController.extend(Menglifang.App.Mod
   humanModelName: '用户',
   removeConfirmationName: 'removeUserConfirmation',
   lockable: (function() {
-    return !this.get('model.isNew') && this.get('model.lockable') && this.get('model.id') !== this.get('session.account.id');
-  }).property('model.{id,lockable,isNew}', 'session.account.id'),
+    return !this.get('model.isNew') && this.get('model.lockable') && this.get('model.id') !== this.get('session.currentUser.id');
+  }).property('model.{id,lockable,isNew}', 'session.currentUser.id'),
   beforeRemove: function() {
-    if (this.get('model.id') === this.get('session.account_id')) {
+    if (this.get('model.id') === this.get('session.currentUser.id')) {
       Notifier.error('对不起，您不允许删除自己！');
       return false;
     } else {
@@ -2925,9 +2927,12 @@ Menglifang.App.ApplicationRoute = Ember.Route.extend(Ember.SimpleAuth.Applicatio
 
 
 Menglifang.App.AuthenticatedRoute = Ember.Route.extend(Ember.SimpleAuth.AuthenticatedRouteMixin, {
-  beforeModel: function() {
-    if (!this.get('session.isAuthenticated')) {
-      return this.transitionTo('login');
+  beforeModel: function(transition) {
+    var url;
+    this._super(transition);
+    if (this.get('session.isAuthenticated')) {
+      url = localStorage.getItem('menglifang-app:current-url');
+      return this.transitionTo(url || Menglifang.App.routeAfterAuthentication);
     }
   }
 });

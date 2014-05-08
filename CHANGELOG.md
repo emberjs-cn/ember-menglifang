@@ -1,4 +1,13 @@
-*Ember Menglifang 0.3.1 (May x, 2014)*
+*Ember Menglifang 0.3.2 (May 8, 2014)*
+
+* [修正] 更新`list-view`到最新版本，修正`arrangedContent`会不显示的问题；
+* [修正] 修正当前登录用户信息；
+* [改进] 设定`formatCellContent`函数调用的scope；
+* [修正] 注册成功后，提示调整登录页面的链接应默认返回到根页面；
+* [改进] 检测当前页面是否已经加载超过20分钟，如果超过则需要重新登录；
+* [修正] 如果当前路径不是登录，那么在刷新页面后跳转至记录的当前页面。
+
+*Ember Menglifang 0.3.1 (Apr 30, 2014)*
 
 * [增强] 为`AuthenticatedController`绑定必须属性（来自`ApplicationController`）；
 * [修正] 之前记录的当前URL信息不正确；

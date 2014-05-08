@@ -1,6 +1,6 @@
 {
   "name": "ember-menglifang",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "authors": [
     "Tower He <towerhe@gmail.com>"
   ],
@@ -29,7 +29,7 @@
     "ember": "~1.5",
     "bootstrap": "~3.1.0",
     "font-awesome": "~4.0.3",
-    "list-view": "https://github.com/emberjs-cn/list-view-shim.git",
+    "list-view": "http://builds.emberjs.com/list-view/list-view-latest.js",
     "ember-simple-auth": "~0.3.1",
     "ember-data": "~1.0.0-beta.6",
     "notifier": "https://github.com/Srirangan/notifer.js.git#1.0.0",

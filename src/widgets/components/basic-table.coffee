@@ -29,7 +29,7 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend Menglifang.Widgets.St
     return unless valuePath
 
     Ember.defineProperty(@, 'value', Ember.computed(->
-      if formatValue then formatValue(@get(valuePath)) else @get(valuePath)
+      if formatValue then formatValue.call(@, @get(valuePath)) else @get(valuePath)
     ).property(valuePath))
   ).observes('row', 'column.cellContentPath')
 
