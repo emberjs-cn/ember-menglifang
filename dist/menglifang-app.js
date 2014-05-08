@@ -1272,7 +1272,7 @@ Ember.Handlebars.helper('bs-switch', Menglifang.Widgets.BsSwitch);
 (function() {
 
 
-Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend({
+Menglifang.Widgets.SideListItem = Ember.ListItemView.extend({
   classNames: ['mlf-side-list-item']
 });
 

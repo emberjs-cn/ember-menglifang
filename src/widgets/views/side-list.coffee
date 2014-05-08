@@ -1,4 +1,4 @@
-Menglifang.Widgets.SideListItem = Ember.ReusableListItemView.extend
+Menglifang.Widgets.SideListItem = Ember.ListItemView.extend
   classNames: ['mlf-side-list-item']
 
 Menglifang.Widgets.ListView = Menglifang.Widgets.SideList = Ember.ListView.extend
