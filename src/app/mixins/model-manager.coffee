@@ -57,4 +57,10 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create
         Notifier.success("删除#{@get('humanModelName')}成功")
         @afterRemove()
         @transitionToRoute(@get('afterDestroyRoute'))
-      , => Notifier.error("删除#{@get('humanModelName')}失败")
+      , (response) =>
+        @get('model').rollback()
+
+        if response.responseJSON.msg
+          Notifier.error response.responseJSON.msg
+        else
+          Notifier.error("删除#{@get('humanModelName')}失败")

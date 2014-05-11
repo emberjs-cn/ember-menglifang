@@ -1618,8 +1618,13 @@ Menglifang.App.ModelManagerMixin = Ember.Mixin.create({
         Notifier.success("删除" + (_this.get('humanModelName')) + "成功");
         _this.afterRemove();
         return _this.transitionToRoute(_this.get('afterDestroyRoute'));
-      }, function() {
-        return Notifier.error("删除" + (_this.get('humanModelName')) + "失败");
+      }, function(response) {
+        _this.get('model').rollback();
+        if (response.responseJSON.msg) {
+          return Notifier.error(response.responseJSON.msg);
+        } else {
+          return Notifier.error("删除" + (_this.get('humanModelName')) + "失败");
+        }
       });
     }
   }
