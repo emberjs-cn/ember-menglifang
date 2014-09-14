@@ -1,4 +1,4 @@
-*Ember Menglifang 0.4.0 (Sep 15, 2014)*
+*Ember Menglifang 0.4.1 (Sep 15, 2014)*
 
 * [改进] 优化`basic-table`的性能，渲染速度提升接近10倍；
 * [更新] 升级ember.js至1.7.0，ember-data至1.0.0-beta.10；
