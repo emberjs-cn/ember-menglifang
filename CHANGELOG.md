@@ -1,3 +1,9 @@
+*Ember Menglifang 0.4.0 (Sep 15, 2014)*
+
+* [改进] 优化`basic-table`的性能，渲染速度提升接近10倍；
+* [更新] 升级ember.js至1.7.0，ember-data至1.0.0-beta.10；
+* [修正] `bs-pagination`中brace得语法错误。
+
 *Ember Menglifang 0.3.2 (May 8, 2014)*
 
 * [修正] 更新`list-view`到最新版本，修正`arrangedContent`会不显示的问题；
