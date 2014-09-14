@@ -13,9 +13,7 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend Menglifang.Widgets.St
 
   textAlignBinding: 'column.textAlign'
 
-  defaultTemplate: (context, options) ->
-    options =  data: options.data, hash: {}
-    Ember.Handlebars.helpers.bind.call(context, "view.value", options)
+  layoutName: 'components/mlf-basic-table-cell'
 
   init: ->
     @valuePathDidChange()
@@ -106,9 +104,7 @@ Menglifang.Widgets.BasicTableHeadCell = Ember.Component.extend Menglifang.Widget
   minWidthBinding: 'content.width'
   textAlignBinding: 'content.textAlign'
 
-  defaultTemplate: (context, options) ->
-    options =  data: options.data, hash: {}
-    Ember.Handlebars.helpers.bind.call(context, "view.content.title", options)
+  layoutName: 'components/mlf-basic-table-head-cell'
 
 Menglifang.Widgets.BasicTableSelectAllCell = Menglifang.Widgets.BasicTableHeadCell.extend
   content: Ember.Object.create(width: 30, textAlign: 'center')
@@ -157,6 +153,8 @@ Menglifang.Widgets.BasicTableActionGroup = Ember.CollectionView.extend
 Menglifang.Widgets.BasicTableTopBar = Ember.Component.extend
   tagName: 'caption'
   classNames: ['mlf-basic-table-top-bar']
+
+  layoutName: 'components/mlf-basic-table-top-bar'
 
   barActions: []
   leftActions: Ember.computed.filterBy('barActions', 'position', 'left')
