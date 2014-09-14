@@ -33,11 +33,10 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["components/mlf-basic-table-cell"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1;
+  var buffer = '', escapeExpression=this.escapeExpression;
 
 
-  stack1 = helpers._triageMustache.call(depth0, "value", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "value", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n");
   return buffer;
   
@@ -46,102 +45,10 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 Ember.TEMPLATES["components/mlf-basic-table-head-cell"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1;
+  var buffer = '', escapeExpression=this.escapeExpression;
 
 
-  stack1 = helpers._triageMustache.call(depth0, "content.title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
-  return buffer;
-  
-});
-
-Ember.TEMPLATES["components/mlf-basic-table-multiple-selectable-row"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, self=this;
-
-function program1(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n  <td class='selection-cell'>");
-  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
-    'type': ("checkbox"),
-    'checked': ("selected")
-  },hashTypes:{'type': "STRING",'checked': "ID"},hashContexts:{'type': depth0,'checked': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
-  data.buffer.push("</td>\n");
-  return buffer;
-  }
-
-function program3(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\n  <td class='index'>");
-  stack1 = helpers._triageMustache.call(depth0, "view.index", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</td>\n");
-  return buffer;
-  }
-
-function program5(depth0,data) {
-  
-  var buffer = '';
-  data.buffer.push("\n  ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BasicTableCell", {hash:{
-    'width': ("width"),
-    'row': ("view.content"),
-    'column': ("")
-  },hashTypes:{'width': "ID",'row': "ID",'column': "ID"},hashContexts:{'width': depth0,'row': depth0,'column': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n");
-  return buffer;
-  }
-
-  stack1 = helpers['if'].call(depth0, "view.multiple", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
-  stack1 = helpers['if'].call(depth0, "view.indexed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
-  stack1 = helpers.each.call(depth0, "view.columns", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
-  return buffer;
-  
-});
-
-Ember.TEMPLATES["components/mlf-basic-table-row"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression, self=this;
-
-function program1(depth0,data) {
-  
-  var buffer = '', stack1;
-  data.buffer.push("\n  <td class='index'>");
-  stack1 = helpers._triageMustache.call(depth0, "view.index", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</td>\n");
-  return buffer;
-  }
-
-function program3(depth0,data) {
-  
-  var buffer = '';
-  data.buffer.push("\n  ");
-  data.buffer.push(escapeExpression(helpers.view.call(depth0, "Menglifang.Widgets.BasicTableCell", {hash:{
-    'width': ("width"),
-    'row': ("view.content"),
-    'column': ("")
-  },hashTypes:{'width': "ID",'row': "ID",'column': "ID"},hashContexts:{'width': depth0,'row': depth0,'column': depth0},contexts:[depth0],types:["ID"],data:data})));
-  data.buffer.push("\n");
-  return buffer;
-  }
-
-  stack1 = helpers['if'].call(depth0, "view.indexed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
-  stack1 = helpers.each.call(depth0, "view.columns", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(escapeExpression(helpers.unbound.call(depth0, "content.title", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n");
   return buffer;
   
@@ -156,6 +63,21 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
     'type': ("checkbox"),
     'checked': ("view.checked")
+  },hashTypes:{'type': "STRING",'checked': "ID"},hashContexts:{'type': depth0,'checked': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
+  data.buffer.push("\n");
+  return buffer;
+  
+});
+
+Ember.TEMPLATES["components/mlf-basic-table-select-cell"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', helper, options, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push(escapeExpression((helper = helpers.input || (depth0 && depth0.input),options={hash:{
+    'type': ("checkbox"),
+    'checked': ("selected")
   },hashTypes:{'type': "STRING",'checked': "ID"},hashContexts:{'type': depth0,'checked': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "input", options))));
   data.buffer.push("\n");
   return buffer;
@@ -212,9 +134,8 @@ function program1(depth0,data) {
     'content': ("content"),
     'indexed': ("indexed"),
     'rowSelectable': ("rowSelectable"),
-    'multiple': ("multiple"),
-    'selection': ("selection")
-  },hashTypes:{'columns': "ID",'content': "ID",'indexed': "ID",'rowSelectable': "ID",'multiple': "ID",'selection': "ID"},hashContexts:{'columns': depth0,'content': depth0,'indexed': depth0,'rowSelectable': depth0,'multiple': depth0,'selection': depth0},contexts:[depth0],types:["ID"],data:data})));
+    'multiple': ("multiple")
+  },hashTypes:{'columns': "ID",'content': "ID",'indexed': "ID",'rowSelectable': "ID",'multiple': "ID"},hashContexts:{'columns': depth0,'content': depth0,'indexed': depth0,'rowSelectable': depth0,'multiple': depth0},contexts:[depth0],types:["ID"],data:data})));
   data.buffer.push("\n");
   return buffer;
   
@@ -573,26 +494,6 @@ function program2(depth0,data) {
   
 });
 
-Ember.TEMPLATES["header-cell"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
-this.compilerInfo = [4,'>= 1.0.0'];
-helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
-  var buffer = '', stack1, escapeExpression=this.escapeExpression;
-
-
-  data.buffer.push("<div class=\"ember-table-content-container\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "sortByColumn", "view.content", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
-  data.buffer.push(">\n  <span class=\"ember-table-content\">\n    ");
-  stack1 = helpers._triageMustache.call(depth0, "view.content.headerCellName", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    <i class=\"fa\" ");
-  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
-    'class': ("sortDirection")
-  },hashTypes:{'class': "ID"},hashContexts:{'class': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push("></i>\n  </span>\n</div>\n");
-  return buffer;
-  
-});
-
 })();
 (function() {
 
@@ -927,7 +828,7 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.St
   valuePathDidChange: (function() {
     var formatValue, valuePath;
     formatValue = this.get('column.formatCellContent');
-    valuePath = 'row.' + this.get('column.cellContentPath');
+    valuePath = 'content.' + this.get('column.cellContentPath');
     if (!valuePath) {
       return;
     }
@@ -938,19 +839,38 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend(Menglifang.Widgets.St
         return this.get(valuePath);
       }
     }).property(valuePath));
-  }).observes('row', 'column.cellContentPath')
+  }).observes('content', 'column.cellContentPath')
 });
 
-Menglifang.Widgets.BasicTableRow = Ember.Component.extend({
+Menglifang.Widgets.BasicTableRow = Ember.CollectionView.extend({
   tagName: 'tr',
-  layoutName: 'components/mlf-basic-table-row',
   classNames: ['mlf-basic-table-row'],
   classNameBindings: ['selected:info'],
+  itemViewClass: Menglifang.Widgets.BasicTableCell,
+  createChildView: function(viewClass, attrs) {
+    return this._super(viewClass, {
+      content: this.get('record'),
+      contentIndex: attrs.contentIndex,
+      column: attrs.content
+    });
+  },
   indexedBinding: 'parentView.indexed',
-  columnsBinding: 'parentView.columns',
   index: (function() {
     return this.get('contentIndex') + 1;
-  }).property('contentIndex')
+  }).property('contentIndex'),
+  didInsertElement: function() {
+    if (this.get('indexed')) {
+      return this._createIndexCell();
+    }
+  },
+  _createIndexCell: function() {
+    return this.unshiftObject(Ember.Component.create({
+      tagName: 'td',
+      classNames: ['index'],
+      layoutName: 'components/mlf-basic-table-cell',
+      value: this.get('index')
+    }));
+  }
 });
 
 Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.extend({
@@ -958,13 +878,13 @@ Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.ex
   selected: (function(key, value) {
     if (value != null) {
       if (value) {
-        this.get('selection').add(this.get('content'));
+        this.get('selection').add(this.get('record'));
       } else {
-        this.get('selection').remove(this.get('content'));
+        this.get('selection').remove(this.get('record'));
       }
       return value;
     } else {
-      return this.get('selection').contains(this.get('content'));
+      return this.get('selection').contains(this.get('record'));
     }
   }).property('selection.length')
 });
@@ -972,17 +892,29 @@ Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.ex
 Menglifang.Widgets.BasicTableSingleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend({
   click: function() {
     this.get('selection').clear();
-    this.get('selection').add(this.get('content'));
-    return this.triggerAction({
-      action: 'selectRow',
-      actionContext: this
+    this.get('selection').add(this.get('record'));
+    return this.get('parentView.parentView').triggerAction({
+      action: 'select',
+      actionContext: this.get('record')
     });
   }
 });
 
 Menglifang.Widgets.BasicTableMultipleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend({
-  layoutName: 'components/mlf-basic-table-multiple-selectable-row',
-  multipleBinding: 'parentView.multiple'
+  didInsertElement: function() {
+    this._super();
+    return this._createSelectCell();
+  },
+  _createSelectCell: function() {
+    return this.unshiftObject(Menglifang.Widgets.BasicTableSelectCell.create({
+      selectedBinding: 'parentView.selected'
+    }));
+  }
+});
+
+Menglifang.Widgets.BasicTableSelectCell = Menglifang.Widgets.BasicTableCell.extend({
+  classNames: ['selection-cell'],
+  layoutName: 'components/mlf-basic-table-select-cell'
 });
 
 Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend({
@@ -998,10 +930,17 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend({
       return Menglifang.Widgets.BasicTableSingleSelectableRow;
     }
   }).property('rowSelectable', 'multiple'),
+  createChildView: function(viewClass, attrs) {
+    return this._super(viewClass, {
+      content: this.get('columns'),
+      record: attrs.content,
+      contentIndex: attrs.contentIndex
+    });
+  },
   indexed: false,
   multiple: false,
   rowSelectable: false,
-  selection: null,
+  selectionBinding: 'parentView.selection',
   columns: [],
   single: (function() {
     return !this.get('multiple') && this.get('rowSelectable');
@@ -1126,14 +1065,6 @@ Menglifang.Widgets.BasicTable = Ember.Component.extend({
     return target && target.constructor === Menglifang.Widgets.BasicTableAction;
   },
   actions: {
-    selectRow: function(row) {
-      this.get('selection').clear();
-      this.get('selection').add(row.get('content'));
-      return this.triggerAction({
-        action: 'select',
-        actionContext: row.get('content')
-      });
-    },
     selectAll: function() {
       return this.get('selection').addEach(this.get('content'));
     },
