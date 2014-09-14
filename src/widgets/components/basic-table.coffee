@@ -22,27 +22,41 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend Menglifang.Widgets.St
 
   valuePathDidChange: (->
     formatValue = @get('column.formatCellContent')
-    valuePath = 'row.' + @get('column.cellContentPath')
+    valuePath = 'content.' + @get('column.cellContentPath')
 
     return unless valuePath
 
     Ember.defineProperty(@, 'value', Ember.computed(->
       if formatValue then formatValue.call(@, @get(valuePath)) else @get(valuePath)
     ).property(valuePath))
-  ).observes('row', 'column.cellContentPath')
+  ).observes('content', 'column.cellContentPath')
 
-Menglifang.Widgets.BasicTableRow = Ember.Component.extend
+Menglifang.Widgets.BasicTableRow = Ember.CollectionView.extend
   tagName: 'tr'
-  layoutName: 'components/mlf-basic-table-row'
   classNames: ['mlf-basic-table-row']
   classNameBindings: ['selected:info']
 
+  itemViewClass: Menglifang.Widgets.BasicTableCell
+
+  createChildView: (viewClass, attrs) ->
+    @_super(viewClass, content: @get('record'), contentIndex: attrs.contentIndex, column: attrs.content)
+
   indexedBinding: 'parentView.indexed'
-  columnsBinding: 'parentView.columns'
 
   index: (->
     @get('contentIndex') + 1
   ).property('contentIndex')
+
+  didInsertElement: ->
+    @_createIndexCell() if @get('indexed')
+
+  _createIndexCell: ->
+    @unshiftObject Ember.Component.create(
+      tagName: 'td'
+      classNames: ['index']
+      layoutName: 'components/mlf-basic-table-cell'
+      value: @get('index')
+    )
 
 Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.extend
   selectionBinding: 'parentView.selection'
@@ -50,26 +64,35 @@ Menglifang.Widgets.BasicTableSelectableRow = Menglifang.Widgets.BasicTableRow.ex
   selected: ((key, value) ->
     if value?
       if value
-        @get('selection').add(@get('content'))
+        @get('selection').add(@get('record'))
       else
-        @get('selection').remove(@get('content'))
+        @get('selection').remove(@get('record'))
 
       value
     else
-      @get('selection').contains(@get('content'))
+      @get('selection').contains(@get('record'))
   ).property('selection.length')
 
 
 Menglifang.Widgets.BasicTableSingleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend
   click: ->
     @get('selection').clear()
-    @get('selection').add(@get('content'))
-    @triggerAction action: 'selectRow', actionContext: @
+    @get('selection').add(@get('record'))
+
+    # Get the BasicTable
+    @get('parentView.parentView').triggerAction action: 'select', actionContext: @get('record')
 
 Menglifang.Widgets.BasicTableMultipleSelectableRow = Menglifang.Widgets.BasicTableSelectableRow.extend
-  layoutName: 'components/mlf-basic-table-multiple-selectable-row'
+  didInsertElement: ->
+    @_super()
+    @_createSelectCell()
 
-  multipleBinding: 'parentView.multiple'
+  _createSelectCell: ->
+    @unshiftObject Menglifang.Widgets.BasicTableSelectCell.create(selectedBinding: 'parentView.selected')
+
+Menglifang.Widgets.BasicTableSelectCell = Menglifang.Widgets.BasicTableCell.extend
+  classNames: ['selection-cell']
+  layoutName: 'components/mlf-basic-table-select-cell'
 
 Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
   tagName: 'tbody'
@@ -83,12 +106,14 @@ Menglifang.Widgets.BasicTableBody = Ember.CollectionView.extend
       Menglifang.Widgets.BasicTableSingleSelectableRow
   ).property('rowSelectable', 'multiple')
 
+  createChildView: (viewClass, attrs) ->
+    @_super(viewClass, content: @get('columns'), record: attrs.content, contentIndex: attrs.contentIndex)
+
   indexed: false
   multiple: false
   rowSelectable: false
 
-  # 保存被选中的行绑定的对象
-  selection: null
+  selectionBinding: 'parentView.selection'
 
   columns: []
 
@@ -203,11 +228,6 @@ Menglifang.Widgets.BasicTable= Ember.Component.extend
     target && target.constructor == Menglifang.Widgets.BasicTableAction
 
   actions:
-    selectRow: (row) ->
-      @get('selection').clear()
-      @get('selection').add(row.get('content'))
-      @triggerAction action: 'select', actionContext: row.get('content')
-
     selectAll: ->
       @get('selection').addEach(@get('content'))
 

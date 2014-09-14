@@ -60,6 +60,7 @@ App.BasicTableDemoController = Ember.Controller.extend
 
   selectionDidChange: (->
     alert("共选中了#{@get('multipleSelection.length')}行")
+    console.log @get('multipleSelection')
   ).observes('multipleSelection.length')
 
   actions:
