@@ -1,3 +1,7 @@
+*Ember Menglifang 0.4.2 (Sep 16, 2014)*
+
+* [修正] 忘记修改注册的版本信息了。
+
 *Ember Menglifang 0.4.1 (Sep 15, 2014)*
 
 * [改进] 优化`basic-table`的性能，渲染速度提升接近10倍；
