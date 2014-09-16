@@ -188,6 +188,11 @@ module.exports = function (grunt) {
             cwd: 'bower_components/select2/',
             src: ['*.css', '*.gif', '*.png'],
             dest: 'gh-pages/css/'
+          }, {
+            expand: true,
+            cwd: 'bower_components/',
+            src: ['html5shiv/**', 'respond/**', 'es5-shim/**'],
+            dest: 'gh-pages/js/'
           }
         ]
       },

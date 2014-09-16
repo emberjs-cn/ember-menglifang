@@ -1,15 +1,20 @@
+# IE Support. Should be right here following ember.js
+#require 'bower_components/html5shiv/dist/html5shiv'
+#require 'bower_components/respond/dest/respond.min'
+
 # Ember Menglifang Dependencies
 require 'bower_components/jquery/dist/jquery'
 require 'bower_components/jquery.browser/dist/jquery.browser'
 require 'bower_components/cldr/plurals'
+
 require 'bower_components/ember/ember'
 
-# IE Support. Should be right here following ember.js
-require 'bower_components/es5-shim/es5-shim'
-require 'bower_components/es5-shim/es5-sham'
+#require 'bower_components/es5-shim/es5-shim'
+#require 'bower_components/es5-shim/es5-sham'
+
+require 'bower_components/ember-data/ember-data'
 
 require 'bower_components/ember-i18n/lib/i18n'
-require 'bower_components/ember-data/ember-data'
 require 'bower_components/ember-simple-auth/ember-simple-auth'
 require 'bower_components/ember-simple-auth/ember-simple-auth-devise'
 require 'bower_components/bootstrap/dist/js/bootstrap'
