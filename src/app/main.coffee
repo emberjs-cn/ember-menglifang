@@ -10,7 +10,7 @@ if 'undefined' == typeof(Menglifang)
     window.Mlf = window.Menglifang = Mlf = Menglifang
 
 Menglifang.App =
-  VERSION: '0.4.2'
+  VERSION: '0.4.3'
 
   create: (options) ->
     Ember.merge Ember.I18n.translations, Menglifang.App.translations
