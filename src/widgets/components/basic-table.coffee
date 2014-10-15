@@ -20,6 +20,10 @@ Menglifang.Widgets.BasicTableCell = Ember.Component.extend Menglifang.Widgets.St
 
     @_super()
 
+  isLazyLoading: (->
+    @get('column.cellContentPath').indexOf('.') >= 0
+  ).property('column.cellContentPath')
+
   valuePathDidChange: (->
     formatValue = @get('column.formatCellContent')
     valuePath = 'content.' + @get('column.cellContentPath')

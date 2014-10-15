@@ -1,1 +1,5 @@
-{{unbound value}}
+{{#if isLazyLoading}}
+  {{value}}
+{{else}}
+  {{unbound value}}
+{{/if}}
